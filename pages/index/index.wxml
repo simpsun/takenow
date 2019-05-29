@@ -1,0 +1,94 @@
+<cu-custom bgColor="bg-gradual-red">
+  <view slot="content">Take Now</view>
+</cu-custom>
+<view id="mymy">
+ <view class="flex justify-center">
+  <!--justify-center从左往右排列，排满第二行居中--> 
+  <!---->
+   <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='margin-top-xl cu-btn round bg-green    shadow'> 获取头像昵称 </button>
+    <block wx:else>
+      <view class='text-center'>
+        <view class="cu-avatar xl round solids" style="background-image:url({{userInfo.avatarUrl}})"></view>
+        <view>{{userInfo.nickName}}</view>
+      </view>
+         
+    </block>
+  
+  </view>
+ 
+  <view wx:if="{{hasUserInfo && canIUse}}" class="padding-bottom-lg flex text-center text-black">
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-gray">10.25</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-attentionfill"></text> 余额</view>
+    </view>
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-blue">5</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-redpacket_fill"></text> 红包</view>
+    </view>
+    <view class="flex flex-sub flex-direction">
+      <view class="text-xxl text-green">6</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-vipcard"></text>代金券</view>
+    </view>
+  </view>
+ </view>
+
+<!--myOrder-->
+
+  <view class="cu-list grid col-4 no-border margin margin-top-sm margin-bottom-sm radius-l">
+    <view class="cu-item" wx:for="{{iconList}}" wx:key>
+      <view class="cuIcon-{{item.icon}} text-{{item.color}}">
+        <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+          <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+        </view>
+      </view>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+<!--list-->
+  <view class="cu-list menu card-menu margin-top-sm margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow">
+      <view class="content" bindtap="CopyLink" data-link="https://github.com/weilanwl/ColorUI">
+        <text class="cuIcon-github text-grey"></text>
+        <text class="text-grey">加入Taker</text>
+      </view>
+    </view>
+   
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/log/log" hover-class="none">
+        <text class="cuIcon-redpacket_fill text-red"></text>
+        <text class="text-grey">推荐有奖</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow">
+    
+      <button class="cu-btn content" open-type="contact">
+        <text class="cuIcon-weixin text-green"></text>
+        <text class="text-grey">联系客服</text>
+      </button>
+    </view>
+    <view class="cu-item arrow">
+      <button class="cu-btn content" open-type="feedback">
+        <text class="cuIcon-writefill text-cyan"></text>
+        <text class="text-grey">投诉建议</text>
+      </button>
+    </view>
+    <view class="cu-item arrow">
+      <button class="cu-btn content" open-type="feedback">
+        <text class="cuIcon-friendfill text-orange"></text>
+        <text class="text-grey">申请合伙人</text>
+      </button>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class="content" url="/pages/about/about" hover-class="none">
+        <image src="/images/logo.png" class="png"  mode="aspectFit"></image>
+        <text class="text-grey">关于我们</text>
+      </navigator>
+    </view>
+</view>
+<view class="text-center margin-top">
+  <text class="text-grey text-xl">{{motto}}</text>
+</view>

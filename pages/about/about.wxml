@@ -1,0 +1,10 @@
+<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
+<view slot="backText">返回</view><view slot="content">关于我们</view></cu-custom>
+<view class='margin-xl bg-white padding-xl radius shadow-lg'>
+  <view class='text-center margin-bottom text-lg  text-grey'>Take Now</view>
+  <view class='text-content text-center'>
+    <view>Hi！欢迎体验Take Now小程序</view>
+
+    <view class='margin-top-sm text-center'>更多功能敬请期待！</view>
+  </view>
+</view>
