@@ -30,6 +30,7 @@ page {
 	--gray: #aaaaaa;
 	--ghostWhite: #f1f1f1;
 	--white: #ffffff;
+  --tnRed:#F6275C;
 	/* 浅色 */
 	--redLight: #fadbd9;
 	--orangeLight: #fde6d2;
@@ -95,7 +96,11 @@ image {
 .radius-l{
   border-radius:20rpx; 
 }
-
+.radius-bottom-l
+{
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius:20rpx; 
+}
 /* ==================
           图片
  ==================== */
@@ -315,6 +320,12 @@ radio.red[checked] .wx-radio-input {
 	border-color: var(--red) !important;
 }
 
+switch.tnRed[checked] .wx-switch-input,
+checkbox.tnRed[checked] .wx-checkbox-input,
+radio.tnRed[checked] .wx-radio-input {
+	border-color:var(--tnRed) !important;
+}
+
 switch.orange[checked] .wx-switch-input,
 checkbox.orange[checked] .wx-checkbox-input,
 radio.orange[checked] .wx-radio-input {
@@ -404,6 +415,13 @@ switch.red[checked] .wx-switch-input.wx-switch-input-checked,
 checkbox.red[checked] .wx-checkbox-input,
 radio.red[checked] .wx-radio-input {
 	background-color: var(--red) !important;
+	color: var(--white) !important;
+}
+
+switch.tnRed[checked] .wx-switch-input.wx-switch-input-checked,
+checkbox.tnRed[checked] .wx-checkbox-input,
+radio.tnRed[checked] .wx-radio-input {
+	background-color: var(--tnRed) !important;
 	color: var(--white) !important;
 }
 
@@ -702,6 +720,7 @@ radio.white[checked] .wx-radio-input {
 
 .cu-btn::after {
 	display: none;
+
 }
 
 .cu-btn:not([class*="bg-"]) {
@@ -778,7 +797,7 @@ button.icon.lg {
 }
 
 .cu-btn.button-hover {
-	transform: translate(1rpx, 1rpx);
+	transform: translate(3rpx, 3rpx);
 }
 
 .block {
@@ -1242,6 +1261,7 @@ button.icon.lg {
 
 .cu-list>.cu-item {
 	transition: all .6s ease-in-out 0s;
+          /*  css属性名 持续时间0.6秒 先快后慢 0s开始  */           
 	transform: translateX(0rpx)
 }
 
@@ -1250,11 +1270,12 @@ button.icon.lg {
 }
 
 .cu-list>.cu-item .move {
-	position: absolute;
+  position: absolute;
 	right: 0;
+  top: 0;
 	display: flex;
 	width: 260rpx;
-	height: 100%;
+	height: 140rpx;
 	transform: translateX(100%)
 }
 
@@ -1264,6 +1285,14 @@ button.icon.lg {
 	justify-content: center;
 	align-items: center
 }
+.cu-list>.cu-item .move button{
+  display: flex;
+  flex: 1;
+  width: 100rpx;
+  justify-content: center;
+	align-items: center;
+  border-radius: 0rpx;
+} 
 
 .cu-list.menu-avatar {
 	overflow: hidden;
@@ -1274,9 +1303,14 @@ button.icon.lg {
 	display: flex;
 	padding-right: 10rpx;
 	height: 140rpx;
-	background-color: var(--white);
+	background-color:whitesmoke;
 	justify-content: flex-end;
-	align-items: center
+	padding-top: 20rpx;
+  border-bottom: 1rpx solid white
+  
+  /*
+  相对位置，flex布局 右内边距10rpx 高140rpx 背景颜色白 
+  */
 }
 
 .cu-list.menu-avatar>.cu-item>.cu-avatar {
@@ -1376,7 +1410,7 @@ button.icon.lg {
 }
 
 .cu-list.menu>.cu-item.arrow {
-	padding-right: 90rpx
+	padding-right:0rpx
 }
 
 .cu-list.menu>.cu-item.arrow:before {
@@ -1461,7 +1495,8 @@ button.icon.lg {
 .cu-list.grid>.cu-item {
 	position: relative;
 	display: flex;
-	padding: 20rpx 0 30rpx;
+  top: -20rpx;
+	padding: 20rpx 0rpx 30rpx;
 	transition-duration: 0s;
 	flex-direction: column
 }
@@ -1546,6 +1581,32 @@ button.icon.lg {
 	align-items: center;
 	min-height: 100rpx;
 	justify-content: space-between;
+}
+.cu-bar-sm{
+  	display: flex;
+	position: relative;
+	align-items: center;
+	min-height: 80rpx;
+	justify-content: space-between;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+}
+
+.cu-bar-sm .action {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	justify-content: center;
+	max-width: 100%;
+  padding-left: 30rpx;
+}
+.cu-bar-sm .action-right {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	justify-content: center;
+	max-width: 100%;
+  padding-right: 30rpx;
 }
 
 .cu-bar .action {
@@ -1684,7 +1745,7 @@ button.icon.lg {
 }
 
 .cu-bar .search-form {
-	background-color: #f5f5f5;
+	background-color: white;
 	line-height: 64rpx;
 	height: 64rpx;
 	font-size: 24rpx;
@@ -2358,7 +2419,7 @@ button.icon.lg {
  ==================== */
 
 .cu-form-group {
-	background-color: var(--white);
+	background-color: whitesmoke;
 	padding: 1rpx 30rpx;
 	display: flex;
 	align-items: center;
@@ -2377,6 +2438,7 @@ button.icon.lg {
 	position: relative;
 	height: 60rpx;
 	line-height: 60rpx;
+
 }
 
 .cu-form-group input {
@@ -2466,7 +2528,7 @@ button.icon.lg {
 	perspective: 2000rpx;
 	background: rgba(0, 0, 0, 0.6);
 	transition: all 0.3s ease-in-out 0s;
-	pointer-events: none;
+	pointer-events: none
 }
 
 .cu-modal::before {
@@ -2622,12 +2684,14 @@ swiper.round-dot .wx-swiper-dot.wx-swiper-dot-active {
 .card-swiper {
 	height: 420rpx !important;
 }
-
+/*
+高度420 宽度610 ！important 距离左侧70 内边距
+*/
 .card-swiper swiper-item {
 	width: 610rpx !important;
 	left: 70rpx;
 	box-sizing: border-box;
-	padding: 40rpx 0rpx 70rpx;
+	padding: 20rpx 0rpx 30rpx;
 	overflow: initial;
 }
 
@@ -3071,6 +3135,9 @@ scroll-view.cu-steps .cu-item {
 .margin-top-xl {
 	margin-top: 50rpx;
 }
+.margin-top-xxl{
+  margin-top: 60rpx;
+}
 
 .margin-right-xs {
 	margin-right: 10rpx;
@@ -3509,7 +3576,10 @@ scroll-view.cu-steps .cu-item {
 	background-color: var(--white);
 	color: var(--darkGray);
 }
-
+.bg-whitesmoke{
+  background-color: whitesmoke;
+  color: whitesmoke;
+}
 .bg-shadeTop {
 	background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.01));
 	color: var(--white);
@@ -3943,10 +4013,143 @@ scroll-view.cu-steps .cu-item {
 	color: var(--white);
 }
 #mymy{
+
   background:var(--gradualRed);
    width:100%;
    height: 300rpx;
-  margin-bottom: 30rpx;
-  background-position-x: 0;
-  background-position-y: 0;
+  margin-bottom: 50rpx;
+  background-repeat: no-repeat;
+  background-size: 100% 85%;
+}
+.cu-list-height{
+  height: 80px;
+}
+.getUsername-postion{
+  position: absolute;
+  top:15%;
+  left:35%;
+}
+.userNameAndVip{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10rpx;
+  
+}
+.myBar{
+background-color: var(--white);
+border-radius: 16rpx;
+}
+.navigator-hovor{
+  	transform: translate(3rpx, 3rpx);
+}
+.address-scale{
+  transform: scale(0.8,0.8);
+}
+.bg-tnRed {
+	background-color: var(--tnRed);
+	color: var(--white);
+}
+.text-tnRed{
+  color:var(--tnRed);
+}
+.image-arcs{
+  background-color: lavender;
+  width: 100%;
+  height: 30rpx;
+  position: relative;
+  top: -105rpx;
+  z-index: 1;
+}
+.index-search{
+  width: 90%;
+  left:5%;
+  border-radius: 10rpx;
+  top:-60rpx;
+}
+.index-bg{
+  position: absolute;
+  z-index: -1;
+  background-image: var(--gradualRed);
+  background-repeat: no-repeat;
+  width:100%;
+  height: 410rpx;
+}
+.wrapper {
+  position: absolute;
+  left: 80rpx;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 30rpx;
+  flex: 1;
+  z-index: 1;
+}
+.address-box {
+  display: flex;
+  align-items: center;
+  
+}
+.address-box .tag {
+  width: 50rpx;
+  text-align: center;
+    font-size: 20rpx;
+    color: var(--tnRed);
+    margin-left: 10rpx;
+    background: #fffafb;
+    border: 1px solid var(--tnRed);
+    border-radius: 4rpx;
+    padding: 5rpx;
+    line-height: 1;
+}
+.address-name {
+   margin-top: 15rpx;
+    font-size: 29rpx;
+    color:  #909399;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;   
+}
+.u-box {
+  font-size: 28rpx;
+  color: #909399;
+}
+.u-box .name {
+  font-size: 32rpx;
+  
+  color: black;
+    margin-right: 30rpx;
+}
+.address-img{
+  width: 55rpx;
+  height:55rpx;
+  position: relative;
+  right: 20rpx;
+   top: 25rpx;
+	padding: 0;
+}
+.address-avatar{
+  opacity:0.8;
+	width: 60rpx;
+	height: 60rpx;
+  position: absolute;
+  top:40rpx;
+  left:30rpx;
+}
+.newAddress{
+  position: absolute;
+  bottom: 30rpx;
+  left: 5%;
+  border-radius: 10rpx;
+  width: 90%;
+  background: var(--tnRed);
+  color: white;
+}
+.addressSubmit{
+  position: absolute;
+  bottom: 30rpx;
+  left: 5%;
+  border-radius: 10rpx;
+  width: 90%;
+  background: var(--tnRed);
+  color: white
 }

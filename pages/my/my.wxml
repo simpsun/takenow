@@ -1,0 +1,140 @@
+<cu-custom bgColor="bg-gradual-red">
+  <view slot="content">Take Now</view>
+</cu-custom>
+<view id="mymy">
+  <view class="flex padding-left-lg padding-top-lg">
+    <!--justify-center从左往右排列-->
+    <!---->
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='getUsername-postion cu-btn round bg-green shadow'> 获取头像昵称 </button>
+    <block wx:else>
+      <view class='text-center'>
+        <view class="cu-avatar lg round solids" style="background-image:url({{userInfo.avatarUrl}})">
+        </view>
+      </view>
+    </block>
+    <!--nameAndVip-->
+    <view class='userNameAndVip'>
+      <view wx:if="{{hasUserInfo && canIUse}}" class='flex'>
+        <view class='text-white text-xxl'>伊泽瑞尔</view>
+        <view class='margin-left-0 cuIcon-crownfill text-yellow'></view>
+      </view>
+      <view wx:if="{{hasUserInfo && canIUse}}" class='cuIcon-mobilefill text-grey'>130****0255</view>
+    </view>
+    <!--End-->
+  </view>
+  <view class='myBar margin-top margin-left margin-right '>
+    <view wx:if="{{hasUserInfo && canIUse}}" class="padding-top-sm padding-bottom-lg flex text-center text-black">
+      <view class="flex flex-sub flex-direction solid-right">
+        <view class="text-xxl text-black">10.25</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-attentionfill text-gray"></text>余额</view>
+      </view>
+      <view class="flex flex-sub flex-direction solid-right">
+        <view class="text-xxl text-black">5</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-redpacket_fill text-grey"></text> 红包</view>
+      </view>
+      <view class="flex flex-sub flex-direction">
+        <view class="text-xxl text-black">6</view>
+        <view class="margin-top-sm">
+          <text class="cuIcon-vipcard text-gray"></text>代金券</view>
+      </view>
+    </view>
+
+  </view>
+
+  <!--
+  <view wx:if="{{hasUserInfo && canIUse}}" class="padding-bottom-lg flex text-center text-black">
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-gray">10.25</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-attentionfill"></text> 余额</view>
+    </view>
+    <view class="flex flex-sub flex-direction solid-right">
+      <view class="text-xxl text-gray">5</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-redpacket_fill"></text> 红包</view>
+    </view>
+    <view class="flex flex-sub flex-direction">
+      <view class="text-xxl text-gray">6</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-vipcard"></text>代金券</view>
+    </view>
+  </view>
+  -->
+</view>
+<!--myOrder-->
+<navigator class="cu-bar-sm bg-white solid-bottom margin-top margin-bottom-0 margin-left margin-right" url='../../pages/myorder/myorder?TabCur=0' hover-class="navigator-hovor">
+  <view class="action">
+    <text class='text-black'>我的订单</text>
+  </view>
+  <view class='action-right'>
+    <text class="text-grey text-sm">查看全部订单</text>
+    <view class='cuIcon-right text-grey'></view>
+  </view>
+</navigator>
+<view class="cu-list grid col-4 no-border cu-list-height margin-left margin-right margin-top-0 margin-bottom-sm radius-bottom-l">
+  <!-- 4个图标 图标间无边框  -->
+  <view class="cu-item" wx:for="{{iconList}}" wx:key>
+    <navigator class="cuIcon-{{item.icon}} text-{{item.color}}" hover-class="navigator-hovor" url='../../pages/myorder/myorder?TabCur={{index+1}}'>
+      <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+        <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+      </view>
+      <text>{{item.name}}</text>
+    </navigator>
+
+  </view>
+</view>
+
+<!--list-->
+<view class="cu-list menu card-menu margin-top-sm margin-bottom-xl radius">
+  <!--显示模式：块  溢出内容忽视  20rpx圆角 左右30上10下50-->
+  <view class="cu-item arrow">
+    <!--
+    相对位置 右内边距30rpx导致箭头点不了 横向两端对齐 纵向居中 行高最小100rpx
+    last-child:after：最后一个孩子的下部没有边框
+    after:
+    -->
+    <navigator class="content" url="address/address" hover-class="navigator-hovor">
+      <text class="cuIcon-github text-grey"></text>
+      <text class="text-grey">地址管理</text>
+    </navigator>
+
+
+  </view>
+
+  <view class="cu-item arrow">
+    <navigator class="content" url="/pages/login/login" hover-class="navigator-hovor">
+      <text class="cuIcon-redpacket_fill text-red"></text>
+      <text class="text-grey">推荐有奖</text>
+    </navigator>
+  </view>
+  <view class="cu-item arrow">
+
+    <button class="cu-btn content" open-type="contact">
+      <text class="cuIcon-weixin text-green"></text>
+      <text class="text-grey">联系客服</text>
+    </button>
+  </view>
+  <view class="cu-item arrow">
+    <button class="cu-btn content" open-type="feedback">
+      <text class="cuIcon-writefill text-cyan"></text>
+      <text class="text-grey">投诉建议</text>
+    </button>
+  </view>
+  <view class="cu-item arrow">
+    <button class="cu-btn content" open-type="feedback">
+      <text class="cuIcon-friendfill text-orange"></text>
+      <text class="text-grey">申请合伙人</text>
+    </button>
+  </view>
+  <view class="cu-item arrow">
+    <navigator class="content" url="/pages/about/about" hover-class="navigator-hovor">
+      <image src="/images/logo.png" class="png" mode="aspectFit"></image>
+      <text class="text-grey">关于我们</text>
+    </navigator>
+  </view>
+</view>
+<view class="text-center margin-top">
+  <text class="text-grey text-xl">{{motto}}</text>
+</view>

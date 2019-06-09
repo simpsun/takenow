@@ -1,0 +1,36 @@
+<!--pages/my/address/addressmananger.wxml-->
+<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">编辑收货地址</view>
+</cu-custom>
+<form bindsubmit="formSubmit">
+	<view class="cu-form-group">
+		<view class="title">收货人</view>
+		<input name='name' placeholder="请输入您的收货姓名"></input>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">收货电话</view>
+		<input name='mobile' placeholder="请输入你的联系电话"></input>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">地址选择</view>
+		<picker name='area' mode="region" bindchange="RegionChange" value="{{region}}" custom-item="{{customItem}}">
+			<view class="picker">
+				{{region[0]}}，{{region[1]}}，{{region[2]}}
+			</view>
+		</picker>
+	</view>
+
+  	<view class="cu-form-group">
+		<view  class="title">详细地址</view>
+		<input name='exactAddress' placeholder="例：天津师范大学32号楼217"></input>
+	</view>
+
+   	<view class="cu-form-group margin-top">
+		<view class="title">设为默认</view>
+		<switch name='def' class="tnRed sm" checked></switch>
+	</view>
+  <button class='addressSubmit' hover-class='navigator-hovor' form-type='submit'>保存</button>
+</form>

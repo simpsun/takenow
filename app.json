@@ -1,7 +1,14 @@
 {
   "pages": [
+    
     "pages/index/index",
-    "pages/about/about"
+    "pages/my/my",
+    "pages/about/about",
+    "pages/myorder/myorder",
+    "pages/login/login",
+    "pages/order/order",
+    "pages/my/address/address",
+    "pages/my/address/addressmananger"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -9,6 +16,31 @@
     "navigationBarTitleText": "Take Now",
     "navigationStyle": "custom",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#f6275c",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/index.png",
+        "selectedIconPath": "images/tabbar/index_cur.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "images/tabbar/myorder.png",
+        "selectedIconPath": "images/tabbar/myorder_cur.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/tabbar/my.png",
+        "selectedIconPath": "images/tabbar/my_cur.png"
+      }
+    ]
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"

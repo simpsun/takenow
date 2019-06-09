@@ -1,0 +1,23 @@
+<!--pages/myorder/myorder.wxml-->
+<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">我的订单</view>
+</cu-custom>
+
+<view class="cu-bar search bg-white">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="查询订单" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-gradual-red">搜索</button>
+    </view>
+  </view>
+
+<scroll-view scroll-x class="bg-white nav">
+  <view class="flex text-center">
+    <view class="cu-item flex-sub {{index==TabCur?'text-tnRed cur':''}}" wx:for="{{Tabs}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+    {{item.name}}
+    </view>
+  </view>
+</scroll-view>

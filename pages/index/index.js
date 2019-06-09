@@ -1,90 +1,103 @@
-//index.js
-//获取应用实例
-const app = getApp()
-
+// pages/index/index.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
-    motto: 'Hi 我是Take Now',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    iconList: [{
-      icon: 'cartfill',
-      color: 'red',
-      badge: 2,
-      name: '待付款'
+    cardCur: 0,
+    swiperList: [{
+      id: 0,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
     }, {
-      icon: 'recordfill',
-      color: 'orange',
-      badge: 1,
-      name: '待接单'
+      id: 1,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
     }, {
-      icon: 'deliver_fill',
-      color: 'orange',
-      badge: 100,
-      name: '待配送'
-    },
-      {
-        icon: 'presentfill',
-        color: 'orange',
-        badge: 3,
-        name: '待收货'
-      }]
+      id: 2,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
+    }, {
+      id: 3,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
+    }, {
+      id: 4,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
+    }, {
+      id: 5,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
+    }, {
+      id: 6,
+      type: 'image',
+      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
+    }],
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
 
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  DotStyle(e) {
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      DotStyle: e.detail.value
     })
-  }
-  , CopyLink(e) {
-    wx.setClipboardData({
-      data: e.currentTarget.dataset.link,
-      success: res => {
-        wx.showToast({
-          title: '已复制',
-          duration: 1000,
-        })
-      }
+  },
+  cardSwiper(e) {
+    this.setData({
+      cardCur: e.detail.current
     })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
 })
