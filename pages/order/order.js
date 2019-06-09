@@ -28,10 +28,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(options.e!=undefined){
     var that = this;
     that.setData({
       TabCur: options.TabCur
-    })
+    })}
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
