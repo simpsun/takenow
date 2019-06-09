@@ -1,1 +1,28 @@
 /* pages/my/address/address.wxss */
+.addressEmpty{
+display: flex;
+direction: column;
+width: 400rpx;
+height:500rpx;
+}
+.addressEmpty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+}
+
+.addressEmpty .icon {
+    height: 248rpx;
+    width: 258rpx;
+    margin-bottom: 10rpx;
+}
+
+.addressEmpty .text {
+    width: auto;
+    font-size: 28rpx;
+    line-height: 35rpx;
+    color: #999;
+}

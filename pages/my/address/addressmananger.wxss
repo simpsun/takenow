@@ -2,3 +2,15 @@
 .cu-form-group .title {
   min-width: calc(4em + 30rpx);
 }
+.button::after {
+    border: none;
+    border-radius: 0;
+}
+
+.addressInput {
+    text-align: left;
+}
+
+.address-title {
+    padding: 0;
+}

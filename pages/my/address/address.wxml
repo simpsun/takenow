@@ -1,59 +1,49 @@
-<!--pages/my/address/address.wxml-->
 <cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">地址管理</view>
+    <view slot="backText">返回</view>
+    <view slot="content">地址管理</view>
 </cu-custom>
-<view class="cu-list menu-avatar">
-  <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{addressList}}" wx:key bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}">
-  
-
-    <navigator hover-class='none' url='../../../pages/my/address/addressmananger'>
-      <image class='address-avatar' src='../../../images/address/address.png'>
-      </image>
-
-      <view class="wrapper">
-        <view class="address-box">
-
-
-          <view class="u-box">
-            <text class="name">{{item.name}}</text>
-            <text class="mobile">{{item.mobile}}</text>
-          </view>
-          <block wx:if="{{item.default}}">
-            <text class="tag">默认</text>
-          </block>
-
+<view class="cu-list menu-avatar" wx:if="{{addressList.length>0}}">
+    <view bindtouchend="ListTouchEnd" bindtouchmove="ListTouchMove" bindtouchstart="ListTouchStart" class="cu-item {{modalName=='move-box-'+index?'move-cur':''}}" data-target="move-box-{{index}}" wx:for="{{addressList}}" wx:key>
+        <navigator hoverClass="none" url="../../../pages/my/address/addressmananger?index={{index}}">
+            <image class="address-avatar" src="../../../images/address/address.png"></image>
+            <view class="wrapper">
+                <view class="address-box">
+                    <view class="u-box">
+                        <text class="name">{{item.name}}</text>
+                        <text class="mobile">{{item.mobile}}</text>
+                    </view>
+                    <text class="tag" wx:if="{{item.default}}">默认</text>
+                </view>
+                <text class="address-name">{{item.defaultAddress+' '+item.exactAddress}}</text>
+            </view>
+            <image class="address-img" src="../../../images/address/edit.png"></image>
+        </navigator>
+        <view class="move">
+            <button bindtap="showModal" class="bg-tnRed" data-id="{{index}}" data-target="DialogModal">删除</button>
         </view>
-        <text class="address-name">{{item.addressName+" "+item.area}}</text>
-      </view>
-      <image class='address-img' src='../../../images/address/edit.png'></image>
-    </navigator>
-    <view class="move">
-      <button class="bg-grey">默认</button>
-      <button class="bg-tnRed" bindtap="showModal" data-id='{{index}}' data-target="DialogModal">删除</button>
     </view>
-
-    
-  </view>
 </view>
-  <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
-      <view class="cu-dialog">
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+    <view class="cu-dialog">
         <view class="cu-bar bg-white justify-end">
-          <view class="content">删除地址</view>
-          <view class="action" bindtap="hideModal">
-            <text class="cuIcon-close text-red"></text>
-          </view>
+            <view class="content">删除地址</view>
+            <view bindtap="hideModal" class="action">
+                <text class="cuIcon-close text-red"></text>
+            </view>
         </view>
         <view class="padding-xl bg-white">
-          确认删除该地址？
-        </view>
-        <view class="cu-bar bg-white justify-end">
-          <view class="action">
-            <button class="cu-btn line-tnRed text-tnRed" bindtap="hideModal">取消</button>
-            <button class="cu-btn bg-tnRed margin-left" data-dd='{{addressIndex}}' bindtap="deleteAddress">确定 </button>
-          </view>
-        </view>
-      </view>
+      确认删除该地址？
     </view>
-
-<button class='newAddress' hover-class='navigator-hovor' bindtap='newAddress'>新建地址</button>
+        <view class="cu-bar bg-white justify-end">
+            <view class="action">
+                <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
+                <button bindtap="deleteAddress" class="cu-btn bg-tnRed margin-left" data-dd="{{addressIndex}}">确定 </button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="addressEmpty" wx:if="{{addressList.length<=0}}">
+    <image class="icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noAddress-26d570cefa.png"></image>
+    <text class="text">收货地址在哪里</text>
+</view>
+<button bindtap="newAddress" class="newAddress" hoverClass="navigator-hovor">新建地址</button>
