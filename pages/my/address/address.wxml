@@ -3,7 +3,7 @@
     <view slot="content">地址管理</view>
 </cu-custom>
 <view class="cu-list menu-avatar" wx:if="{{addressList.length>0}}">
-    <view bindtouchend="ListTouchEnd" bindtouchmove="ListTouchMove" bindtouchstart="ListTouchStart" class="cu-item {{modalName=='move-box-'+index?'move-cur':''}}" data-target="move-box-{{index}}" wx:for="{{addressList}}" wx:key>
+    <view bindtouchend="ListTouchEnd" bindtouchmove="ListTouchMove" bindtouchstart="ListTouchStart" class="cu-item {{modalName=='move-box-'+index?'move-cur':''}} bg-blue" data-target="move-box-{{index}}" wx:for="{{addressList}}" wx:key>
         <navigator hoverClass="none" url="../../../pages/my/address/addressmananger?index={{index}}">
             <image class="address-avatar" src="../../../images/address/address.png"></image>
             <view class="wrapper">

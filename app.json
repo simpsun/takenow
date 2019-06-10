@@ -1,14 +1,15 @@
 {
   "pages": [
     
+    "pages/my/taker/taker",
     "pages/index/index",
     "pages/my/my",
     "pages/about/about",
     "pages/myorder/myorder",
-    "pages/login/login",
     "pages/order/order",
     "pages/my/address/address",
     "pages/my/address/addressmananger"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -3,16 +3,18 @@
     <view slot="content">编辑收货地址</view>
 </cu-custom>
 <form bindsubmit="formSubmit">
+	<view class="cu-form-group-Head">联系人</view>
     <view class="cu-form-group">
-        <view class="title">收货人</view>
+      <view class="title">姓名</view>
         <input name="name" placeholder="请输入您的收货姓名" value="{{name}}"></input>
     </view>
     <view class="cu-form-group">
-        <view class="title">收货电话</view>
+        <view class="title">手机</view>
         <input name="mobile" placeholder="请输入你的联系电话" value="{{mobile}}"></input>
     </view>
+	<view class="cu-form-group-Head">地址</view>
     <button bindtap="judgeGrant" class="cu-form-group button" hoverClass="none">
-        <view class="title address-title">收货地址</view>
+        <view class="title address-title">学校</view>
         <text class="cuIcon-locationfill text-gray"></text>
         <input class="addressInput" disabled="true " name="defaultAddress" placeholder="点我选择位置" value="{{defaultAddress}}"></input>
         <text class="cuIcon-right  text-gray"></text>

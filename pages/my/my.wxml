@@ -104,7 +104,7 @@
   </view>
 
   <view class="cu-item arrow">
-    <navigator class="content" url="/pages/login/login" hover-class="navigator-hovor">
+    <navigator class="content" url="/pages/about/about" hover-class="navigator-hovor">
       <text class="cuIcon-redpacket_fill text-red"></text>
       <text class="text-grey">推荐有奖</text>
     </navigator>

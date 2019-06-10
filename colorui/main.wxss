@@ -1303,10 +1303,10 @@ button.icon.lg {
 	display: flex;
 	padding-right: 10rpx;
 	height: 140rpx;
-	background-color:whitesmoke;
+	background-color:white;
 	justify-content: flex-end;
 	padding-top: 20rpx;
-  border-bottom: 1rpx solid white
+  border-bottom: 2rpx solid whitesmoke
   
   /*
   相对位置，flex布局 右内边距10rpx 高140rpx 背景颜色白 
@@ -2419,7 +2419,7 @@ button.icon.lg {
  ==================== */
 
 .cu-form-group {
-	background-color: whitesmoke;
+	background-color: white;
 	padding: 1rpx 30rpx;
 	display: flex;
 	align-items: center;
