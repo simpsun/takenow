@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    sec: 10,
+    sec: 1,
     timer: '',
     sImage: "",
     date: '2017-09',
@@ -96,61 +96,93 @@ Page({
             title: "认真看看吧~求你了",
             icon: "none",
             duration: 1e3
-            })      
-        }
-        else if (this.data.sec>0){
+          })
+        } else if (this.data.sec > 0) {
           wx.showToast({
             title: "再坚持一下~挺住",
             icon: "none",
             duration: 1e3
-          })      
-        } 
-        else {
+          })
+        } else {
           this.setData({
             steps: this.data.steps + 1
           })
         }
         break;
       case 1:
-        if(this.data.idCard_name=="")
-        {
+        if (this.data.idCard_name == "") {
           wx.showToast({
             title: "名字不能为空哦~",
             icon: "none",
             duration: 1e3
-          })      
-        }
-        else if (this.data.idCard_gender==0)
-        {
+          })
+        } else if (this.data.idCard_gender == 0) {
           wx.showToast({
             title: "受累选一下性别~",
             icon: "none",
             duration: 1e3
-          })   
-        }
-        else if (this.data.idCard_code=='')
-        {
-         
+          })
+        } else if (this.data.idCard_code == '') {
+
           wx.showToast({
             title: "身份证号别忘啦~ps:我们不会告诉别人的",
             icon: "none",
             duration: 1e3
-          })  
-        }
-        else if (this.data.idCard_code.length < 17 || this.data.idCard_code.length > 18)
-        {
+          })
+        } else if (this.data.idCard_code.length < 17 || this.data.idCard_code.length > 18) {
           wx.showToast({
             title: "身份证号格式不对(⊙o⊙)",
             icon: "none",
             duration: 1e3
-          }) 
+          })
+        } else {
+          this.setData({
+            steps: this.data.steps + 1
+          })
         }
-        else{
-        this.setData({
-          steps: this.data.steps + 1
-        })}
-   
         break;
+      case 2:
+
+        if (!!!this.data.studentCard_schoolName) {
+          console.log(!!!this.data.studentCard_schoolName)
+          wx.showToast({
+            title: "学校不能为空哦~",
+            icon: "none",
+            duration: 1e3
+          })
+        } else if (!!!this.data.studentCard_schoolId) {
+          wx.showToast({
+            title: "忘了填学号啦~",
+            icon: "none",
+            duration: 1e3
+          })
+        } else if (!!!this.data.studentCard_faculty) {
+
+          wx.showToast({
+            title: "学院填一下吧~",
+            icon: "none",
+            duration: 1e3
+          })
+        } else if (!!!this.data.studentCard_major) {
+          wx.showToast({
+            title: "专业也要填呃(⊙o⊙)",
+            icon: "none",
+            duration: 1e3
+          })
+        } else if (!!!this.data.sImage) {
+          wx.showToast({
+            title: "记得上传证件哦(⊙o⊙)",
+            icon: "none",
+            duration: 1e3
+          })
+        } else {
+          this.setData({
+            steps: this.data.steps + 1
+          })
+        }
+        break;
+
+
     }
   },
   lastStep: function() {
