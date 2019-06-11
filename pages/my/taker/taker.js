@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sec: 10,
+    timer: '',
     sImage: "",
     date: '2017-09',
     steps: 0,
@@ -31,81 +33,125 @@ Page({
     console.log(e)
   },
   radioChange: function(e) {
+    console.log(e)
     this.setData({
       idCard_gender: e.detail.value
     })
-  },
-  nameBlur: function(e) {
-    this.setData({
-      idCard_name: e.detail.value
-    })
-  },
-  codeBlur: function(e) {
-    console.log(e)
-    this.setData({
-      idCard_code: e.detail.value
-    })
-    console.log(this.data.idCard_code)
-  },
-  sNameBlur: function(e) {
-    console.log(e)
-    this.setData({
-      studentCard_schoolName: e.detail.value
-    })
-    console.log(this.data.idCard_code)
-  },
-  sNameBlur: function (e) {
-    console.log(e)
-    this.setData({
-      studentCard_schoolName: e.detail.value
-    })
-    console.log(this.data.idCard_code)
+    console.log("更新性别信息成功")
   },
 
+  Blur(e) {
+    var that = this
+    switch (e.currentTarget.dataset.update) {
+      case "0":
+        that.setData({
+          idCard_name: e.detail.value
+        })
+        console.log("更新姓名成功")
+        break;
+
+      case "1":
+        that.setData({
+          idCard_code: e.detail.value
+        })
+        console.log("更新身份证号成功")
+        break;
+      case "2":
+        that.setData({
+          studentCard_schoolName: e.detail.value
+        })
+        console.log("更新学校成功")
+        break;
+      case "3":
+        that.setData({
+          studentCard_schoolId: e.detail.value
+        })
+        console.log("更新学号成功")
+        break;
+      case "4":
+        that.setData({
+          studentCard_faculty: e.detail.value
+        })
+        console.log("更新学院成功")
+        break;
+      case "5":
+        that.setData({
+          studentCard_major: e.detail.value
+        })
+        console.log("更新专业成功")
+        break;
 
 
-  sCodeBlur: function (e) {
-    console.log(e)
-    this.setData({
-      studentCard_schoolId: e.detail.value
-    })
-    console.log(this.data.studentCard_schoolId)
+    }
+
+
   },
-
-  sFacultyBlur: function (e) {
-    console.log(e)
-    this.setData({
-      studentCard_faculty: e.detail.value
-    })
-    console.log(this.data.studentCard_faculty)
-  },
-  sMajorBlur: function (e) {
-    console.log(e)
-    this.setData({
-      studentCard_major: e.detail.value
-    })
-    console.log(this.data.studentCard_major)
-  },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   nextStep: function() {
-    this.setData({
-      steps: this.data.steps + 1
-    })
-    console.log(this.data.idCard_code)
+
+    switch (this.data.steps) {
+      case 0:
+        if (this.data.sec > 5) {
+          wx.showToast({
+            title: "认真看看吧~求你了",
+            icon: "none",
+            duration: 1e3
+            })      
+        }
+        else if (this.data.sec>0){
+          wx.showToast({
+            title: "再坚持一下~挺住",
+            icon: "none",
+            duration: 1e3
+          })      
+        } 
+        else {
+          this.setData({
+            steps: this.data.steps + 1
+          })
+        }
+        break;
+      case 1:
+        if(this.data.idCard_name=="")
+        {
+          wx.showToast({
+            title: "名字不能为空哦~",
+            icon: "none",
+            duration: 1e3
+          })      
+        }
+        else if (this.data.idCard_gender==0)
+        {
+          wx.showToast({
+            title: "受累选一下性别~",
+            icon: "none",
+            duration: 1e3
+          })   
+        }
+        else if (this.data.idCard_code=='')
+        {
+         
+          wx.showToast({
+            title: "身份证号别忘啦~ps:我们不会告诉别人的",
+            icon: "none",
+            duration: 1e3
+          })  
+        }
+        else if (this.data.idCard_code.length < 17 || this.data.idCard_code.length > 18)
+        {
+          wx.showToast({
+            title: "身份证号格式不对(⊙o⊙)",
+            icon: "none",
+            duration: 1e3
+          }) 
+        }
+        else{
+        this.setData({
+          steps: this.data.steps + 1
+        })}
+   
+        break;
+    }
   },
   lastStep: function() {
     this.setData({
@@ -132,6 +178,22 @@ Page({
     })
 
   },
+  DelImg(e) {
+    wx.showModal({
+      title: '尊敬的用户',
+      content: '确定要删除证件照吗？',
+      cancelText: '点错啦',
+      confirmText: '给我删',
+      confirmColor: '#F6275C',
+      success: res => {
+        if (res.confirm) {
+          this.setData({
+            sImage: ""
+          })
+        }
+      }
+    })
+  },
 
   /**
    * 
@@ -145,7 +207,19 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    var that = this
+    console.log(new Date())
+    this.setData({
+      timer: setInterval(function() {
+        that.setData({
+          sec: that.data.sec - 1
+        })
+        if (that.data.sec == 0) {
+          // 读秒结束 清空计时器
+          clearInterval(that.data.timer)
+        }
+      }, 1000)
+    })
   },
 
   /**

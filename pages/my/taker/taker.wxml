@@ -1,7 +1,7 @@
 <!--pages/my/taker/taker.wxml-->
 <cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
   <view slot="backText">返回</view>
-  <view slot="content">地址管理</view>
+  <view slot="content">跑腿认证</view>
 </cu-custom>
 <view class="bg-white padding">
   <view class="cu-steps">
@@ -23,13 +23,13 @@
     <view class='margin-top margin-left text-grey'>下一步代表您已同意
       <text class='text-tnRed'>Take Now跑腿协议</text>
     </view>
-    <button class='stepsButton0' wx:if="{{steps==0}}" bindtap='nextStep' hoverClass="navigator-hovor">下一步</button>
+    <button class='stepsButton0' wx:if="{{steps==0}}" bindtap='nextStep'  hoverClass="navigator-hovor">下一步</button>
   </view>
 
   <view wx:if='{{steps==1}}'>
     <view class="cu-form-group margin-top-lg">
       <view class="title">姓名</view>
-      <input placeholder="你的真实姓名" value='{{idCard_name}}' bindblur='nameBlur'></input>
+      <input placeholder="你的真实姓名" value='{{idCard_name}}' bindblur='Blur' data-update='0'></input>
     </view>
     <view class="cu-form-group mmmm">
       <view class="title">性别</view>
@@ -47,7 +47,7 @@
     </view>
     <view class="cu-form-group">
       <view class="title">身份证号</view>
-      <input placeholder="你的身份证号码18位" bindblur='codeBlur' type="idcard" value='{{idCard_code}}'></input>
+      <input placeholder="你的身份证号码18位" bindblur='Blur' type="idcard" value='{{idCard_code}}' data-update='1'></input>
     </view>
     <view class='stepsButtonBox'>
       <button class='stepsButtonLast' wx:if="{{steps==1}}" bindtap='lastStep' hoverClass="navigator-hovor">上一步</button>
@@ -59,21 +59,21 @@
   <view wx:if='{{steps==2}}'>
     <view class="cu-form-group margin-top-lg">
       <view class="title">学校</view>
-      <input placeholder="学校全名" bindblur='sNameBlur' type='text' value='{{studentCard_schoolName}}'></input>
+      <input placeholder="学校全名" bindblur='Blur' type='text' value='{{studentCard_schoolName}}' data-update='2'></input>
     </view>
     <view class="cu-form-group">
       <view class="title">学号</view>
-      <input placeholder="你的学号" bindblur='sCodeBlur' type='text' value='{{studentCard_schoolId}}'></input>
+      <input placeholder="你的学号" bindblur='Blur' type='text' value='{{studentCard_schoolId}}' data-update='3'></input>
     </view>
 
     <view class="cu-form-group">
       <view class="title">学院</view>
-      <input placeholder="你的学院" bindblur='sFacultyBlur' type='text' value='{{studentCard_faculty}}'></input>
+      <input placeholder="你的学院" bindblur='Blur' type='text' value='{{studentCard_faculty}}'  data-update='4'></input>
     </view>
 
     <view class="cu-form-group">
       <view class="title">专业</view>
-      <input placeholder="你的专业" bindblur='sMajorBlur' type='text' value='{{studentCard_major}}'></input>
+      <input placeholder="你的专业" bindblur='Blur' type='text' value='{{studentCard_major}}'  data-update='5'></input>
     </view>
 
     <view class="cu-form-group">
@@ -89,7 +89,7 @@
       <view>模板</view></view>
       <view bindtap='chooseImg' class='imgRight'>
 
-        <image class="sImage" mode="aspectFit" src="{{sImage}}" wx:if="{{!!sImage}}">
+        <image class="sImage" mode="aspectFill" src="{{sImage}}" wx:if="{{!!sImage}}">
           <view class="cu-tag bg-grey del-img" catchtap="DelImg">
             <text class="cuIcon-close text-sl"></text>
           </view>
