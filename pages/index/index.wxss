@@ -1,1 +1,31 @@
 /* pages/index/index.wxss */
+
+.index-block{
+	position: relative;
+	width: 90%;
+  left:5%;
+  border-radius: 10rpx;
+	display: flex;
+	 flex-wrap:wrap;
+	justify-content: space-between;
+	height: 220rpx;
+	background-color: white;
+	margin-top: 30rpx;
+	padding:20rpx 10rpx 0 10rpx;
+}
+.ablock{
+	width: 160rpx;
+	height: 80rpx;
+	padding-left:30rpx; 
+ border-radius: 5rpx;
+font-size: 28rpx;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.index-blockimg{
+	height: 100%;
+	width:100%;
+
+}
