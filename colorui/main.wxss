@@ -1584,6 +1584,7 @@ button.icon.lg {
 }
 .cu-bar-sm{
   	display: flex;
+
 	position: relative;
 	align-items: center;
 	min-height: 80rpx;
@@ -4012,33 +4013,12 @@ scroll-view.cu-steps .cu-item {
 .lines-white {
 	color: var(--white);
 }
-#mymy{
 
-  background:var(--gradualRed);
-   width:100%;
-   height: 300rpx;
-  margin-bottom: 50rpx;
-  background-repeat: no-repeat;
-  background-size: 100% 85%;
-}
 .cu-list-height{
   height: 80px;
 }
-.getUsername-postion{
-  position: absolute;
-  top:15%;
-  left:35%;
-}
-.userNameAndVip{
-  display: flex;
-  flex-direction: column;
-  margin-left: 10rpx;
-  
-}
-.myBar{
-background-color: var(--white);
-border-radius: 16rpx;
-}
+
+
 .navigator-hovor{
   	transform: translate(3rpx, 3rpx);
 }

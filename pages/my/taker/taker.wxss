@@ -91,3 +91,15 @@ z-index: 100;
 right: 2rpx;
 top: 0rpx;
 }
+.finish{
+  margin-top: 100rpx;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+ justify-content: center;
+ align-items: center
+}
+.finish .icon{
+ font-size: 150rpx;
+ color: var(--tnRed)
+}

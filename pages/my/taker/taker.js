@@ -1,15 +1,17 @@
 // pages/my/taker/taker.js
+var authList=null
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    authTag:null,
     sec: 10,
     timer: '',
     sImage: "",
-    date: '2017-09',
-    steps: 3,
+    studentCard_date: '2017-09',
+    steps: 0,
     idCard_name: "",
     idCard_code: "",
     idCard_gender: 0,
@@ -26,7 +28,11 @@ Page({
       name: '学生认证'
     }, {
       name: '手机认证'
-    }],
+    },{
+      name:'完成'
+    }
+    ],
+
     num: 0,
   },
   tap: function(e) {
@@ -181,8 +187,24 @@ Page({
           })
         }
         break;
-
-
+      case 3:
+      authList={
+        idCard_name: this.data.idCard_name,
+        idCard_code: this.data.idCard_code,
+        idCard_gender: this.data.idCard_gender,
+        studentCard_schoolId: this.data.studentCard_schoolId,
+        studentCard_schoolName: this.data.studentCard_schoolName,
+        studentCard_faculty: this.data.studentCard_faculty,
+        studentCard_major: this.data.studentCard_major,
+        studentCard_date: this.data.studentCard_date,
+        sImage:this.data.sImage
+      }
+      wx.setStorageSync("authList", authList)
+        this.setData({
+          steps: this.data.steps + 1
+        })
+        console.log(authList)
+      break;
     }
   },
   lastStep: function() {
@@ -193,7 +215,7 @@ Page({
   },
   DateChange(e) {
     this.setData({
-      date: e.detail.value
+      studentCard_date: e.detail.value
     })
   },
   chooseImg() {
@@ -232,7 +254,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      authTag: wx.getStorageSync("authList") ||null
+    })
+ 
   },
 
   /**

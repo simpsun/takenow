@@ -10,7 +10,7 @@
     </view>
     <view class="cu-form-group">
         <view class="title">手机</view>
-        <input name="mobile" placeholder="请输入你的联系电话" value="{{mobile}}"></input>
+        <input name="mobile" placeholder="请输入你的联系电话" value="{{mobile}}" type='number'></input>
     </view>
 	<view class="cu-form-group-Head">地址</view>
     <button bindtap="judgeGrant" class="cu-form-group button" hoverClass="none">
