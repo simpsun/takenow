@@ -5,11 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    sec: 1,
+    sec: 10,
     timer: '',
     sImage: "",
     date: '2017-09',
-    steps: 0,
+    steps: 3,
     idCard_name: "",
     idCard_code: "",
     idCard_gender: 0,

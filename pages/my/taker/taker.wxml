@@ -86,8 +86,7 @@
     </view>
     <view class='imgBox'>
       <view class='imgLeft'>
-        <view class='text-xxl text-white'>证件照模板</view>
-         <view class='text-xxl text-white'>暂未上传</view>
+        <image class="sImage" mode="aspectFill" src='../../../images/img.jpg'></image>
       </view>
       <view bindtap='chooseImg' class='imgRight'>
 
