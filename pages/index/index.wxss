@@ -10,7 +10,6 @@
 	justify-content: space-between;
 	height: 220rpx;
 	background-color: white;
-
 	padding:20rpx 10rpx 0 10rpx;
 }
 .ablock{
