@@ -10,7 +10,7 @@
 	justify-content: space-between;
 	height: 220rpx;
 	background-color: white;
-	margin-top: 30rpx;
+
 	padding:20rpx 10rpx 0 10rpx;
 }
 .ablock{
@@ -28,4 +28,7 @@ align-items: center;
 	height: 100%;
 	width:100%;
 
+}
+.ablock:last-child{
+	padding-left: 5rpx;
 }

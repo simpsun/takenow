@@ -3507,9 +3507,25 @@ scroll-view.cu-steps .cu-item {
 	background-color: var(--red);
 	color: var(--white);
 }
-.bg-indexOne
+.bg-index1,
+.bg-index7
 {	
-	background-color:rgba(255,169,192,0.7);
+	background-color:rgba(255,169,192,0.5);
+}
+.bg-index2,
+.bg-index8
+{
+	background-color:rgba(119,115,201,0.2);
+}
+.bg-index3,
+.bg-index5
+{
+	background-color:rgba(255,188,137,0.4);
+}
+.bg-index4,
+.bg-index6
+{
+background-color:rgba(190,226,148,0.4);
 }
 .bg-orange {
 	background-color: var(--orange);

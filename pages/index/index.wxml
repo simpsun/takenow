@@ -15,25 +15,26 @@
   <view class="cu-bar search bg-white index-search">
     <view class="search-form">
       <text class="cuIcon-search"></text>
-      <input type="text" placeholder="告诉我们想要什么" confirm-type="search"></input>
+      <input type="text" placeholder="想要同学帮做什么" confirm-type="search"></input>
     </view>
     <view class="action">
       <button class="cu-btn bg-gradual-red shadow-blur ">Take Now</button>
     </view>
   </view>
 
-	<view class='index-block'>
-<view class='ablock bg-indexOne' >
-<image class='index-blockimg' src='../../images/index1.png'></image>
-</view>
-<view class='ablock'>
-<image class='index-blockimg' src='../../images/index2.png'></image></view>
-<view class='ablock'>3</view>
-<view class='ablock'>4</view>
-<view class='ablock'>1</view>
-<view class='ablock'>2</view>
-<view class='ablock'>3</view>
-<view class='ablock'>4</view>
-</view>
+  <view class='index-block'>
+    <navigator class='ablock bg-index{{index+1}}' wx:for='{{8}}' wx:key hover-class='navigator-hovor'>
+      <image class='index-blockimg' src='../../images/index{{index+1}}.png'></image>
+    </navigator>
+  </view>
+
+
+
+
+
+
+
+
+
 
 </view>
