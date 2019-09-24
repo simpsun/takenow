@@ -1,5 +1,4 @@
 var addressList = null;
-
 Page({
   data: {
     defaultAddress: "",
@@ -52,6 +51,7 @@ Page({
         if (this.data.edit != -1) {
           arr.splice(this.data.edit, 1)
         }
+			
         arr.unshift(addressList)
       } else {
         this.data.edit == -1 ? arr.push(addressList) : arr[this.data.edit] = addressList
@@ -110,6 +110,7 @@ Page({
     });
   },
   getMyLocation: function(t) {
+	
     this.setData({
       modalName: null
     });
@@ -120,7 +121,7 @@ Page({
       }), wx.getLocation({
         type: "gcj02",
         success: function(t) {
-           a = t.latitude,
+          var a = t.latitude,
            o = t.longitude;
           that.setData({
             latitude: a,
@@ -140,7 +141,7 @@ Page({
       })
     } else {
       that.setData({
-        isLocation: !1
+        isLocation: 0
       });
     }
   },

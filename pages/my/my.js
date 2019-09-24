@@ -41,7 +41,7 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
+   /* if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
@@ -66,14 +66,29 @@ Page({
           })
         }
       })
-    }
+    }*/
+		wx.getSetting({
+			success: function (res) {
+				if (res.authSetting['scope.userInfo']) {
+					wx.getUserInfo({
+						success: function (res) {
+							console.log(res.userInfo)
+							//用户已经授权过
+						}
+					})
+				}
+			}
+		})
+		
   },
   getUserInfo: function(e) {
+
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+		if(e.detail.userInfo)
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+
   }
 })

@@ -1,9 +1,24 @@
 /* pages/my/address/address.wxss */
+.dialog {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: auto;
+	margin-right: auto;
+	width: 500rpx;
+	max-width: 100%;
+	background-color: #f8f8f8;
+	border-radius: 10rpx;
+	overflow: hidden;
+}
 .addressEmpty{
 display: flex;
 direction: column;
 width: 400rpx;
 height:500rpx;
+}
+.btnWidth{
+	width: 120rpx;
 }
 .addressEmpty {
     width: 100%;
@@ -25,4 +40,8 @@ height:500rpx;
     font-size: 28rpx;
     line-height: 35rpx;
     color: #999;
+}
+.buttonItem{
+	width: 100%;
+	
 }

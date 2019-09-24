@@ -1,0 +1,106 @@
+<!--pages/index/takeNow.wxml-->
+<cu-custom bgColor="transparent" isBack="{{true}}">
+  <view style='color:white;' slot="backText">返回</view>
+  <view style='color:white;' slot="content">Take Now</view>
+</cu-custom>
+<view class="bg-gradual-red bg-tabbar"></view>
+<form>
+  <view class='goodsInfo'>
+    <view class="cu-form-group goodsInput">
+      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="goodsInfoArea"></textarea>
+    </view>
+    <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
+
+      <view class="title">备注</view>
+      <!-- 
+      <text class="cuIcon-locationfill text-gray"></text>
+			-->
+      <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
+      <text class="cuIcon-right  text-gray"></text>
+    </navigator>
+    <view class='goodsAddress'>
+      <view class='flex'>
+        <view class="goodsAddressType">购买地址</view>
+        <radio-group name='sex' class='margin-top-xs' bindchange='radioChange'>
+          <label class="radio">
+            <radio checked class="tnRed" value="0"></radio>
+            <text class='text-l' decode="{{true}}">&nbsp;指定地点</text>
+          </label>
+          <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+          <label class="radio">
+            <radio class="tnRed" value="1"></radio>
+            <text class='text-l' decode="{{true}}">&nbsp;就近购买</text>
+          </label>
+        </radio-group>
+
+      </view>
+      <button wx:if="{{goodsAddressTypeSelected==0}}" style='height:30rpx;' bindtap='selectGoodsAddress' class="cu-form-group radius-bottom-x goodsAddressSelected desAddressButton" hover-class='none'>
+        <input class="remarkText" disabled="true " name="SelectGoodsAddress" placeholder="选择购买地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{selectedAddress}}"></input>
+        <text class="cuIcon-right  text-gray"></text>
+      </button>
+
+      <view wx:else class="cu-form-group radius-bottom-x goodsAddressSelected">
+        <view class="remarkText">限学校周边代购</view>
+      </view>
+      <view wx:if="{{goodsAddressTypeSelected==0&&!!selectedAddress}}">
+        <!-- !!a等价于a!=null&&typeof(a)!=undefined&&a!=''-->
+        <input class="remarkText" name="detailedAddress" placeholder="详细描述地址(选填)" placeholder-class='remarkTextPlaceholder'></input>
+      </view>
+      <view class='flex margin-top-xs'>
+        <view class="goodsPurchaseAddressTitle">送达地址</view>
+        <button style='height:50rpx;' bindtap='selectReceivingAddress' class="cu-form-group desAddressButton goodsPurchaseAddressButton" hover-class='none'>
+          <input class="goodsPurchaseAddressText" disabled="true " name="SelectReceivingAddress" placeholder="选择送达地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{receivingAddress}}"></input>
+          <text class="cuIcon-right  text-gray"></text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+</form>
+
+
+
+
+
+
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">未授权位置信息</view>
+      <view bindtap="hideModal" class="action">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl bg-white">
+      Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
+        <button bindopensetting="getMyLocation" class="cu-btn bg-tnRed margin-left" openType="openSetting">确定 </button>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="swithTakeStyle">
+  <block wx:for="{{switchTakeList}}" wx:key>
+    <view class="switchTakeBtn  {{switchTakeTag==index?'bg-tnRed':''}}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
+  </block>
+</view>
+
+
+
+<view class="cu-modal {{modalName=='BackDialogModal'?'show':''}}">
+  <view class="dialog">
+
+    <view class="padding-xl padding-bottom-sm bg-white text-xl">
+      是否放弃填写该订单？
+    </view>
+    <view class="cu-bar bg-white justify-around">
+      <view class="action">
+        <button bindtap="abandonOrder" class="cu-btn btnWidth line-tnRed text-tnRed">放弃</button>
+        <button bindtap="hideModal" class="cu-btn btnWidth bg-tnRed margin-left">继续填写</button>
+      </view>
+    </view>
+  </view>
+</view>

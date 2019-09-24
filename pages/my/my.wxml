@@ -4,7 +4,7 @@
 <view class="my">
 
 
-  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='getUsername-postion cu-btn round bg-green shadow'> 获取头像昵称 </button>
+  <button wx:if="{{!hasUserInfo || !canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='getUsername-postion cu-btn round bg-green shadow'> 获取头像昵称 </button>
   <block wx:else>
 
     <view class='text-center'>
@@ -16,7 +16,7 @@
     </view>
   </block>
 </view>
-
+<view></view>
 
 <view class='myBar'>
   <view wx:if="{{hasUserInfo && canIUse}}" class="padding-top-sm padding-bottom-lg flex text-center text-black">
@@ -36,52 +36,7 @@
         <text class="cuIcon-choicenessfill text-gray"></text>T豆</view>
     </view>
   </view>
-
-
-
-  <!--
-  <view wx:if="{{hasUserInfo && canIUse}}" class="padding-bottom-lg flex text-center text-black">
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-gray">10.25</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-attentionfill"></text> 余额</view>
-    </view>
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-gray">5</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-redpacket_fill"></text> 红包</view>
-    </view>
-    <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-gray">6</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-vipcard"></text>代金券</view>
-    </view>
-  </view>
-  -->
 </view>
-<!--
-<navigator class="cu-bar-sm bg-white solid-bottom margin-top margin-bottom-0 margin-left margin-right" url='../../pages/myorder/myorder?TabCur=0' hover-class="navigator-hovor">
-  <view class="action">
-    <text class='text-black'>我的订单</text>
-  </view>
-  <view class='action-right'>
-    <text class="text-grey text-sm">查看全部订单</text>
-    <view class='cuIcon-right text-grey'></view>
-  </view>
-</navigator>
-<view class="cu-list grid col-4 no-border cu-list-height margin-left margin-right margin-top-0 margin-bottom-sm radius-bottom-l">
- 
-  <view class="cu-item" wx:for="{{iconList}}" wx:key>
-    <navigator class="cuIcon-{{item.icon}} text-{{item.color}}" hover-class="navigator-hovor" url='../../pages/myorder/myorder?TabCur={{index+1}}'>
-      <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
-        <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
-      </view>
-      <text>{{item.name}}</text>
-    </navigator>
-
-  </view>
-</view>-->
-<!--list-->
 
 
 
@@ -129,6 +84,7 @@
       <text class="text-grey">关于我们</text>
     </navigator>
   </view>
+
 </view>
 <view class="text-center margin-top">
   <text class="text-grey text-df">{{motto}}</text>

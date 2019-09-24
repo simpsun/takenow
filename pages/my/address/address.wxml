@@ -1,10 +1,10 @@
 <cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
     <view slot="backText">返回</view>
-    <view slot="content">地址管理</view>
+    <view slot="content">{{pageName}}</view>
 </cu-custom>
 <view class="cu-list menu-avatar" wx:if="{{addressList.length>0}}">
-    <view bindtouchend="ListTouchEnd" bindtouchmove="ListTouchMove" bindtouchstart="ListTouchStart" class="cu-item {{modalName=='move-box-'+index?'move-cur':''}} bg-blue" data-target="move-box-{{index}}" wx:for="{{addressList}}" wx:key>
-        <navigator hoverClass="none" url="../../../pages/my/address/addressmananger?index={{index}}">
+    <view bindtap='selectAddress' bindtouchend="ListTouchEnd" bindtouchmove="ListTouchMove" bindtouchstart="ListTouchStart" class="cu-item {{modalName=='move-box-'+index?'move-cur':''}} bg-blue"     data-target="move-box-{{index}}" data-index='{{index}}' wx:for="{{addressList}}" wx:key>
+     <!--  <navigator hoverClass="none" url="../../../pages/my/address/addressmananger?index={{index}}"> -->
             <image class="address-avatar" src="../../../images/address/address.png"></image>
             <view class="wrapper">
                 <view class="address-box">
@@ -16,28 +16,23 @@
                 </view>
                 <text class="address-name">{{item.defaultAddress+' '+item.exactAddress}}</text>
             </view>
-            <image class="address-img" src="../../../images/address/edit.png"></image>
-        </navigator>
+            <image catchtap='editTap' hidden='{{isManage==false}}' class="address-img" src="../../../images/address/edit.png" data-index='{{index}}'></image>
+      
         <view class="move">
-            <button bindtap="showModal" class="bg-tnRed" data-id="{{index}}" data-target="DialogModal">删除</button>
+            <button catchtap="showModal" class="bg-tnRed" data-id="{{index}}" data-target="DialogModal">删除</button>
         </view>
     </view>
 </view>
 <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
-    <view class="cu-dialog">
-        <view class="cu-bar bg-white justify-end">
-            <view class="content">删除地址</view>
-            <view bindtap="hideModal" class="action">
-                <text class="cuIcon-close text-red"></text>
-            </view>
-        </view>
-        <view class="padding-xl bg-white">
+    <view class="dialog">
+       
+        <view class="padding-xl padding-bottom-0 bg-white text-xl">
       确认删除该地址？
     </view>
         <view class="cu-bar bg-white justify-end">
             <view class="action">
-                <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
-                <button bindtap="deleteAddress" class="cu-btn bg-tnRed margin-left" data-dd="{{addressIndex}}">确定 </button>
+                <button bindtap="hideModal" class="cu-btn btnWidth line-tnRed text-tnRed">取消</button>
+                <button bindtap="deleteAddress" class="cu-btn btnWidth bg-tnRed margin-left" data-dd="{{addressIndex}}">确定 </button>
             </view>
         </view>
     </view>

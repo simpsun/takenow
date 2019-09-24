@@ -1,18 +1,60 @@
 Page({
   data: {
+    pageName: "地址管理",
+    isManage: true,
     index: null,
     source: 0,
     addressList: []
   },
-  onLoad: function(t) {
-    var arr = wx.getStorageSync("addressList") || [];
-    console.info("缓存数据：" + arr), this.setData({
-      addressList: arr
-    });
+  editTap(e) {
+    console.log(e)
+    wx.navigateTo({
+      url: '../../../pages/my/address/addressmananger?index=' + e.target.dataset.index,
+      success: function() {
+
+      }
+    })
+  },
+  selectAddress(e) {
+
+    if (this.data.isManage =="false") {
+
+      var address = this.data.addressList[e.currentTarget.dataset.index];
+      console.log(address);
+
+      var pages = getCurrentPages();
+      var prevPage = pages[pages.length - 2]; //上一个页面
+      //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+      prevPage.setData({
+        receivingAddressList: address,
+				receivingAddress: address.defaultAddress + address.exactAddress
+      });
+      wx.navigateBack({
+        delta: 1
+      });
+    }
+  },
+	storageAddress:function(){
+		var arr = wx.getStorageSync("addressList") || [];
+		console.info("缓存数据：" + arr);
+		this.setData({
+			addressList: arr
+		});
+	},
+  onLoad: function(options) {
+
+
+		if (options.ismanage=="false"){
+			console.log("当前为地址选择模式")
+			this.setData({
+				isManage:options.ismanage
+			})
+		}
+    this.storageAddress();
   },
   onReady: function() {},
   onShow: function() {
-    this.onLoad();
+		this.storageAddress();
   },
   onHide: function() {},
   onUnload: function() {},

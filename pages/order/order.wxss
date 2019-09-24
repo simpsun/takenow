@@ -1,1 +1,19 @@
 /* pages/order/order.wxss */
+.order-content0{
+	background-color: black;
+	height: 100%;
+	width: 100%;
+}
+.order-content1{
+	position: absolute;
+	top: 0;
+
+	background-color: blue;
+	height: 100%;
+	width: 100%;
+}
+.order-content{
+	background-color: green;
+	height: 100%;
+	width: 100%;
+}

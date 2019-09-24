@@ -1,13 +1,14 @@
 // pages/my/taker/taker.js
-var authList=null
+var authList = null
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    authTag:null,
-    sec: 10,
+    checkBox: 1,
+    authTag: null,
+    sec: 2,
     timer: '',
     sImage: "",
     studentCard_date: '2017-09',
@@ -28,10 +29,9 @@ Page({
       name: '学生认证'
     }, {
       name: '手机认证'
-    },{
-      name:'完成'
-    }
-    ],
+    }, {
+      name: '完成'
+    }],
 
     num: 0,
   },
@@ -99,13 +99,19 @@ Page({
       case 0:
         if (this.data.sec > 5) {
           wx.showToast({
-            title: "认真看看吧~求你了",
+            title: "认真读一读吧~",
             icon: "none",
             duration: 1e3
           })
         } else if (this.data.sec > 0) {
           wx.showToast({
             title: "再坚持一下~挺住",
+            icon: "none",
+            duration: 1e3
+          })
+        } else if (this.data.checkBox == 0) {
+          wx.showToast({
+            title: "请阅读并勾选跑腿协议",
             icon: "none",
             duration: 1e3
           })
@@ -188,23 +194,23 @@ Page({
         }
         break;
       case 3:
-      authList={
-        idCard_name: this.data.idCard_name,
-        idCard_code: this.data.idCard_code,
-        idCard_gender: this.data.idCard_gender,
-        studentCard_schoolId: this.data.studentCard_schoolId,
-        studentCard_schoolName: this.data.studentCard_schoolName,
-        studentCard_faculty: this.data.studentCard_faculty,
-        studentCard_major: this.data.studentCard_major,
-        studentCard_date: this.data.studentCard_date,
-        sImage:this.data.sImage
-      }
-      wx.setStorageSync("authList", authList)
+        authList = {
+          idCard_name: this.data.idCard_name,
+          idCard_code: this.data.idCard_code,
+          idCard_gender: this.data.idCard_gender,
+          studentCard_schoolId: this.data.studentCard_schoolId,
+          studentCard_schoolName: this.data.studentCard_schoolName,
+          studentCard_faculty: this.data.studentCard_faculty,
+          studentCard_major: this.data.studentCard_major,
+          studentCard_date: this.data.studentCard_date,
+          sImage: this.data.sImage
+        }
+        wx.setStorageSync("authList", authList)
         this.setData({
           steps: this.data.steps + 1
         })
         console.log(authList)
-      break;
+        break;
     }
   },
   lastStep: function() {
@@ -248,16 +254,25 @@ Page({
       }
     })
   },
-
+  checkboxChange(e) {
+    if (e.detail.value != "aRead")
+      this.setData({
+        checkBox: 0
+      })
+    else
+      this.setData({
+        checkBox: 1
+      })
+  },
   /**
    * 
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     this.setData({
-      authTag: wx.getStorageSync("authList") ||null
+      authTag: wx.getStorageSync("authList") || null
     })
- 
+
   },
 
   /**

@@ -1,0 +1,5 @@
+<!--pages/graborder/graborder.wxml-->
+<cu-custom bgColor="bg-gradual-red">
+  <view slot="content">抢单</view>
+</cu-custom>
+  <view class='text-xxl text-tnRed margin-top-xl'>敬请期待</view>

@@ -1,0 +1,29 @@
+<!--首页-->
+<cu-custom bgColor="transparent">
+  <view style='color:white;' slot="content">Take Now</view>
+</cu-custom>
+<view class="bg-gradual-red bg-tabbar"></view>
+
+<view class="tabbarStyle">
+  <block wx:for="{{funcList}}" wx:key>
+    <view class="test" bindtap="selectFunc" data-index="{{index}}">
+      <image class="funcItemStyle" src="{{funcImgSrc+(index+1)+(location==index?'_active':'')+'.png'}}" mode="aspectFit"></image>
+      <view class="text-white">{{item}}</view>
+    </view>
+  </block>
+</view>
+<!-- <view><image class="fingerImg" src= '../images/index/finger.png' /></view> -->
+<view class="funcCard shadow-warp">
+  <form name='submitFormInfo' bindsubmit="submitFormInfo">
+    <textarea class='demandInfo' name="demandInfo" maxlength="200" value='{{demandInfo}}' bindinput='demandInfoInput' placeholder="请在此填写需要代购的任何商品"></textarea>
+    <view style="color:grey;margin-left:30rpx;">点击标签快捷输入</view>
+    <view class="quickTag">
+      <block wx:for="{{ColorList}}" wx:key>
+        <view class="cu-tag bg-tnRedLight margin-xs " hover-class="navigator-hovor" bindtap="quickTag" data-text="{{item}}">{{item}}</view>
+      </block>
+    </view>
+    <button class="submitBtn button" hoverClass="navigator-hovor" form-type="submit">Take Now</button>
+  </form>
+</view>
+
+<image   class='ddd' src='../images/index/advertise.png' > </image>

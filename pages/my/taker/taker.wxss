@@ -103,3 +103,23 @@ top: 0rpx;
  font-size: 150rpx;
  color: var(--tnRed)
 }
+checkbox::before {
+	font-family: "cuIcon";
+	content: "\e645";
+	position: absolute;
+	color: var(--white) !important;
+ top: 25%;
+	margin-top: -8rpx;
+	right: 6rpx;
+	font-size: 20rpx;
+	line-height: 16px;
+	pointer-events: none;
+	transform: scale(1, 1);
+	transition: all 0.3s ease-in-out 0s;
+	z-index: 9;
+}
+checkbox .wx-checkbox-input {
+	margin: 0;
+	width: 28rpx;
+	height:28rpx;
+}

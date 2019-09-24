@@ -2,7 +2,9 @@
 <cu-custom bgColor="bg-gradual-red">
   <view slot="content">Take Now</view>
 </cu-custom>
-<view class="index-bg">
+ <!-- <view class="index-bg"> -->
+<view> 
+ <!-- 轮播图 -->
   <swiper class="card-swiper" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper">
     <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
       <view class="swiper-item">
@@ -10,13 +12,15 @@
       </view>
     </swiper-item>
   </swiper>
+
+
   <view class="cu-bar search bg-white index-search">
     <view class="search-form">
       <text class="cuIcon-search"></text>
       <input type="text" placeholder="想要同学帮做你什么？" confirm-type="search"></input>
     </view>
     <view class="action">
-      <button class="cu-btn bg-gradual-red shadow-blur">Take Now</button>
+      <button class="cu-btn bg-gradual-red shadow-blur" bindtap='takeNow'>Take Now</button>
     </view>
   </view>
   <view class='index-block'>
@@ -24,4 +28,5 @@
       <image class='index-blockimg' src='/images/index{{index+1}}.png'></image>
     </navigator>
   </view>
+
 </view>

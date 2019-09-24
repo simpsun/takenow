@@ -30,6 +30,7 @@ page {
 	--gray: #aaaaaa;
 	--ghostWhite: #f1f1f1;
 	--white: #ffffff;
+  /* --tnRed:#F6275C; */
   --tnRed:#F6275C;
 	/* 浅色 */
 	--redLight: #fadbd9;
@@ -44,8 +45,8 @@ page {
 	--pinkLight: #f9d7ea;
 	--brownLight: #ede1d9;
 	--greyLight: #e7ebed;
-	/* 渐变色 */
-	--gradualRed: linear-gradient(45deg, #f43f3b, #ec008c);
+	/* 渐变色 #ec008c*/
+	--gradualRed: linear-gradient(45deg, #fa6462, #eb1093);
 	--gradualOrange: linear-gradient(45deg, #ff9700, #ed1c24);
 	--gradualGreen: linear-gradient(45deg, #39b54a, #8dc63f);
 	--gradualPurple: linear-gradient(45deg, #9000ff, #5e00ff);
@@ -67,6 +68,7 @@ page {
 	--greyShadow: rgba(114, 130, 138, 0.2);
 	--grayShadow: rgba(114, 130, 138, 0.2);
 	--blackShadow: rgba(26, 26, 26, 0.2);
+  --transparent:rgba(0,0,0,0);
   
 	background-color: var(--ghostWhite);
 	font-size: 28rpx;
@@ -100,6 +102,11 @@ image {
 {
   border-bottom-left-radius: 20rpx;
   border-bottom-right-radius:20rpx; 
+}
+.radius-bottom-x
+{
+  border-bottom-left-radius: 16rpx;
+  border-bottom-right-radius:16rpx; 
 }
 /* ==================
           图片
@@ -204,9 +211,9 @@ checkbox::before {
 	content: "\e645";
 	position: absolute;
 	color: var(--white) !important;
-	top: 50%;
+ top: 50%;
 	margin-top: -8px;
-	right: 5px;
+	right: 3px;
 	font-size: 32rpx;
 	line-height: 16px;
 	pointer-events: none;
@@ -218,8 +225,8 @@ checkbox::before {
 radio .wx-radio-input,
 checkbox .wx-checkbox-input {
 	margin: 0;
-	width: 24px;
-	height: 24px;
+	width: 20px;
+	height: 20px;
 }
 
 checkbox.round .wx-checkbox-input {
@@ -2439,7 +2446,6 @@ button.icon.lg {
 	position: relative;
 	height: 60rpx;
 	line-height: 60rpx;
-
 }
 
 .cu-form-group input {
@@ -2604,7 +2610,7 @@ button.icon.lg {
 	transform: translateX(0%);
 }
 .cu-modal .cu-dialog>.cu-bar:first-child .action{
-  min-width: 100rpx;
+  min-width: 200rpx;
   margin-right: 0;
   min-height: 100rpx;
 }
@@ -2924,6 +2930,7 @@ scroll-view.cu-steps .cu-item {
 	flex-direction: column;
 }
 
+
 .flex-wrap {
 	flex-wrap: wrap;
 }
@@ -2998,6 +3005,7 @@ scroll-view.cu-steps .cu-item {
 .grid.grid-square .cu-tag {
 	position: absolute;
 	right: 0;
+	
 	top: 0;
 	border-bottom-left-radius: 6rpx;
 	padding: 6rpx 12rpx;
@@ -3313,7 +3321,9 @@ scroll-view.cu-steps .cu-item {
 .padding-right-xl {
 	padding-right: 50rpx;
 }
-
+.padding-bottom-0{
+	padding-bottom:0
+}
 .padding-bottom-xs {
 	padding-bottom: 10rpx;
 }
@@ -3595,6 +3605,8 @@ background-color:rgba(190,226,148,0.4);
 .bg-white {
 	background-color: var(--white);
 	color: var(--darkGray);
+}.bg-transparent{
+  background-color: transparent;
 }
 .bg-whitesmoke{
   background-color: whitesmoke;
@@ -3878,7 +3890,9 @@ background-color:rgba(190,226,148,0.4);
 .text-df {
 	font-size: 28rpx;
 }
-
+.text-l{
+	font-size: 30rpx;
+}
 .text-lg {
 	font-size: 32rpx;
 }
@@ -4048,6 +4062,9 @@ background-color:rgba(190,226,148,0.4);
 	background-color: var(--tnRed);
 	color: var(--white);
 }
+.bg-tnRedLight{
+  background-color: rgba(246,39,92,0.4)
+}
 .text-tnRed{
   color:var(--tnRed);
 }
@@ -4058,19 +4075,27 @@ background-color:rgba(190,226,148,0.4);
   margin-top:  -105rpx;
   z-index: 1;
 }
+
 .index-search{
   width: 90%;
   left:5%;
-  border-radius: 10rpx;
-  margin-top: -60rpx;
+ border-radius: 16rpx 16rpx 0 0;
+  margin-top: 0rpx;
 }
+/* .index-search{
+  width: 100%;
+  padding-top:50rpx; 
+  border-top-left-radius: 150rpx;
+  border-top-right-radius: 150rpx;
+  margin-top: -20rpx
+} */
 .index-bg{
   position: absolute;
   z-index: -1;
   background-image: var(--gradualRed);
   background-repeat: no-repeat;
   width:100%;
-  height: 410rpx;
+  height: 600rpx;
 }
 .wrapper {
   position: absolute;
@@ -4150,4 +4175,13 @@ background-color:rgba(190,226,148,0.4);
   width: 90%;
   background: var(--tnRed);
   color: white
+}
+.bg-tabbar {
+  width: 100%;
+  height: 500rpx;
+  border-radius: 0 0 120rpx 120rpx;
+  position: absolute;
+  /* 状态栏设为透明色，从屏幕顶部开始 */
+  top: 0;
+  z-index: -1;
 }

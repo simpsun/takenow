@@ -4,7 +4,7 @@
 	position: relative;
 	width: 90%;
   left:5%;
-  border-radius: 10rpx;
+  border-radius:0 0 16rpx 16rpx;
 	display: flex;
 	 flex-wrap:wrap;
 	justify-content: space-between;
@@ -12,6 +12,19 @@
 	background-color: white;
 	padding:20rpx 10rpx 0 10rpx;
 }
+/* 
+.index-block{
+	position: relative;
+	width: 90%;
+  left:5%;
+  border-radius: 10rpx;
+	display: flex;
+	 flex-wrap:wrap;
+	justify-content: space-between;
+	height: 220rpx;
+	background-color: white;
+	padding:20rpx 10rpx 0 10rpx;
+} */
 .ablock{
 	width: 160rpx;
 	height: 80rpx;
