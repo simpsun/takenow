@@ -1,4 +1,7 @@
 /* pages/index/takeNow.wxss */
+page{
+  background-color: ghostWhite;
+}
 .dialog {
 	position: relative;
 	display: inline-block;
@@ -24,12 +27,47 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+.addressBar{
+  
+  display: flex;
+  flex-direction: column;
+  border-radius: 48rpx;
+  height: 200rpx;
+  width: 100%;
+  margin: 20rpx auto;
+  background-color: white;
+}
+.addressOption{
+  height: 49%;
+  width: 100%;
+  border-radius: 32rpx;
+  margin:auto;
+  /* background-color: grey; */
+  display: flex;
+  align-items: center;
+}
 
-.goodsInfo {
-  position: absolute;
-  top: 180rpx;
+.addressOption .icon{
+  margin: 20rpx;
+}
+.addrDividingLine{
+background:linear-gradient(to left,#efefef,#b6b6b6,#efefef);
   width: 90%;
-  margin-left: 5%;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+height:1rpx;
+ overflow: hidden;
+}
+.addressText{
+
+  color: black;
+}
+.goodsInfo {
+
+  top: 150rpx;
+  width: 94%;
+  margin-left: 3%;
 }
 
 .goodsInput {
@@ -44,14 +82,14 @@
 .goodsRemark {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  width: 90%;
-  margin-left: 5%;
+  width: 94%;
+  margin-left: 3%;
 }
 
 .goodsAddress {
   margin-top: 30rpx;
   background-color: white;
-  border-radius: 16rpx;
+  border-radius: 32rpx;
 }
 
 .goodsAddressType {
@@ -136,11 +174,10 @@ width: 100%;
 }
 .swithTakeStyle{
   position: relative;
-  top: 600rpx;
-  border: #666666 solid 2rpx;
+ background-color: whitesmoke;
   border-radius: 48rpx;
   width: 60%;
-  margin: auto;
+  margin:30rpx auto;
   height: 80rpx;
   display: flex;
   flex-direction: row;
@@ -153,6 +190,4 @@ width: 100%;
   align-items: center;
   border-radius: 48rpx;
   width: 50%;
-
-
 }

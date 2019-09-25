@@ -26,4 +26,4 @@
   </form>
 </view>
 
-<image   class='ddd' src='../images/index/advertise.png' > </image>
+<image   class='advertiseImg' src='../images/index/advertise.png' > </image>

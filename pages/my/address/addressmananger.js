@@ -179,12 +179,5 @@ Page({
         default: arr[e.index].default
       });
     }
-  },
-  onReady: function() {},
-  onShow: function() {},
-  onHide: function() {},
-  onUnload: function() {},
-  onPullDownRefresh: function() {},
-  onReachBottom: function() {},
-  onShareAppMessage: function() {}
+  }
 });

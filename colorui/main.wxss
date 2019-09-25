@@ -47,6 +47,7 @@ page {
 	--greyLight: #e7ebed;
 	/* 渐变色 #ec008c*/
 	--gradualRed: linear-gradient(45deg, #fa6462, #eb1093);
+  /* --gradualRed: linear-gradient(0deg, #f1f1f1, #eb1093 ); */
 	--gradualOrange: linear-gradient(45deg, #ff9700, #ed1c24);
 	--gradualGreen: linear-gradient(45deg, #39b54a, #8dc63f);
 	--gradualPurple: linear-gradient(45deg, #9000ff, #5e00ff);
@@ -4178,8 +4179,8 @@ background-color:rgba(190,226,148,0.4);
 }
 .bg-tabbar {
   width: 100%;
-  height: 500rpx;
-  border-radius: 0 0 120rpx 120rpx;
+  height: 600rpx;
+  border-radius: 0 0 30rpx 30rpx;
   position: absolute;
   /* 状态栏设为透明色，从屏幕顶部开始 */
   top: 0;

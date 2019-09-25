@@ -6,23 +6,8 @@
 <view class="bg-gradual-red bg-tabbar"></view>
 <form>
   <view class='goodsInfo'>
-    <view class="cu-form-group goodsInput">
-      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="goodsInfoArea"></textarea>
-    </view>
-    <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
-
-      <view class="title">备注</view>
-      <!-- 
-      <text class="cuIcon-locationfill text-gray"></text>
-			-->
-      <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
-      <text class="cuIcon-right  text-gray"></text>
-    </navigator>
-    <view class='goodsAddress'>
-      <view class='flex'>
-        <view class="goodsAddressType">购买地址</view>
-        <radio-group name='sex' class='margin-top-xs' bindchange='radioChange'>
-          <label class="radio">
+    <!-- <radio-group name='sex' class='margin-top-xs' bindchange='radioChange'>
+          <label class="radio"> 
             <radio checked class="tnRed" value="0"></radio>
             <text class='text-l' decode="{{true}}">&nbsp;指定地点</text>
           </label>
@@ -31,30 +16,46 @@
             <radio class="tnRed" value="1"></radio>
             <text class='text-l' decode="{{true}}">&nbsp;就近购买</text>
           </label>
-        </radio-group>
+        </radio-group> -->
 
-      </view>
-      <button wx:if="{{goodsAddressTypeSelected==0}}" style='height:30rpx;' bindtap='selectGoodsAddress' class="cu-form-group radius-bottom-x goodsAddressSelected desAddressButton" hover-class='none'>
-        <input class="remarkText" disabled="true " name="SelectGoodsAddress" placeholder="选择购买地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{selectedAddress}}"></input>
-        <text class="cuIcon-right  text-gray"></text>
-      </button>
-
-      <view wx:else class="cu-form-group radius-bottom-x goodsAddressSelected">
-        <view class="remarkText">限学校周边代购</view>
-      </view>
-      <view wx:if="{{goodsAddressTypeSelected==0&&!!selectedAddress}}">
-        <!-- !!a等价于a!=null&&typeof(a)!=undefined&&a!=''-->
-        <input class="remarkText" name="detailedAddress" placeholder="详细描述地址(选填)" placeholder-class='remarkTextPlaceholder'></input>
-      </view>
-      <view class='flex margin-top-xs'>
-        <view class="goodsPurchaseAddressTitle">送达地址</view>
-        <button style='height:50rpx;' bindtap='selectReceivingAddress' class="cu-form-group desAddressButton goodsPurchaseAddressButton" hover-class='none'>
-          <input class="goodsPurchaseAddressText" disabled="true " name="SelectReceivingAddress" placeholder="选择送达地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{receivingAddress}}"></input>
-          <text class="cuIcon-right  text-gray"></text>
-        </button>
-      </view>
+    <!-- 切换标签 指定地点/就近购买 -->
+    <view class="swithTakeStyle">
+      <block wx:for="{{switchTakeList}}" wx:key>
+        <view class="switchTakeBtn  {{switchTakeTag==index?'bg-white text-tnRed':'' }}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
+      </block>
     </view>
+    <!-- 地址栏 -->
+    <view class="addressBar shadow-warp">
+    <view class="addrDividingLine"></view>
+        <block  wx:for='{{2}}' wx:key>
+        <!-- 就近购买送达地址不可选 -->
+            <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
+          <view class="icon">
+            <text class="cuIcon-title text-{{index==0?'orange':'green'}}" style="font-size:36rpx;"></text>
+          </view>
+          <view class="addressText">{{index==0?(switchTakeTag==1?'Taker会在附近区域购买':addrPurchaseText):addrDeliverText}}</view>
+            </view>
+            <view></view>
+      </block>
+    </view>
+  
+
+
+
+    <view class="cu-form-group goodsInput shadow-warp">
+      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" ></textarea>
+    </view>
+    <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
+
+      <view class="title">备注</view>
+      <!-- 
+      <text class="cuIcon-locationfill text-gray"></text>
+			-->
+      <input class="remarkInput"  disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
+      <text class="cuIcon-right  text-gray"></text>
+    </navigator>
   </view>
+
 
 </form>
 
@@ -82,14 +83,8 @@
     </view>
   </view>
 </view>
-<view class="swithTakeStyle">
-  <block wx:for="{{switchTakeList}}" wx:key>
-    <view class="switchTakeBtn  {{switchTakeTag==index?'bg-tnRed':''}}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
-  </block>
-</view>
 
-
-
+<!-- 调用窗口 -->
 <view class="cu-modal {{modalName=='BackDialogModal'?'show':''}}">
   <view class="dialog">
 
@@ -104,3 +99,29 @@
     </view>
   </view>
 </view>
+
+<!-- <view class='goodsAddress'>
+      <view class='flex'>
+        <view class="goodsAddressType">购买地址</view>
+
+      </view>
+      <button wx:if="{{goodsAddressTypeSelected==0}}" style='height:30rpx;' bindtap='selectGoodsAddress' class="cu-form-group radius-bottom-x goodsAddressSelected desAddressButton" hover-class='none'>
+        <input class="remarkText" disabled="true " name="SelectGoodsAddress" placeholder="选择购买地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{selectedAddress}}"></input>
+        <text class="cuIcon-right  text-gray"></text>
+      </button>
+
+      <view wx:else class="cu-form-group radius-bottom-x goodsAddressSelected">
+        <view class="remarkText">限学校周边代购</view>
+      </view>
+      <view wx:if="{{goodsAddressTypeSelected==0&&!!selectedAddress}}">
+  
+        <input class="remarkText" name="detailedAddress" placeholder="详细描述地址(选填)" placeholder-class='remarkTextPlaceholder'></input>
+      </view>
+      <view class='flex margin-top-xs'>
+        <view class="goodsPurchaseAddressTitle">送达地址</view>
+        <button style='height:50rpx;' bindtap='selectReceivingAddress' class="cu-form-group desAddressButton goodsPurchaseAddressButton" hover-class='none'>
+          <input class="goodsPurchaseAddressText" disabled="true " name="SelectReceivingAddress" placeholder="选择送达地址" placeholder-style='color:#000;' placeholder-class='remarkTextPlaceholder' value="{{receivingAddress}}"></input>
+          <text class="cuIcon-right  text-gray"></text>
+        </button>
+      </view>
+    </view> -->

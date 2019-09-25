@@ -34,7 +34,7 @@ page {
 .funcCard{
   position: relative;
   top: 250rpx;
-  width: 90%;
+  width: 94%;
   margin: auto;
 
   background-color: white;
@@ -76,11 +76,11 @@ page {
   top: 336rpx;
   left: 70rpx;
 }
-.ddd{
+.advertiseImg{
  position: relative;
  top: 280rpx;
- left: 5%;
+ left: 3%;
  border-radius: 20rpx;
- width: 90%;
+ width: 94%;
  height: 120rpx;
 }
