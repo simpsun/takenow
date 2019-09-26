@@ -6,18 +6,6 @@
 <view class="bg-gradual-red bg-tabbar"></view>
 <form>
   <view class='goodsInfo'>
-    <!-- <radio-group name='sex' class='margin-top-xs' bindchange='radioChange'>
-          <label class="radio"> 
-            <radio checked class="tnRed" value="0"></radio>
-            <text class='text-l' decode="{{true}}">&nbsp;指定地点</text>
-          </label>
-          <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
-          <label class="radio">
-            <radio class="tnRed" value="1"></radio>
-            <text class='text-l' decode="{{true}}">&nbsp;就近购买</text>
-          </label>
-        </radio-group> -->
-
     <!-- 切换标签 指定地点/就近购买 -->
     <view class="swithTakeStyle">
       <block wx:for="{{switchTakeList}}" wx:key>
@@ -26,36 +14,53 @@
     </view>
     <!-- 地址栏 -->
     <view class="addressBar shadow-warp">
-    <view class="addrDividingLine"></view>
-        <block  wx:for='{{2}}' wx:key>
+      <view class="addrDividingLine"></view>
+      <block wx:for='{{2}}' wx:key>
         <!-- 就近购买送达地址不可选 -->
-            <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
+        <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
           <view class="icon">
             <text class="cuIcon-title text-{{index==0?'orange':'green'}}" style="font-size:36rpx;"></text>
           </view>
           <view class="addressText">{{index==0?(switchTakeTag==1?'Taker会在附近区域购买':addrPurchaseText):addrDeliverText}}</view>
-            </view>
-            <view></view>
+        </view>
+        <view></view>
       </block>
     </view>
-  
-
-
-
-    <view class="cu-form-group goodsInput shadow-warp">
-      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" ></textarea>
+    <!-- 购买商品信息 -->
+    <view class="cu-form-group goodsInput ">
+      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}"></textarea>
     </view>
     <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
 
       <view class="title">备注</view>
-      <!-- 
-      <text class="cuIcon-locationfill text-gray"></text>
-			-->
-      <input class="remarkInput"  disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
+
+      <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
       <text class="cuIcon-right  text-gray"></text>
     </navigator>
   </view>
-
+  <view class="cu-list menu   card-menu margin-top">
+    <view class="cu-item arrow">
+      <view class="content">
+        <text class="cuIcon-circlefill text-grey"></text>
+        <text class="text-grey">图标 + 标题</text>
+      </view>
+    </view>
+    <view class="cu-item" bindtap="showModal" data-target="ChooseModal" hover-class="navigator-hovor">
+      <view class="content">
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-black">跑腿费</text>
+      </view>
+      <view class="action">
+        <text class="{{!!userDeterminedCost?'text-orange':'text-grey'}} text-l">{{!!userDeterminedCost?('￥'+userDeterminedCost):'费用越高，成功率越高哦'}}</text>
+      </view>
+    </view>
+    <view class="cu-item arrow" bindtap="showModal" data-target="ChooseModal">
+      <view class="content">
+        <text class="cuIcon-circlefill text-grey"></text>
+        <text class="text-grey">图标 + 标题</text>
+      </view>
+    </view>
+  </view>
 
 </form>
 
@@ -83,6 +88,34 @@
     </view>
   </view>
 </view>
+
+
+<!-- 跑腿费窗口 -->
+
+<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap="forStopBubbles">
+    <view class="cu-bar bg-white">
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+      <view class="action text-tnRed" bindtap="determineCost">确定</view>
+    </view>
+    <view class="grid col-3 padding-sm">
+      <view wx:for="{{checkbox}}" class="padding-xs" wx:key="{{index}}">
+
+        <button class="cu-btn tnRed lg block {{selectedCostTag==item.value?'bg-tnRed':'line-tnRed'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}">
+          {{item.money}}元
+          <view class="cu-tag sm round {{selectedCostTag==item.value?'bg-white text-tnRed':'bg-tnRed'}}" wx:if="{{item.hot}}">{{item.value==0?'最低':'Hot'}}</view>
+        </button>
+      </view>
+    </view>
+    <view class="customCost" bindtap="onOtherCost">
+   <view wx:if="{{OtherCostInputStaus&&selectedCostTag==6}}">其他金额:￥<input class="otherCostInput" focus="focusedOtherCost" type="digit" cursor-spacing="20" bindblur="filledOtherCost"></input></view>
+    <view wx:else>
+   其他金额
+    </view>
+    </view>
+  </view>
+</view>
+
 
 <!-- 调用窗口 -->
 <view class="cu-modal {{modalName=='BackDialogModal'?'show':''}}">

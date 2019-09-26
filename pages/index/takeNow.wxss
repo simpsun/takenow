@@ -17,24 +17,14 @@ page{
 .btnWidth{
 	width: 120rpx;
 }
-.takenowBg {
-  display: flex;
-  flex-direction: column;
-  background: var(--gradualRed);
-  width: 100%;
-  height: 200rpx;
-  margin-bottom: 50rpx;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+/* 地址框 */
 .addressBar{
-  
   display: flex;
   flex-direction: column;
-  border-radius: 48rpx;
+  border-radius: 24rpx;
   height: 200rpx;
   width: 100%;
-  margin: 20rpx auto;
+  margin: 50rpx auto;
   background-color: white;
 }
 .addressOption{
@@ -46,10 +36,11 @@ page{
   display: flex;
   align-items: center;
 }
-
+/* 地址栏上的小圆圈 */
 .addressOption .icon{
   margin: 20rpx;
 }
+/* 分割线 */
 .addrDividingLine{
 background:linear-gradient(to left,#efefef,#b6b6b6,#efefef);
   width: 90%;
@@ -60,68 +51,21 @@ height:1rpx;
  overflow: hidden;
 }
 .addressText{
-
   color: black;
 }
 .goodsInfo {
-
   top: 150rpx;
   width: 94%;
   margin-left: 3%;
 }
-
 .goodsInput {
   border-top-right-radius: 16rpx;
   border-top-left-radius: 16rpx;
 }
-
 .remarkInput {
   text-align: right;
 }
 
-.goodsRemark {
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  width: 94%;
-  margin-left: 3%;
-}
-
-.goodsAddress {
-  margin-top: 30rpx;
-  background-color: white;
-  border-radius: 32rpx;
-}
-
-.goodsAddressType {
-  text-align: justify;
-  margin: 10rpx 30rpx 0 30rpx;
-  font-size: 30rpx;
-  position: relative;
-  height: 40rpx;
-  line-height: 40rpx;
-}
-.goodsPurchaseAddressTitle {
-  text-align: justify;
-  margin-left: 30rpx;
-  font-size: 30rpx;
-  position: relative;
-  height: 50rpx;
-  line-height: 50rpx;
-}
-.goodsAddressSelected {
-  margin-top: 10rpx;
-		padding: 0;
-  min-height: 40rpx;
-}
-.goodsPurchaseAddressButton{
-	padding: 0;
-	
-  min-height: 40rpx;
-	position:absolute;
-	right: 0;
-	width: 74%;
-	
-}
 .remarkText {
   text-align: justify;
   padding-right: 30rpx;
@@ -133,51 +77,19 @@ height:1rpx;
 
 
 }
-.goodsPurchaseAddressText{
-  text-align: justify;
-  font-size: 30rpx;
-  position: relative;
-  height: 40rpx;
-  line-height: 40rpx;
-}
-radio::before {
-  font-family: "cuIcon";
-  content: "\e645";
-  position: absolute;
-  color: var(--white) !important;
-  top: 40%;
-  margin-top: -8rpx;
-  right: 5rpx;
-  font-size: 24rpx;
-  line-height: 12px;
-  pointer-events: none;
-  transform: scale(1, 1);
-  transition: all 0.3s ease-in-out 0s;
-  z-index: 9;
-}
 
-radio .wx-radio-input {
-  /* 控制圆的大小 */
-  margin: 0;
-  width: 12px;
-  height: 12px;
-}
-.desAddress{
-width: 100%;
-}
+
 .remarkTextPlaceholder{
 	font-size: 30rpx;
 }
-.desAddressButton::after {
-   border: none;
-   border-radius: 0;
-}
+
 .swithTakeStyle{
   position: relative;
  background-color: whitesmoke;
   border-radius: 48rpx;
   width: 60%;
-  margin:30rpx auto;
+  margin:30rpx  auto;
+  margin-bottom: 60rpx;
   height: 80rpx;
   display: flex;
   flex-direction: row;
@@ -190,4 +102,22 @@ width: 100%;
   align-items: center;
   border-radius: 48rpx;
   width: 50%;
+}
+.customCost{
+border: 1rpx solid;
+  width:92%;
+  padding: 0;
+  font-size: 32rpx;
+  color: var(--tnRed);
+  margin:0rpx auto 40rpx auto;
+  height: 80rpx;
+  border-radius: 10rpx;
+display:flex;
+flex-direction: row;
+ justify-content: center;
+ align-items: center;
+text-align: left;
+}
+.otherCostInput{
+  display:inline-flex;
 }

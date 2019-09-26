@@ -31,7 +31,8 @@ page {
 	--ghostWhite: #f1f1f1;
 	--white: #ffffff;
   /* --tnRed:#F6275C; */
-  --tnRed:#F6275C;
+  --tnRed:rgb(246, 39, 92);
+  --tnRedLight:rgb(246, 39, 92,0.5);
 	/* 浅色 */
 	--redLight: #fadbd9;
 	--orangeLight: #fde6d2;
@@ -1496,8 +1497,8 @@ button.icon.lg {
 }
 
 .cu-list.menu.sm-border>.cu-item:after {
-	left: 30rpx;
-	width: calc(200% - 120rpx)
+margin: auto;
+	width:94%
 }
 
 .cu-list.grid>.cu-item {
@@ -2583,7 +2584,7 @@ button.icon.lg {
 }
 
 .cu-modal.bottom-modal.show {
-	margin-bottom: 0;
+	margin-bottom: 0rpx;
 }
 
 .cu-modal.drawer-modal {
@@ -4066,7 +4067,8 @@ background-color:rgba(190,226,148,0.4);
 .bg-tnRedLight{
   background-color: rgba(246,39,92,0.4)
 }
-.text-tnRed{
+.text-tnRed,
+.line-tnRed{
   color:var(--tnRed);
 }
 .image-arcs{
