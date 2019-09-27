@@ -31,7 +31,7 @@ page {
 	--ghostWhite: #f1f1f1;
 	--white: #ffffff;
   /* --tnRed:#F6275C; */
-  --tnRed:rgb(246, 39, 92);
+  --tnRed:#f6275c;
   --tnRedLight:rgb(246, 39, 92,0.5);
 	/* 浅色 */
 	--redLight: #fadbd9;
@@ -3169,7 +3169,9 @@ scroll-view.cu-steps .cu-item {
 .margin-right-xl {
 	margin-right: 50rpx;
 }
-
+.margin-right-xxl{
+  margin-right: 70rpx;
+}
 .margin-bottom-xs {
 	margin-bottom: 10rpx;
 }
@@ -3189,7 +3191,9 @@ scroll-view.cu-steps .cu-item {
 .margin-bottom-xl {
 	margin-bottom: 50rpx;
 }
-
+.margin-bottom-vl {
+	margin-bottom: 130rpx;
+}
 .margin-left-xs {
 	margin-left: 10rpx;
 }

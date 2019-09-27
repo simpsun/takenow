@@ -1,9 +1,9 @@
 <!--pages/index/takeNow.wxml-->
-<cu-custom bgColor="transparent" isBack="{{true}}">
+<cu-custom bgColor="bg-tnRed" isBack="{{true}}">
   <view style='color:white;' slot="backText">返回</view>
   <view style='color:white;' slot="content">Take Now</view>
 </cu-custom>
-<view class="bg-gradual-red bg-tabbar"></view>
+<view class="bg-tnRed bg-tabbar"></view>
 <form>
   <view class='goodsInfo'>
     <!-- 切换标签 指定地点/就近购买 -->
@@ -38,37 +38,72 @@
       <text class="cuIcon-right  text-gray"></text>
     </navigator>
   </view>
-  <view class="cu-list menu   card-menu margin-top">
-    <view class="cu-item arrow">
+  <view class="cu-list menu  card-menu margin-top shadow-warp">
+    <!-- 物品重量 -->
+    <view class="cu-item arrow" bindtap="showModal" data-target="WeightModel" hover-class="navigator-hovor">
       <view class="content">
-        <text class="cuIcon-circlefill text-grey"></text>
-        <text class="text-grey">图标 + 标题</text>
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-black">物品重量</text>
+      </view>
+      <view class="action">
+        <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{userDeterminedWeight||"小于1Kg"}}</text>
       </view>
     </view>
-    <view class="cu-item" bindtap="showModal" data-target="ChooseModal" hover-class="navigator-hovor">
+    <!-- 性别限制 -->
+    <view class="cu-item arrow" bindtap="onGenderLimit" hover-class="navigator-hovor">
+      <view class="content">
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-black">性别限制</text>
+      </view>
+      <view class="action">
+        <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{selectedGenderLimit||'不限性别'}}</text>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="cu-list menu  card-menu margin-top shadow-warp margin-bottom-vl">
+    <!-- 跑题费用 -->
+    <view class="cu-item arrow" bindtap="showModal" data-target="ChooseModal" hover-class="navigator-hovor">
       <view class="content">
         <text class="cuIcon-warn text-green"></text>
         <text class="text-black">跑腿费</text>
       </view>
       <view class="action">
-        <text class="{{!!userDeterminedCost?'text-orange':'text-grey'}} text-l">{{!!userDeterminedCost?('￥'+userDeterminedCost):'费用越高，成功率越高哦'}}</text>
+        <text class="{{!!userDeterminedCost?'text-orange':'text-grey'}} text-l margin-right-xxl">{{!!userDeterminedCost?('￥'+userDeterminedCost):'费用越高，成功率越高哦'}}</text>
       </view>
     </view>
-    <view class="cu-item arrow" bindtap="showModal" data-target="ChooseModal">
+
+
+    <!-- 订单过期 -->
+    <view class="cu-item arrow" bindtap="showModal" data-target="orderLifeModel" hover-class="navigator-hovor">
       <view class="content">
-        <text class="cuIcon-circlefill text-grey"></text>
-        <text class="text-grey">图标 + 标题</text>
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-black">订单过期</text>
+      </view>
+      <view class="action">
+        <text class="text-grey text-l margin-right-xxl">指定出发时间<text style="display:inline-block;color:#3aabea;">{{userDeterminedWeight||orderLifeList[selectedOrderLife]}}</text>内接单</text>
       </view>
     </view>
   </view>
+  <view class="submitOrderBar">
+    <view class="submitOrderText">
+      <view class="text-lg text-black">待支付：
+        <text class="otherCostInput text-orange text-xxl">￥1</text>
+      </view>
+      <view class="text-xs text-grey">(包括跑腿费用和商品费用)</view>
+    </view>
+    <view class="submitOrderBtn">提交订单</view>
 
+  </view>
 </form>
 
 
+<!-- -------------------------------------------调用窗口--------------------------------------------- -->
 
 
-
-
+<!-- 位置信息窗口 -->
 <view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
   <view class="cu-dialog">
     <view class="cu-bar bg-white justify-end">
@@ -89,9 +124,6 @@
   </view>
 </view>
 
-
-<!-- 跑腿费窗口 -->
-
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
   <view class="cu-dialog" catchtap="forStopBubbles">
     <view class="cu-bar bg-white">
@@ -108,10 +140,12 @@
       </view>
     </view>
     <view class="customCost" bindtap="onOtherCost">
-   <view wx:if="{{OtherCostInputStaus&&selectedCostTag==6}}">其他金额:￥<input class="otherCostInput" focus="focusedOtherCost" type="digit" cursor-spacing="20" bindblur="filledOtherCost"></input></view>
-    <view wx:else>
-   其他金额
-    </view>
+      <view wx:if="{{OtherCostInputStaus&&selectedCostTag==6}}">其他金额:￥
+        <input class="otherCostInput" focus="focusedOtherCost" type="digit" cursor-spacing="20" bindblur="filledOtherCost"></input>
+      </view>
+      <view wx:else>
+        其他金额
+      </view>
     </view>
   </view>
 </view>
@@ -132,6 +166,39 @@
     </view>
   </view>
 </view>
+
+
+<!-- 物品重量窗口 -->
+<view class="cu-modal bottom-modal {{modalName=='WeightModel'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap="forStopBubbles">
+    <view class="cu-bar bg-white">
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+      <view class="action text-tnRed" bindtap="determineWeight">确定</view>
+    </view>
+    <view class="text-tnRed text-xl margin-top">{{selectedWeight}}</view>
+    <view class="WeightChangeSlider">
+      <slider bindchange="onWeightChange" activeColor="#f6275c" min="0" max="9" />
+
+    </view>
+  </view>
+</view>
+
+
+<!-- 订单过期窗口 -->
+<view class="cu-modal bottom-modal {{modalName=='orderLifeModel'?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog" catchtap="forStopBubbles">
+    <view class="cu-bar bg-white">
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+      <view class="action text-tnRed" bindtap="determineOrderLife">确定</view>
+    </view>
+    <view class="text-tnRed text-xl margin-top">{{orderLifeList[selectedOrderLife]}}</view>
+    <view class="WeightChangeSlider">
+      <slider bindchange="onOrderLifeChange" activeColor="#f6275c" min="0" max="12" value="10" />
+
+    </view>
+  </view>
+</view>
+
 
 <!-- <view class='goodsAddress'>
       <view class='flex'>
