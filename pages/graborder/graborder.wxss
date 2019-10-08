@@ -1,150 +1,167 @@
 /* pages/graborder/graborder.wxss */
 
 .rewardListAndMyReward {
-  display: flex;
-  width: 94%;
-  height: 300rpx;
-  border-radius: 16rpx;
-  flex-direction: row;
-  margin: 20rpx auto;
+	display: flex;
+	width: 94%;
+	height: 300rpx;
+	border-radius: 16rpx;
+	flex-direction: row;
+	margin: 20rpx auto;
 }
 
 .rewardListBar {
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  background-color: var(--blueLight);
-  border-radius: 16rpx;
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	/* background-color: var(--blueLight); */
+	background-color: var(--white);
+	border-radius: 16rpx;
 }
 
 .rewardHunter {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  width: 96%;
-  height: 100rpx;
-  margin: 5rpx auto;
-  background-color: #f0f0f0;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	width: 96%;
+	height: 100rpx;
+	margin: 5rpx auto;
+	/* background-color: #f0f0f0; */
+	background-color:  var(--blueLight);
+	align-items: center;
 }
 
 .medal {
-  width: 48rpx;
-  height: 48rpx;
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
+	width: 48rpx;
+	height: 48rpx;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
 }
 
 .rewardAvatar {
-  margin-left: 20rpx;
+	margin-left: 20rpx;
 }
 
 .rewardHunterInfo {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20rpx;
+	display: flex;
+	flex-direction: column;
+	margin-left: 20rpx;
 }
 
 .rewardHunterReward {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  right: 20rpx;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	right: 20rpx;
 }
 
 .myRewardBar {
-  background-color: #fadbd9;
-  border-radius: 16rpx;
-  margin-left: 2%;
-  width: 28%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+/* 	background-color: #fadbd9; */
+background-color:white;
+	border-radius: 16rpx;
+	margin-left: 2%;
+	width: 28%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .myRewardBtn {
-  height: 80rpx;
-  width: 90%;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: grey;
-  size: 32rpx;
-  border-radius: 16rpx;
+	height: 80rpx;
+	width: 90%;
+/* 	background-color: #f0f0f0; */
+	background-color:  var(--blueLight);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: grey;
+	size: 32rpx;
+	border-radius: 16rpx;
 }
 
 .filterBar {
-  margin: 20rpx auto;
-  width: 94%;
-  height: 80rpx;
-  background-color: white;
-  border-radius: 16rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  color: grey;
-  size: 48rpx;
+	margin: 20rpx auto;
+	width: 94%;
+	height: 80rpx;
+	background-color: white;
+	border-radius: 16rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	color: grey;
+	size: 48rpx;
 }
 
 .selectedFilterBarBtn {
-  color: var(--tnRed);
-  border-bottom: 3rpx solid var(--tnRed);
+	color: var(--tnRed);
+	border-bottom: 3rpx solid var(--tnRed);
 }
 
 .filterIcan {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .filterSelectImg {
-  width: 48rpx;
-  height: 48rpx;
+	width: 48rpx;
+	height: 48rpx;
 }
 
 .grabOrderList {
-  width: 94%;
-  right: 1%;
+	width: 94%;
+	right: 1%;
 }
 
 .grabOrderItem {
-  
-  width: 100%;
-  height: 120rpx;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
+
+	width: 100%;
+	height: 120rpx;
+	display: flex;
+	flex-direction: row;
+	padding: 0;
 }
 
 .grabOrderItemInfoLeft {
 
-border: 5rpx #666666 solid;
-  width: 85%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
 
-}
-.itemGoodInfo{
-  width: 100%;
-  height:50rpx;
-  background-color: gainsboro;
-overflow:hidden;
-text-overflow: ellipsis;
-white-space:nowrap;
-font-size: 32rpx;
-color: black;
+	width: 85%;
+	height: 90%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around
 }
 
+.itemGoodInfo {
+	width: 100%;
+	height: 50rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 32rpx;
+	color: black;
+}
+
+.itemOtherInfo {
+	display: flex;
+	flex-direction: row;
+	padding-left: 13rpx;
+	justify-content: flex-start;
+	
+}
+.itemReleaseTime{
+	margin:auto 20rpx;
+	
+}
 .grabOrderItemInfoRight {
-
-  background-color: red;
-  width: 20%; 
-
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items: center;
+	width: 20%;
 }

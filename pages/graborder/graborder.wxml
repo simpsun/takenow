@@ -1,58 +1,63 @@
 <!--pages/graborder/graborder.wxml-->
 <cu-custom bgColor="bg-gradual-red">
-  <view slot="content">抢单</view>
+	<view slot="content">抢单</view>
 </cu-custom>
 <!-- 赏金排行榜 -->
 <view class="rewardListAndMyReward">
-  <view class="rewardListBar">
-    <text class="margin-left-sm margin-top-xs text-tnRed text-xl">赏金排行榜</text>
-    <text class="margin-left text-grey text-sm">人人都是赏金猎人</text>
-    <block wx:for="{{rewardHunterList}}" wx:key>
-      <view class="rewardHunter">
-        <image class="medal" src="../../images/graborder/medal{{item.id}}.png"></image>
-        <view class="cu-avatar l round  rewardAvatar" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
-        <view class="rewardHunterInfo">
-          <text class="text-l ">伊泽瑞</text>
-          <text class="text-grey">软件学院</text>
-        </view>
-        <view class="rewardHunterReward">
-          <view class="text-grey text-right">月赚</view>
-          <view class="text-l text-orange">￥1234</view>
-        </view>
-      </view>
-    </block>
-  </view>
-  <!-- 我的赏金 -->
-  <view class="myRewardBar ">
-    <view class="text-tnRed text-xl">我的赏金</view>
-    <view class="text-xl text-orange">￥1234</view>
-    <view hover-class="navigator-hovor" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
-  </view>
+	<view class="rewardListBar">
+		<text class="margin-left-sm margin-top-xs text-black text-xl">赏金排行榜</text>
+		<text class="margin-left text-grey text-sm">人人都是赏金猎人</text>
+		<block wx:for="{{rewardHunterList}}" wx:key>
+			<view class="rewardHunter">
+				<image class="medal" src="../../images/graborder/medal{{item.id}}.png"></image>
+				<view class="cu-avatar l round  rewardAvatar" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
+				<view class="rewardHunterInfo">
+					<text class="text-l ">伊泽瑞</text>
+					<text class="text-grey">软件学院</text>
+				</view>
+				<view class="rewardHunterReward">
+					<view class="text-grey text-right">月赚</view>
+					<view class="text-l text-orange">￥1234</view>
+				</view>
+			</view>
+		</block>
+	</view>
+	<!-- 我的赏金 -->
+	<view class="myRewardBar ">
+		<view class="text-black text-xl">我的赏金</view>
+		<view class="text-xl text-orange">￥1234</view>
+		<view hover-class="navigator-hovor" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
+	</view>
 </view>
 <view class="filterBar">
-  <block wx:for="{{filterBarList}}" wx:key>
-    <view class="{{item.id==selectedFilterBtn?'selectedFilterBarBtn':''}}" data-findex="{{index}}" bindtap="onFilterBarBtn">{{item.value}}</view>
-  </block>
-  <view class="filterIcan" style="{{isFilterIcan?'color:var(--tnRed)':''}}" bindtap="onFilterIcan">我能接的
-    <image class="filterSelectImg" src="../../images/graborder/filterSelect{{isFilterIcan?'_active':''}}.png"></image>
-  </view>
+	<block wx:for="{{filterBarList}}" wx:key>
+		<view class="{{item.id==selectedFilterBtn?'selectedFilterBarBtn':''}}" data-findex="{{index}}" bindtap="onFilterBarBtn">{{item.value}}</view>
+	</block>
+	<view class="filterIcan" style="{{isFilterIcan?'color:var(--tnRed)':''}}" bindtap="onFilterIcan">我能接的
+		<image class="filterSelectImg" src="../../images/graborder/filterSelect{{isFilterIcan?'_active':''}}.png"></image>
+	</view>
 </view>
 
 
 
 
 <view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList">
-  <view class="cu-item grabOrderItem" hover-class="navigator-hovor">
-    <view class="grabOrderItemInfoLeft">
-      <view class="itemGoodInfo">【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847
-</view>
-      <view class="itemOtherInfo">itemOtherInfo</view>
-    </view>
- 
-  <view class="grabOrderItemInfoRight">
-    <view class="itemRewardInfo">grabOrderItemInfoRight</view>
-    <view class="itemStatusInfo">itemStatusInfo</view>
-  </view>
-</view>
- </view>
+	<block wx:for='{{grabOrderList}}' wx:key>
+	<view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem">
+		<view class="grabOrderItemInfoLeft">
+			<view class="itemGoodInfo">{{item.orderGoodInfo}}
+			</view>
+			<view class="itemOtherInfo">
+				<view class="cu-tag radius sm bg-{{grabOrderGoodSortList[item.orderGoodSort].color}} light">{{grabOrderGoodSortList[item.orderGoodSort].name}}</view>
+				<text class="itemReleaseTime">{{item.orderReleaseTime}}</text>
 
+				<text class="text-grey">{{item.orderDeliverTime}}</text>
+			</view>
+		</view>
+		<view class="grabOrderItemInfoRight">
+			<view class="text-orange text-xxl">¥{{item.orderReward}}</view>
+			<view class="text-{{grabOrderStatusList[item.orderStatus].color}} text-l">{{grabOrderStatusList[item.orderStatus].name}}</view>
+		</view>
+	</view>
+	</block>
+</view>

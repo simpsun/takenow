@@ -33,7 +33,8 @@ page {
   --greym: #c4c4c4;
 
   /* --tnRed:#F6275C; */
-  --tnRed:#f6275c;
+ --tnRed:#f6275c;
+  /* --tnRed:#f37b1d; */
   --tnRedLight:rgb(246, 39, 92,0.5);
 	/* 浅色 */
 	--redLight: #fadbd9;
@@ -43,7 +44,8 @@ page {
 	--greenLight: #d7f0db;
 	--cyanLight: #d2f1f0;
 	/* --blueLight: #cce6ff; */
-  --blueLight: rgb(213, 228, 243);
+  /* --blueLight: rgb(213, 228, 243); */
+  --blueLight: rgb(226, 236, 247);
 	--purpleLight: #e1d7f0;
 	--mauveLight: #ebd4ef;
 	--pinkLight: #f9d7ea;
