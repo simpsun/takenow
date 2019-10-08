@@ -52,15 +52,15 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "pages/newindex",
-					"pathName": "pages/newindex",
+					"name": "pages/test/test",
+					"pathName": "pages/test/test",
 					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "takenow",
-					"pathName": "pages/index/takeNow",
+					"name": "pages/graborder/graborder",
+					"pathName": "pages/graborder/graborder",
 					"scene": null
 				}
 			]

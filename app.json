@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/my/my",
     "pages/about/about",
-    "pages/myorder/myorder",
     "pages/order/order",
     "pages/my/address/address",
     "pages/my/address/addressmananger",
@@ -11,8 +10,7 @@
     "pages/test/test",
     "pages/graborder/graborder",
     "pages/index/takeNow",
-    "pages/index/remark",
-    "pages/newindex"
+    "pages/index/remark"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -33,7 +31,7 @@
         "selectedIconPath": "images/tabbar/index_cur.png"
       },
       {
-        "pagePath": "pages/newindex",
+        "pagePath": "pages/graborder/graborder",
         "text": "抢单",
         "iconPath": "images/tabbar/graborder.png",
         "selectedIconPath": "images/tabbar/graborder_cur.png"

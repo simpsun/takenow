@@ -1,32 +1,31 @@
-<!--pages/index/index.wxml-->
-<cu-custom bgColor="bg-gradual-red">
-  <view slot="content">Take Now</view>
+<!--首页-->
+<cu-custom bgColor="transparent">
+  <view style='color:white;' slot="content">Take Now</view>
 </cu-custom>
- <!-- <view class="index-bg"> -->
-<view> 
- <!-- 轮播图 -->
-  <swiper class="card-swiper" circular="true" autoplay="true" interval="5000" duration="500" bindchange="cardSwiper">
-    <swiper-item wx:for="{{swiperList}}" wx:key class="{{cardCur==index?'cur':''}}">
-      <view class="swiper-item">
-        <image src="{{item.url}}" mode="aspectFill"></image>
-      </view>
-    </swiper-item>
-  </swiper>
+<view class="bg-gradual-red bg-tabbar"></view>
 
-
-  <view class="cu-bar search bg-white index-search">
-    <view class="search-form">
-      <text class="cuIcon-search"></text>
-      <input type="text" placeholder="想要同学帮做你什么？" confirm-type="search"></input>
+<view class="tabbarStyle">
+  <block wx:for="{{funcList}}" wx:key>
+    <view class="test" bindtap="selectFunc" data-index="{{index}}">
+      <image class="funcItemStyle" src="{{funcImgSrc+(index+1)+(location==index?'_active':'')+'.png'}}" mode="aspectFit"></image>
+      <view class="text-white">{{item}}</view>
     </view>
-    <view class="action">
-      <button class="cu-btn bg-gradual-red shadow-blur" bindtap='takeNow'>Take Now</button>
-    </view>
-  </view>
-  <view class='index-block'>
-    <navigator class='ablock bg-index{{index+1}}' wx:for='{{8}}' wx:key hover-class='navigator-hovor'>
-      <image class='index-blockimg' src='/images/index{{index+1}}.png'></image>
-    </navigator>
-  </view>
-
+  </block>
 </view>
+<!-- <view><image class="fingerImg" src= '../images/index/finger.png' /></view> -->
+<view class="funcCard shadow-warp">
+  <form name='submitFormInfo' bindsubmit="submitFormInfo">
+    <textarea class='demandInfo' name="demandInfo" maxlength="200" value='{{demandInfo}}' bindinput='demandInfoInput' placeholder="请在此填写需要代购的任何商品"></textarea>
+    <view style="color:grey;margin-left:30rpx;">点击标签快捷输入</view>
+    <view class="quickTag">
+      <block wx:for="{{ColorList}}" wx:key>
+        <view class="cu-tag bg-tnRedLight margin-xs " hover-class="navigator-hovor" bindtap="quickTag" data-text="{{item}}">{{item}}</view>
+      </block>
+    </view>
+    <button class="submitBtn button" hoverClass="navigator-hovor" form-type="submit">Take Now</button>
+  </form>
+</view>
+
+<image   class='advertiseImg' src="https://ae01.alicdn.com/kf/H2f9b297d3d154087b67150048b08663da.png"> </image>
+
+<!-- 搜狗图床链接：https://img03.sogoucdn.com/app/a/100520146/d3e305ab9283877752fdbe48b54318a4 -->

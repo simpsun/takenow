@@ -1,46 +1,86 @@
-/* pages/index/index.wxss */
+/* pages/newindex.wxss */
 
-.index-block{
-	position: relative;
-	width: 90%;
-  left:5%;
-  border-radius:0 0 16rpx 16rpx;
-	display: flex;
-	 flex-wrap:wrap;
-	justify-content: space-between;
-	height: 220rpx;
-	background-color: white;
-	padding:20rpx 10rpx 0 10rpx;
+page {
+  background-color: ghostWhite;
 }
-/* 
-.index-block{
-	position: relative;
-	width: 90%;
-  left:5%;
-  border-radius: 10rpx;
-	display: flex;
-	 flex-wrap:wrap;
-	justify-content: space-between;
-	height: 220rpx;
-	background-color: white;
-	padding:20rpx 10rpx 0 10rpx;
-} */
-.ablock{
-	width: 160rpx;
-	height: 80rpx;
-	padding-left:30rpx; 
- border-radius: 5rpx;
-font-size: 28rpx;
-display: flex;
-justify-content: center;
-align-items: center;
+
+
+
+.tabbarStyle {
+  width: 750rpx;
+  height: 150rpx;
+  padding: 0;
+  margin-top: 0;
+  position: absolute;
+  /* 图片离上部距离 */
+  top: 200rpx;
+  left: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.funcItemStyle {
+  width: 110rpx;
+  height: 110rpx;
+}
+.funcCard{
+  position: relative;
+  top: 250rpx;
+  width: 94%;
+  margin: auto;
+
+  background-color: white;
+  border-radius: 16rpx;
 
 }
-.index-blockimg{
-	height: 100%;
-	width:100%;
+.demandInfo{
+
+	margin: auto;
+ padding: 50rpx 20rpx 0 20rpx;
+ height: 200rpx;
+ border-bottom: gainsboro solid 1rpx;
+ font-size: 32rpx;
+}
+.quickTag{
+  width: 100%;
+ padding: 10rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
 }
-.ablock:last-child{
-	padding-left: 5rpx;
+.button::after {
+    border: none;
+    border-radius: 0;
+}
+.submitBtn{
+  width: 94%;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
+  bottom: 20rpx;
+	background-image: var(--gradualRed);
+  color: white;
+}
+.fingerImg{
+  position: absolute;
+  width:50rpx;
+  height:50rpx;
+  top: 336rpx;
+  left: 70rpx;
+}
+.advertiseImg{
+ position: relative;
+ top: 280rpx;
+ left: 3%;
+ border-radius: 20rpx;
+ width: 94%;
+ height: 120rpx;
 }

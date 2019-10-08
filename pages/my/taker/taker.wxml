@@ -92,7 +92,7 @@
     </view>
     <view class='imgBox'>
       <view class='imgLeft'>
-        <image class="sImage" mode="aspectFill" src='../../../images/img.jpg'></image>
+        <image class="sImage" mode="aspectFill" src='https://ae01.alicdn.com/kf/H1eb7dc090059488cbfdbfdec41e07a61v.jpg'></image>
       </view>
       <view bindtap='chooseImg' class='imgRight'>
 

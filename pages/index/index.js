@@ -1,59 +1,52 @@
-// pages/index/index.js
+// pages/newindex.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cardCur: 0,
-    
-    swiperList: [{
-      id: 0,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-    }, {
-      id: 1,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg',
-    }, {
-      id: 2,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
-    }, {
-      id: 3,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
-    }, {
-      id: 4,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
-    }, {
-      id: 5,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
-    }, {
-      id: 6,
-      type: 'image',
-      url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-    }],
+    demandInfo: "",
+    location: 0,
+    ColorList: ['放楼下就行', '999感冒颗粒', '尽快送达', '配送注意安全', '谢谢', '煎饼果子'],
+    funcList: ['帮我买', '帮我送', '领包裹', '全能超人'],
+    funcImgSrc: '../../images/index/func'
   },
-  DotStyle(e) {
-    this.setData({
-      DotStyle: e.detail.value
-    })
-  },
-  cardSwiper(e) {
-    this.setData({
-      cardCur: e.detail.current
-    })
-  },
-	takeNow(){
-		wx.navigateTo({
-			url: 'takeNow',
-			success: function(res) {},
-			fail: function(res) {},
-			complete: function(res) {},
-		})
-	},
 
+  // -------- 事件响应函数--------
+
+  // 切换功能
+  selectFunc(e) {
+    let index = e.currentTarget.dataset.index;
+    if (index == 3) {
+      index++;
+      wx.navigateTo({
+        url: '2',
+      })
+    }
+    this.setData({
+      location: index
+    })
+  },
+  // 快捷标签输入
+  quickTag(e) {
+    console.log(e);
+    const tag = e.currentTarget.dataset.text;
+    this.setData({
+      demandInfo: this.data.demandInfo + " "+tag
+    })
+  },
+  // 文本框输入监听
+  demandInfoInput(e) {
+    const value = e.detail.value;
+    this.setData({
+      demandInfo: value
+    })
+  },
+submitFormInfo(e){
+console.log(e);
+  const goodsInfo=e.detail.value.demandInfo;
+  wx.navigateTo({
+    url: `./takeNow?goodsInfo=${goodsInfo}`
+  })
+}
 })
