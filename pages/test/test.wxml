@@ -1,8 +1,6 @@
 <!--pages/test/test.wxml-->
 
-<cu-custom bgColor="bg-gradual-red">
-  <view slot="content">Take Now</view>
-</cu-custom>
+
 <view class="search-form">
   <text class="cuIcon-search"></text>
   <input type="text" placeholder="想要同学帮做你什么？" confirm-type="search"></input>

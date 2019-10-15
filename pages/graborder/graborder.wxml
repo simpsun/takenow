@@ -12,7 +12,7 @@
 				<image class="medal" src="../../images/graborder/medal{{item.id}}.png"></image>
 				<view class="cu-avatar l round  rewardAvatar" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg);"></view>
 				<view class="rewardHunterInfo">
-					<text class="text-l ">伊泽瑞</text>
+					<text class="text-l">伊泽瑞</text>
 					<text class="text-grey">软件学院</text>
 				</view>
 				<view class="rewardHunterReward">
@@ -22,6 +22,7 @@
 			</view>
 		</block>
 	</view>
+
 	<!-- 我的赏金 -->
 	<view class="myRewardBar ">
 		<view class="text-black text-xl">我的赏金</view>
@@ -37,9 +38,6 @@
 		<image class="filterSelectImg" src="../../images/graborder/filterSelect{{isFilterIcan?'_active':''}}.png"></image>
 	</view>
 </view>
-
-
-
 
 <view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList">
 	<block wx:for='{{grabOrderList}}' wx:key>

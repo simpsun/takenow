@@ -31,6 +31,7 @@ page {
 	--ghostWhite: #f1f1f1;
 	--white: #ffffff;
   --greym: #c4c4c4;
+  --greyn:#F7f7f7;
    --greys:#ccc;
   /* --tnRed:#F6275C; */
  --tnRed:#f6275c;
@@ -2296,10 +2297,10 @@ margin: auto;
 	margin: 20rpx auto;
 	font-size: 24rpx;
 	padding: 8rpx 12rpx;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgb(255, 255, 255);
 	border-radius: 6rpx;
 	color: var(--white);
-	max-width: 400rpx;
+	max-width: 500rpx;
 	line-height: 1.4;
 }
 
@@ -4062,7 +4063,11 @@ background-color:rgba(190,226,148,0.4);
 .lines-black {
 	color: var(--black);
 }
-
+.text-greyn,
+.line-greyn,
+.lines-greyn {
+	color: var(--greyn);
+}
 .text-white,
 .line-white,
 .lines-white {
@@ -4211,4 +4216,19 @@ background-color:rgba(190,226,148,0.4);
   /* 状态栏设为透明色，从屏幕顶部开始 */
   top: 0;
   z-index: -1;
+}
+/* 分割线 */
+.addrDividingLine{
+background:linear-gradient(to left,#efefef,#b6b6b6,#efefef);
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+height:1rpx;
+ overflow: hidden;
+}
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

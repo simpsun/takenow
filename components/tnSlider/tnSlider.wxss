@@ -27,8 +27,9 @@ border-radius: 20rpx;
 
 .operationBox {
   height: 120rpx;
-  width: 50px;
-  background-color:whitesmoke;
+  width: 100px;
+  border-radius: 20rpx;
+  background-color:var(--tnRed);
   display: flex;
   align-items: center;
   justify-content: center;

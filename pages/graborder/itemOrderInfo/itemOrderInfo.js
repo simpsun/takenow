@@ -2,18 +2,35 @@ Page({
 
   data: {
     isGrabOrderSliderBar: true,
-
+    orderStatus: -1,
+    attrList: [{
+      icon: 'redpacket',
+      context: '赏金',
+      color: 'orange',
+      attr: '￥34.7'
+    }, {
+      icon: 'goods',
+      context: '重量',
+      color: 'blue',
+      attr: '1~2Kg'
+    }, {
+      icon: 'present',
+      context: '跑腿类型',
+      color: 'tnRed',
+      attr: '帮我买'
+    }]
   },
   // ----------------------------------------------------------事件响应函数------------------------------------------------
   myEventListener: function(e) {
     //获取到组件的返回值，并将其打印
     console.log('是否验证通过:' + e.detail.msg)
     if (e.detail.msg) {
+
       this.loadModal().then(res => {
         console.log(res);
         this.handleRequestResult(res);
       })
-    };
+    }
     //request，并返回请求结果requestResult
     /* requestResult: S666  successedGrabOrder
                       E101  networkError
@@ -22,9 +39,6 @@ Page({
                       E104  otherError
      */
     //  var requestResult = ['S666', 'E101', 'E102', 'E103', 'E104']
-
-
-
     // this.mySlider.resetSlider();
     // 1.检验网络是否通畅
     // 2.弹出同意协议窗口
@@ -39,8 +53,10 @@ Page({
       //请求成功弹出窗口
       case 'S666':
         this.setData({
-          modalName:'DialogModal'
-        })
+          modalName: this.data.orderStatus == -1 ? 'DialogModal' : '',
+          orderStatus: this.data.orderStatus + 1
+        });
+        this.mySlider.resetSlider(this.data.orderStatus);
         break;
       case 'E101':
         wx.showToast({
@@ -63,14 +79,15 @@ Page({
           title: "抢单失败，您被别人抢先了。可以看看其他订单哦",
           icon: "none",
           duration: 2e3,
-          complete:()=>{
+          complete: () => {
             setTimeout(() => {
-            wx.navigateBack({
-              delta: 1
-            })},2000)
+              wx.navigateBack({
+                delta: 1
+              })
+            }, 2000)
           }
         });
-      
+
         this.mySlider.resetSlider();
         break;
       case 'E104':
@@ -95,7 +112,7 @@ Page({
         this.setData({
           loadModal: false
         })
-        resolve('E103')
+        resolve('S666')
       }, 2000)
     })
     return p;
@@ -143,7 +160,7 @@ Page({
   onReady: function() {
     this.mySlider = this.selectComponent('#mySlider')
   },
-  onLoad: function (options) {
- console.log(options);
+  onLoad: function(options) {
+    console.log(options);
   }
 })

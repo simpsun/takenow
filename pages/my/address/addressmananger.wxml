@@ -1,7 +1,4 @@
-<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
-    <view slot="backText">返回</view>
-    <view slot="content">编辑收货地址</view>
-</cu-custom>
+
 <form bindsubmit="formSubmit">
 	<view class="cu-form-group-Head">联系人</view>
     <view class="cu-form-group">

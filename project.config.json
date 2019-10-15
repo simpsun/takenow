@@ -49,7 +49,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -69,6 +69,21 @@
 					"id": -1,
 					"name": "item",
 					"pathName": "pages/graborder/itemOrderInfo/itemOrderInfo",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/test/test",
+					"pathName": "pages/test/test2",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/test/text2",
+					"pathName": "pages/test/text2",
+					"query": "",
 					"scene": null
 				}
 			]

@@ -1,8 +1,5 @@
 <!--pages/index/remark.wxml-->
-<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">订单备注</view>
-</cu-custom>
+
 
 <textarea class='remarkTextarea' maxlength="1000" value='{{remarkTextarea}}' bindinput='bindinput' placeholder="在此输入私密备注信息、对Taker的额外要求等，请填写"></textarea>
 <view class='margin-left-lg margin-top-sm text-grey text-sm'>快捷输入</view>

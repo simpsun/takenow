@@ -1,6 +1,4 @@
-<cu-custom bgColor="bg-gradual-red">
-  <view slot="content">Take Now</view>
-</cu-custom>
+
 <view class="my">
 
 
@@ -19,7 +17,7 @@
 <view></view>
 
 <view class='myBar'>
-  <view wx:if="{{hasUserInfo && canIUse}}" class="padding-top-sm padding-bottom-lg flex text-center text-black">
+  <view class="padding-top-sm padding-bottom-lg flex text-center text-black">
     <view class="flex flex-sub flex-direction solid-right">
       <view class="text-xxl text-black">10.25</view>
       <view class="margin-top-sm">

@@ -1,8 +1,5 @@
 <!--pages/my/taker/taker.wxml-->
-<cu-custom bgColor="bg-gradual-red" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">跑腿认证</view>
-</cu-custom>
+
 
 <view wx:if='{{authTag==null}}'>
   <view class="bg-white padding">

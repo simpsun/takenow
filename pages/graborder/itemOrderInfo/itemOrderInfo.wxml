@@ -1,18 +1,17 @@
 <!--pages/graborder/itemOrderInfo/itemOrderInfo.wxml-->
-<cu-custom bgColor="bg-tnRed" isBack="{{true}}">
-  <view slot="backText">返回</view>
-  <view slot="content">订单详情</view>
-</cu-custom>
+
 <!-- 顶部赏金栏 -->
 <view class="rewardBar">
   <view class="text-white text-xxxl">
     <text class="text-xl">￥</text>34.7</view>
   <view class="text-greys">本单赏金</view>
 </view>
+<view class="navDetails ">
+  <text class="text-grey">点击切换列表显示模式</text>
+  <view class="navBtn text-white">订单列表</view>
+</view>
 <!-- 聊天栏 -->
 <view class="cu-chat margin-top-ml">
-
-  <view class="cu-info round">对方撤回一条消息!</view>
   <view class="cu-item">
     <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
     <view class="main">
@@ -22,14 +21,51 @@
     </view>
     <view class="date "> 13:23</view>
   </view>
-  <view class="cu-info">
-    <text class="cuIcon-roundclosefill text-red "></text> 对方拒绝了你的消息
+  <!-- 订单属性栏 -->
+  <view class="attrBox">
+    <view class="attrHead ">
+      <text class="text-l text-grey">订单属性</text>
+    </view>
+    <view class="attrBar">
+      <block wx:for='{{attrList}}' wx:key>
+        <view class="attrTag">
+          <view class="itemtag">
+            <view class="text-center text-{{item.color}}">{{item.attr}}</view>
+            <text class="cuIcon-{{item.icon}} text-gray"></text>
+            <text class="text-gray">{{item.context}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
   </view>
-  <view class="cu-info">
-    对方开启了好友验证，你还不是他(她)的好友。请先发送好友验证请求，对方验证通过后，才能聊天。
-    <text class="text-blue">发送好友验证</text>
+
+  <view class="addrBox">
+    <view class="addrBar">
+      <view class="addrTag">
+        <text class="cuIcon-time  text-grey " style="font-size:48rpx;"></text>
+           <view class="flex-center flex-direction">
+            <text class=" margin-left-lg text-black text-xl">立即出发</text>
+        </view>
+      </view>
+      <view class="addrDividingLine" style="top:10rpx;"></view>
+      <block wx:for='{{2}}' wx:key>
+      <view class="addrTag marginSet">
+        <view class="flex-center flex-direction">
+          <text class="cuIcon-location  text-grey " style="font-size:48rpx;"></text>
+          <text class="text-grey">{{index==0?'前往':'送达'}}</text>
+        </view>
+         <view class="flex-center flex-direction" style="align-items:flex-start;">
+            <text class=" margin-left-lg text-black text-xl">欧泽瑞</text>
+              <view class="text-l" >
+               <text class=" margin-left-lg text-grey">伊泽瑞</text>
+                <text class=" margin-left-xs text-grey ">13002260255</text>
+              </view>
+        </view>
+      </view>
+      </block>
+    </view>
   </view>
-   <view class="cu-item self">
+  <view class="cu-item self">
     <view class="main">
       <view class="content shadow">
         <text>您好，我已接单并将及时为您配送</text>
@@ -85,8 +121,8 @@
 </view>
 <!-- 底部栏 -->
 <view class="bottomGrabOrderBar">
-<sliders id='mySlider' wx:if='{{isGrabOrderSliderBar}}'  bindmyevent="myEventListener"></sliders>
-<view wx:else class="grabOrderDetails">查看订单详情</view>
+  <sliders id='mySlider' bindmyevent="myEventListener"></sliders>
+  <!-- <view wx:else class="grabOrderDetails">查看订单详情</view>  wx:if='{{isGrabOrderSliderBar}}'-->
 </view>
 
 <!-- ------------------------------------------调用窗口----------------------------- -->
@@ -105,11 +141,11 @@
     </view>
     <view class="padding-xl bg-white">
       我将遵循"Take Now跑腿协议",并遵照法律、法规及学校规定，安全快速的送达
-       </view>
+    </view>
     <view class="cu-bar bg-white justify-end">
       <view class="action">
         <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
-        <button bindtap="changeBottomBar" class="cu-btn bg-tnRed margin-left" >确定 </button>
+        <button bindtap="changeBottomBar" class="cu-btn bg-tnRed margin-left">确定 </button>
       </view>
     </view>
   </view>

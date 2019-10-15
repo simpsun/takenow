@@ -15,10 +15,17 @@ Component({
     sysW: wx.getSystemInfoSync().windowWidth, //获取屏幕宽度
     xAxial: 0, //X轴的初始值
     x: 0, //触摸时X轴的值
-    w: (wx.getSystemInfoSync().windowWidth) - 50, //滑块可移动的X轴范围
+    w: (wx.getSystemInfoSync().windowWidth) - 100, //滑块可移动的X轴范围
     cssAnimation: 'translate3d(0, 0, 0)', //CSS动画的初始值
     succeedMsg: '正在抢单', //验证成功提示信息的默认值
-    pullStatus: true, //是否允许验证成功后继续滑动
+    pullStatus: true, //是否允许验证成功后继续滑动,
+    textList: [{
+      hint: '右滑开始配送',
+      succeedMsg: '请求中···'
+    }, {
+        hint: '右滑完成订单',
+        succeedMsg: '请求中···'
+      }]
   },
 
   /**
@@ -47,18 +54,18 @@ Component({
         })
       }
     },
-    resetSlider() {
-   
+    resetSlider(res) {
       
-    
       //元素X轴坐标归0
       this.data.xAxial = 0;
       //清空验证成功提示语
-      this.data.succeedMsg = '正在抢单';
+      this.data.succeedMsg = res==undefined ? '正在抢单' : this.data.textList[res].succeedMsg ;
+      console.log(this.data.succeedMsg)
+      console.log()
       //设置detail对象的返回值
       this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
       this.setData({
-
+        hint: res == undefined  ? this.data.hint:  this.data.textList[res].hint,
        pullStatus:true,
         succeedMsg: this.data.succeedMsg,
         cssAnimation: this.data.cssAnimation

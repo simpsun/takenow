@@ -1,8 +1,5 @@
 <!--pages/order/order.wxml-->
 <!--pages/myorder/myorder.wxml-->
-<cu-custom bgColor="bg-gradual-red">
-  <view slot="content">我的订单</view>
-</cu-custom>
 
 <view class="cu-bar search bg-white">
   <view class="search-form round">

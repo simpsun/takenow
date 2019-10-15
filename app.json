@@ -11,13 +11,13 @@
     "pages/graborder/graborder",
     "pages/index/takeNow",
     "pages/index/remark",
-    "pages/graborder/itemOrderInfo/itemOrderInfo"
+    "pages/graborder/itemOrderInfo/itemOrderInfo",
+    "pages/test/text2"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f6275c",
     "navigationBarTitleText": "Take Now",
-    "navigationStyle": "custom",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

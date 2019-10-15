@@ -24,6 +24,7 @@
 	position: relative;
 	width: 96%;
 	height: 100rpx;
+  border-radius: 16rpx;
 	margin: 5rpx auto;
 	/* background-color: #f0f0f0; */
 	background-color:  var(--blueLight);

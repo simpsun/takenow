@@ -41,16 +41,7 @@ page{
 .addressOption .icon{
   margin: 20rpx;
 }
-/* 分割线 */
-.addrDividingLine{
-background:linear-gradient(to left,#efefef,#b6b6b6,#efefef);
-  width: 90%;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-height:1rpx;
- overflow: hidden;
-}
+
 .addressText{
   color: black;
 }
