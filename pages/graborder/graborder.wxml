@@ -1,9 +1,9 @@
-<!--pages/graborder/graborder.wxml-->
-<cu-custom bgColor="bg-gradual-red">
+<!-- pages/graborder/graborder.wxml-->
+ <!-- <cu-custom bgColor="bg-gradual-red">
 	<view slot="content">抢单</view>
-</cu-custom>
+</cu-custom> -->
 <!-- 赏金排行榜 -->
-<view class="rewardListAndMyReward">
+<view class="rewardListAndMyReward ">
 	<view class="rewardListBar">
 		<text class="margin-left-sm margin-top-xs text-black text-xl">赏金排行榜</text>
 		<text class="margin-left text-grey text-sm">人人都是赏金猎人</text>
@@ -43,7 +43,7 @@
 
 <view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList">
 	<block wx:for='{{grabOrderList}}' wx:key>
-	<view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem">
+	<view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem" data-orderid="{{item.id}}"  bindtap="navigateGrabOrder">
 		<view class="grabOrderItemInfoLeft">
 			<view class="itemGoodInfo">{{item.orderGoodInfo}}
 			</view>

@@ -1,0 +1,10 @@
+
+<view class="slidersBox">
+  <text style="color:#f6275c;">{{ hint }}</text>
+  <view class='operationBgBox' style='left: {{ -(w + 2) }}px; transform: {{ cssAnimation }}'>
+    <text style="color:#ffffff;">{{ succeedMsg }}</text>
+    <view class='operationBox' catchtouchmove='moveFun' catchtouchend='endFun'>
+      <image src='../../images/graborder/line.png'></image>
+    </view>
+  </view>
+</view>

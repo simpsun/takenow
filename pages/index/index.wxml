@@ -1,8 +1,8 @@
 <!--首页-->
-<cu-custom bgColor="transparent">
+<!-- <cu-custom bgColor="transparent">
   <view style='color:white;' slot="content">Take Now</view>
-</cu-custom>
-<view class="bg-gradual-red bg-tabbar"></view>
+</cu-custom>-->
+<view class="bg-tnRed bg-tabbar"></view> 
 
 <view class="tabbarStyle">
   <block wx:for="{{funcList}}" wx:key>

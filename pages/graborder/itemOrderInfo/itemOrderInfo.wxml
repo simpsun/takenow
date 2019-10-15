@@ -1,0 +1,116 @@
+<!--pages/graborder/itemOrderInfo/itemOrderInfo.wxml-->
+<cu-custom bgColor="bg-tnRed" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">订单详情</view>
+</cu-custom>
+<!-- 顶部赏金栏 -->
+<view class="rewardBar">
+  <view class="text-white text-xxxl">
+    <text class="text-xl">￥</text>34.7</view>
+  <view class="text-greys">本单赏金</view>
+</view>
+<!-- 聊天栏 -->
+<view class="cu-chat margin-top-ml">
+
+  <view class="cu-info round">对方撤回一条消息!</view>
+  <view class="cu-item">
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
+    <view class="main">
+      <view class="content bg-tnRed">
+        <text>【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847</text>
+      </view>
+    </view>
+    <view class="date "> 13:23</view>
+  </view>
+  <view class="cu-info">
+    <text class="cuIcon-roundclosefill text-red "></text> 对方拒绝了你的消息
+  </view>
+  <view class="cu-info">
+    对方开启了好友验证，你还不是他(她)的好友。请先发送好友验证请求，对方验证通过后，才能聊天。
+    <text class="text-blue">发送好友验证</text>
+  </view>
+   <view class="cu-item self">
+    <view class="main">
+      <view class="content shadow">
+        <text>您好，我已接单并将及时为您配送</text>
+      </view>
+    </view>
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+    <view class="date">2018年3月23日 13:23</view>
+  </view>
+  <view class="cu-item self">
+    <view class="main">
+      <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" class="radius" mode="widthFix"></image>
+    </view>
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+    <view class="date"> 13:23</view>
+  </view>
+  <view class="cu-item self">
+    <view class="main">
+      <view class="action text-bold text-grey">
+        3"
+      </view>
+      <view class="content shadow">
+        <text class="cuIcon-sound text-xxl padding-right-xl"> </text>
+      </view>
+    </view>
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+    <view class="date">13:23</view>
+  </view>
+  <view class="cu-item self">
+    <view class="main">
+      <view class="action">
+        <text class="cuIcon-locationfill text-orange text-xxl"></text>
+      </view>
+      <view class="content shadow">
+        喵星球，喵喵市
+      </view>
+    </view>
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
+    <view class="date">13:23</view>
+  </view>
+  <view class="cu-item">
+    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
+    <view class="main">
+      <view class="content shadow">
+        @#$^&**
+      </view>
+      <view class="action text-grey">
+        <text class="cuIcon-warnfill text-red text-xxl"></text>
+        <text class="text-sm margin-left-sm">翻译错误</text>
+      </view>
+    </view>
+    <view class="date">13:23</view>
+  </view>
+</view>
+<!-- 底部栏 -->
+<view class="bottomGrabOrderBar">
+<sliders id='mySlider' wx:if='{{isGrabOrderSliderBar}}'  bindmyevent="myEventListener"></sliders>
+<view wx:else class="grabOrderDetails">查看订单详情</view>
+</view>
+
+<!-- ------------------------------------------调用窗口----------------------------- -->
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>抢单中...</view>
+</view>
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">同意用户协议</view>
+      <view bindtap="hideModal" class="action">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl bg-white">
+      我将遵循"Take Now跑腿协议",并遵照法律、法规及学校规定，安全快速的送达
+       </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
+        <button bindtap="changeBottomBar" class="cu-btn bg-tnRed margin-left" >确定 </button>
+      </view>
+    </view>
+  </view>
+</view>

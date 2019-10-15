@@ -4,8 +4,6 @@ page {
   background-color: ghostWhite;
 }
 
-
-
 .tabbarStyle {
   width: 750rpx;
   height: 150rpx;
@@ -13,7 +11,7 @@ page {
   margin-top: 0;
   position: absolute;
   /* 图片离上部距离 */
-  top: 200rpx;
+  top: 50rpx;
   left: 0;
   display: flex;
   flex-wrap: nowrap;

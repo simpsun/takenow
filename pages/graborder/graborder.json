@@ -1,4 +1,9 @@
 {
   "usingComponents": {},
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationStyle": "default",
+  "backgroundTextStyle": "light",
+
+  "backgroundColor":"#f6275c",
+  "navigationBarTitleText": "抢单"
 }

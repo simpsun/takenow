@@ -1,0 +1,35 @@
+/* pages/graborder/itemOrderInfo/itemOrderInfo.wxss */
+page{
+  padding-bottom: 110rpx;
+}
+.rewardBar{
+width: 100%;
+height: 120rpx;
+background-color: var(--tnRed);
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: center;
+position: fixed;
+z-index: 1000
+}
+
+.bottomGrabOrderBar{
+  position: fixed;
+  bottom: 0rpx;
+  height: 110rpx;
+  width: 100%;
+  z-index: 1000;
+
+}
+.grabOrderDetails{
+  background-color: var(--tnRed);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36rpx;
+  color: white;
+  border-radius: 20rpx;
+  height: 100%;
+}

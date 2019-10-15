@@ -1,8 +1,8 @@
 <!--pages/index/takeNow.wxml-->
-<cu-custom bgColor="bg-tnRed" isBack="{{true}}">
+<!-- <cu-custom bgColor="bg-tnRed" isBack="{{true}}">
   <view style='color:white;' slot="backText">返回</view>
   <view style='color:white;' slot="content">Take Now</view>
-</cu-custom>
+</cu-custom> -->
 <view class="bg-tnRed bg-tabbar"></view>
 
   <view class='goodsInfo'>
@@ -134,7 +134,7 @@
       </view>
     </view>
     <view class="customCost" bindtap="onOtherCost">
-      <view wx:if="{{OtherCostInputStaus&&selectedCostTag==6}}">其他金额:￥
+      <view class="flex justify-center align-center" wx:if="{{OtherCostInputStaus&&selectedCostTag==6}}">其他金额:￥
         <input class="otherCostInput" focus="focusedOtherCost" type="digit" cursor-spacing="20" bindinput="filledOtherCost"></input>
       </view>
       <view wx:else>

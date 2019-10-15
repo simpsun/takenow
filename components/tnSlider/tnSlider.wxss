@@ -1,0 +1,97 @@
+/* sliders.wxss */
+.slidersBox {
+  width: 100%;
+  height: 120rpx;
+  border: 1px solid #ccc;
+border-radius: 20rpx;
+  margin:0 auto;
+  text-align: center;
+  line-height: 120rpx;
+  font-size: 32rpx;
+  position: relative;
+  overflow: hidden;
+  background-color:white
+  }
+
+.operationBgBox {
+border-radius: 20rpx;
+  height: 120rpx;
+  width: 100%;
+  background-color: var(--tnRed);
+
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  color: #fff;
+}
+
+.operationBox {
+  height: 120rpx;
+  width: 50px;
+  background-color:whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.operationBox image {
+  width: 50%;
+  height: 50%;
+}
+
+
+/* ==================
+          加载
+ ==================== */
+
+.cu-load {
+	display: block;
+	line-height: 3em;
+	text-align: center;
+}
+
+.cu-load::before {
+	font-family: "cuIcon";
+	display: inline-block;
+	margin-right: 6rpx;
+}
+
+.cu-load.loading::before {
+	content: "\e67a";
+	animation: cuIcon-spin 2s infinite linear;
+}
+
+.cu-load.loading::after {
+	content: "加载中...";
+}
+
+.cu-load.over::before {
+	content: "\e64a";
+}
+
+.cu-load.over::after {
+	content: "没有更多了";
+}
+
+.cu-load.erro::before {
+	content: "\e658";
+}
+
+.cu-load.erro::after {
+	content: "加载失败";
+}
+
+.cu-load.load-icon::before {
+	font-size: 32rpx;
+}
+
+.cu-load.load-icon::after {
+	display: none;
+}
+
+.cu-load.load-icon.over {
+	display: none;
+}
