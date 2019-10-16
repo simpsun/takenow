@@ -5,7 +5,7 @@
   </view>
   <!-- iconfont iconquotL -->
 </view>
-<view class="goodInfoBar bg-white shadow-warp">
+<view class="goodInfoBar bg-white">
   <view class="goodInfoText">
     <text class="iconfont iconquotL text-greys"></text>
     <text class="margin-lr-sm text-lg">【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847</text>
@@ -14,27 +14,48 @@
 </view>
 
 
-  <view class="addrBar shadow-warp">
-    <view class="addrTag margin-left-xs">
-      <text class="cuIcon-time text-grey" style="font-size:48rpx;"></text>
+<view class="addrBar">
+  <view class="addrTag margin-left-xs">
+    <text class="cuIcon-time text-grey" style="font-size:48rpx;"></text>
+    <view class="flex-center flex-direction">
+      <text class=" margin-left-lg text-black text-l">立即出发</text>
+    </view>
+  </view>
+  <view class="addrDividingLine" style="top:10rpx;margin-bottom:40rpx;"></view>
+  <block wx:for='{{2}}' wx:key>
+    <view class="addrTag addrSet">
       <view class="flex-center flex-direction">
-        <text class=" margin-left-lg text-black text-l">立即出发</text>
+        <text class="cuIcon-location  text-grey " style="font-size:48rpx;"></text>
+        <text class="text-grey iconText">{{index==0?'前往':'送达'}}</text>
+      </view>
+      <view class="flex-center flex-direction" style="align-items:flex-start;">
+        <text class=" margin-left text-black text-l">河南省天津市大断交多久啊票的商品房配电盘萨德122号</text>
+        <view class="text-l">
+          <text class=" margin-left text-grey">伊泽瑞</text>
+          <text bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="13002260255">13002260255</text>
+        </view>
       </view>
     </view>
-    <view class="addrDividingLine" style="top:10rpx;margin-bottom:40rpx;"></view>
-    <block wx:for='{{2}}' wx:key>
-      <view class="addrTag addrSet">
-        <view class="flex-center flex-direction">
-          <text class="cuIcon-location  text-grey " style="font-size:48rpx;"></text>
-          <text class="text-grey iconText">{{index==0?'前往':'送达'}}</text>
-        </view>
-        <view class="flex-center flex-direction" style="align-items:flex-start;">
-          <text class=" margin-left text-black text-l">河南省天津市大断交多久啊票的商品房配电盘萨德122号</text>
-          <view class="text-l">
-            <text class=" margin-left text-grey">伊泽瑞</text>
-            <text bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="13002260255">13002260255</text>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view>
+  </block>
+</view>
+<!-- 属性栏 -->
+<view class="attrBar bg-white shadow-warp ">
+  <block wx:for='{{attrList}}' wx:key>
+    <view class=" attrTag flex  margin-tb-sm align-center">
+      <view class="attrTextL text-lg text-grey ">{{item.name}}</view>
+      <view class="text-lg text-black attrTextR">{{item.value}}</view>
+    </view>
+  </block>
+</view>
+<!-- 底部栏 -->
+<view class="bottomBar bg-white" >
+<view class="bBtn flex justify-center align-center">
+取消订单
+</view>
+<view class="bBtn flex justify-center align-center">
+投诉订单
+</view>
+<view class="bBtn flex justify-center align-center" style="background:var(--tnRed)">
+确认配送
+</view>
+</view>

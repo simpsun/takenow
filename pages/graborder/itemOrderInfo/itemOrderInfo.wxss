@@ -1,8 +1,10 @@
 /* pages/graborder/itemOrderInfo/itemOrderInfo.wxss */
+
 page {
   padding-top: 100rpx;
   padding-bottom: 110rpx;
 }
+
 .rewardBar {
   width: 100%;
   top: 0;
