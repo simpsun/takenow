@@ -1,0 +1,41 @@
+/* pages/graborder/itemOrderInfo/listOrderInfo.wxss */
+.topStatusBar{
+  width: 100%;
+  height: 100rpx;
+}
+.goodInfoBar{
+  width: 94%;
+  margin: 20rpx auto;
+  border-radius: 20rpx;
+
+}
+.goodInfoText{
+  padding:20rpx;
+}
+
+
+
+.addrBar{
+  border-radius: 20rpx;
+  width: 94%;
+  height: 450rpx;
+  background: white;
+  margin: auto;
+
+}
+ .addrTag{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+
+  padding-left:30rpx; 
+}
+.addrSet{
+  height: 135rpx;
+ margin:10rpx 0;
+}
+.iconText{
+width:70rpx;
+text-align:center;
+}

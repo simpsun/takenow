@@ -47,6 +47,12 @@ Page({
     // })
 
   },
+  // 跳转列表显示模式
+  navDetails(){
+    wx.navigateTo({
+      url: 'listOrderInfo',
+    })
+  },
   // ----------------请求结果处理--------------
   handleRequestResult(res) {
     switch (res) {
@@ -100,6 +106,13 @@ Page({
         break;
     }
 
+  },
+  // 拨打电话
+  callPhone(e){
+    console.log(e)
+    wx.makePhoneCall({
+      phoneNumber:e.currentTarget.dataset.phonenum //仅为示例，并非真实的电话号码
+    })
   },
   //  -----------加载中-----------
 

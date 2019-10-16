@@ -6,7 +6,7 @@
     <text class="text-xl">￥</text>34.7</view>
   <view class="text-greys">本单赏金</view>
 </view>
-<view class="navDetails ">
+<view class="navDetails " bindtap="navDetails">
   <text class="text-grey">点击切换列表显示模式</text>
   <view class="navBtn text-white">订单列表</view>
 </view>
@@ -38,30 +38,30 @@
       </block>
     </view>
   </view>
-
+  <!-- 地址栏 -->
   <view class="addrBox">
     <view class="addrBar">
-      <view class="addrTag">
-        <text class="cuIcon-time  text-grey " style="font-size:48rpx;"></text>
-           <view class="flex-center flex-direction">
-            <text class=" margin-left-lg text-black text-xl">立即出发</text>
-        </view>
-      </view>
-      <view class="addrDividingLine" style="top:10rpx;"></view>
-      <block wx:for='{{2}}' wx:key>
-      <view class="addrTag marginSet">
+      <view class="addrTag margin-left-xs">
+        <text class="cuIcon-time text-grey" style="font-size:48rpx;"></text>
         <view class="flex-center flex-direction">
-          <text class="cuIcon-location  text-grey " style="font-size:48rpx;"></text>
-          <text class="text-grey">{{index==0?'前往':'送达'}}</text>
-        </view>
-         <view class="flex-center flex-direction" style="align-items:flex-start;">
-            <text class=" margin-left-lg text-black text-xl">欧泽瑞</text>
-              <view class="text-l" >
-               <text class=" margin-left-lg text-grey">伊泽瑞</text>
-                <text class=" margin-left-xs text-grey ">13002260255</text>
-              </view>
+          <text class=" margin-left-lg text-black text-l">立即出发</text>
         </view>
       </view>
+      <view class="addrDividingLine" style="top:10rpx;margin-bottom:40rpx;"></view>
+      <block wx:for='{{2}}' wx:key>
+        <view class="addrTag addrSet">
+          <view class="flex-center flex-direction">
+            <text class="cuIcon-location  text-grey " style="font-size:48rpx;"></text>
+            <text class="text-grey iconText">{{index==0?'前往':'送达'}}</text>
+          </view>
+          <view class="flex-center flex-direction" style="align-items:flex-start;">
+            <text class=" margin-left text-black text-l">河南省天津市大断交多久啊阿萨德122号</text>
+            <view class="text-l">
+              <text class=" margin-left text-grey">伊泽瑞</text>
+              <text bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="13002260255">13002260255</text>
+            </view>
+          </view>
+        </view>
       </block>
     </view>
   </view>

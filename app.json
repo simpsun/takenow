@@ -12,7 +12,8 @@
     "pages/index/takeNow",
     "pages/index/remark",
     "pages/graborder/itemOrderInfo/itemOrderInfo",
-    "pages/test/text2"
+    "pages/test/text2",
+    "pages/graborder/itemOrderInfo/listOrderInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

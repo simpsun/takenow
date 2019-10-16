@@ -1,21 +1,22 @@
 /* pages/graborder/itemOrderInfo/itemOrderInfo.wxss */
-page{
+page {
   padding-top: 100rpx;
   padding-bottom: 110rpx;
 }
-.rewardBar{
-width: 100%;
-top: 0;
-height: 120rpx;
-background-color: var(--tnRed);
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-position: fixed;
-z-index: 1000
+.rewardBar {
+  width: 100%;
+  top: 0;
+  height: 120rpx;
+  background-color: var(--tnRed);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
 }
-.attrBox{
+
+.attrBox {
   width: 100%;
   height: 180rpx;
   display: flex;
@@ -23,73 +24,77 @@ z-index: 1000
   justify-content: center;
   align-items: center;
   padding: 0;
-
 }
- .attrBar{
-   border-radius: 20rpx;
+
+.attrBar {
+  border-radius: 20rpx;
   margin: 0;
-   background: white;
-  width:65%;
+  background: white;
+  width: 80%;
   height: 100%;
   display: flex;
-  flex-direction:row;
-  justify-content:center;
-  align-items:flex-end;
-
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
 }
-.attrHead{
+
+.attrHead {
   color: black;
   font-size: 24rpx;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  position:relative;
+  position: relative;
   top: 40rpx;
 }
-.attrTag{
-display: inline-flex;
-background-color: var(--greyn);
-flex-direction: column;
-align-items: center;
-justify-content: flex-end;
-padding-bottom: 10rpx;
-margin: 10rpx;
-width: 29%;
-height: 90rpx;
-border-radius: 10rpx;
+
+.attrTag {
+  display: inline-flex;
+  background-color: var(--greyn);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10rpx;
+  margin: 10rpx;
+  width: 29%;
+  height: 90rpx;
+  border-radius: 10rpx;
 }
-.navDetails{
+
+.navDetails {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
- width: 100%;
- height: 90rpx;
- background-color: white;
- position: fixed;
- top: 120rpx;
- z-index: 1000;
+  width: 100%;
+  height: 90rpx;
+  background-color: white;
+  position: fixed;
+  top: 120rpx;
+  z-index: 1000;
 }
-.navDetails .navBtn{
-  background-color:var(--green);
+
+.navDetails .navBtn {
+  background-color: var(--green);
   border-radius: 16rpx;
- width: 150rpx;
-display: flex;
-justify-content: center;
-align-items: center;
+  width: 150rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 60rpx;
   position: absolute;
   right: 30rpx;
 }
-.bottomGrabOrderBar{
+
+.bottomGrabOrderBar {
   position: fixed;
   bottom: 0rpx;
   height: 110rpx;
   width: 100%;
   z-index: 1000;
-
 }
-.grabOrderDetails{
+
+.grabOrderDetails {
   background-color: var(--tnRed);
   width: 100%;
   display: flex;
@@ -100,26 +105,35 @@ align-items: center;
   border-radius: 20rpx;
   height: 100%;
 }
-.addrBox{
+
+.addrBox {
   margin: 30rpx 0;
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.addrBar{
+
+.addrBar {
   border-radius: 20rpx;
   width: 80%;
   height: 480rpx;
   background: white;
 }
- .addrTag{
+
+.addrTag {
   width: 100%;
   display: flex;
   align-items: center;
-  height: 150rpx;
-
-  padding-left:30rpx; 
+  height: 100rpx;
+  padding-left: 30rpx;
 }
-.marginSet{
- margin:5rpx 0;
+
+.addrSet {
+  height: 150rpx;
+  margin: 10rpx 0;
+}
+
+.iconText {
+  width: 70rpx;
+  text-align: center;
 }
