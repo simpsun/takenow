@@ -3,6 +3,7 @@ Page({
   data: {
     isGrabOrderSliderBar: true,
     orderStatus: -1,
+    isSucceedGrab:1,
     attrList: [{
       icon: 'redpacket',
       context: '赏金',

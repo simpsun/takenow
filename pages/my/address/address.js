@@ -16,9 +16,7 @@ Page({
     })
   },
   selectAddress(e) {
-
     if (this.data.isManage =="false") {
-
       var address = this.data.addressList[e.currentTarget.dataset.index];
       console.log(address);
 

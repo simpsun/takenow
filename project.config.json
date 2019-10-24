@@ -13,7 +13,7 @@
 		"coverView": true,
 		"autoAudits": false,
 		"checkInvalidKey": true,
-		"checkSiteMap": true,
+		"checkSiteMap": false,
 		"uploadWithSourceMap": true,
 		"babelSetting": {
 			"ignore": [],
@@ -46,6 +46,10 @@
 		},
 		"game": {
 			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
 			"list": []
 		},
 		"miniprogram": {
@@ -91,6 +95,12 @@
 					"name": "pages/graborder/itemOrderInfo/listOrderInfo",
 					"pathName": "pages/graborder/itemOrderInfo/listOrderInfo",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/campus/campus",
+					"pathName": "pages/campus/campus",
 					"scene": null
 				}
 			]

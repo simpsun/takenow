@@ -1,11 +1,47 @@
 <!--pages/graborder/itemOrderInfo/listOrderInfo.wxml-->
-<view class="topStatusBar bg-tnRed flex-center ">
-  <view class="text-xl text-white">已接单
-    <text class="cuIcon-right text-white"></text>
+<view class="topStatusBar bg-tnRed flex-center">
+  <view  bindtap="showModal" data-target="bottomModal">
+    <view class="text-xl text-white margin-bottom" style="text-align:center">
+    未支付<text class="cuIcon-right text-white"></text>
+    </view>
+    <view class="text-df text-ghostWhite">15分钟内未支付，超时将自动取消</view>
+    <view class="text-df text-ghostWhite flex-center">剩余时间：{{orderList[0].leftTime}}</view>
+  </view>
+  <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" bindtap="hideModal">
+    <view class=" cu-dialog" catchtap>
+
+        <scroll-view scroll-y="true" style="height: 700rpx;">
+          <view class="cu-timeline">
+            <view class="cu-time">昨天</view>
+            <view class="cu-item cur cuIcon-infofill">
+              <view class="content  shadow-blur">
+                <text>22:22</text> 用户提交订单
+              </view>
+            </view>
+            <view class="cu-item cuIcon-infofill">
+              <view class="content shadow-blur">
+                <text>22:22</text> 用户付款成功
+              </view>
+            </view>
+
+            <view class="cu-item cuIcon-infofill">
+              <view class="content shadow-blur">
+                <text>22:22</text> 订单已被接单
+              </view>
+            </view>
+            <view class="cu-time">今天</view>
+            <view class="cu-item  text-grey cuIcon-infofill">
+              <view class="content bg-tnRed shadow-blur ">
+                <text>  <text>22:22</text> 完成配送</text>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+    </view>
   </view>
   <!-- iconfont iconquotL -->
 </view>
-<view class="goodInfoBar bg-white">
+<view class="goodInfoBar bg-white " >
   <view class="goodInfoText">
     <text class="iconfont iconquotL text-greys"></text>
     <text class="margin-lr-sm text-lg">【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847</text>
@@ -48,14 +84,14 @@
   </block>
 </view>
 <!-- 底部栏 -->
-<view class="bottomBar bg-white" >
-<view class="bBtn flex justify-center align-center">
-取消订单
-</view>
-<view class="bBtn flex justify-center align-center">
-投诉订单
-</view>
-<view class="bBtn flex justify-center align-center" style="background:var(--tnRed)">
-确认配送
-</view>
+<view class="bottomBar bg-white">
+  <view class="bBtn flex justify-center align-center">
+    取消订单
+  </view>
+  <view class="bBtn flex justify-center align-center">
+    投诉订单
+  </view>
+  <view class="bBtn flex justify-center align-center" style="background:var(--tnRed)">
+    确认配送
+  </view>
 </view>

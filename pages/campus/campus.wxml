@@ -1,0 +1,38 @@
+<view class="cu-bar search ">
+    <view class="search-form round ">
+      <text class="cuIcon-search"></text>
+      <input type="text" placeholder="搜索你的校区" confirm-type="search"></input>
+    </view>
+  </view>
+
+<view class="margin-top-xs margin-left"><text class='text-grey'>当前定位：</text><text class="bg-white  padding-s margin-right-sm">天津师范大学</text><text class="text-tnRed" bindtap="reGetLocation">[重新定位]</text></view>
+
+<view class="cu-list menu  margin-top">
+<block wx:for="{{campusList}}" wx:key >
+  <view class="cu-item arrow ">
+    <view class="flex-center " style="height:100rpx;">
+      <image src="http://image347.test.upcdn.net/{{item.ename}}.png" class="png" mode="aspectFit" style="width:50rpx;"></image>
+      <text class="margin-left text-grey text-lg">{{item.name}}</text>
+    </view>
+  </view>
+</block>
+</view>
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">未授权位置信息</view>
+            <view bindtap="hideModal" class="action">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view class="padding-xl bg-white">
+      Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用
+    </view>
+        <view class="cu-bar bg-white justify-end">
+            <view class="action">
+                <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
+                <button bindopensetting="getLocation" class="cu-btn bg-tnRed margin-left" openType="openSetting">确定 </button>
+            </view>
+        </view>
+    </view>
+</view>

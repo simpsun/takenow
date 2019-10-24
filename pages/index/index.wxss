@@ -3,7 +3,14 @@
 page {
   background-color: ghostWhite;
 }
-
+.CampusSelect{
+  position: absolute;
+  left: 5%;
+  top: 10rpx;
+  color: white;
+  font-size: 28rpx;
+  
+}
 .tabbarStyle {
   width: 750rpx;
   height: 150rpx;
@@ -11,7 +18,7 @@ page {
   margin-top: 0;
   position: absolute;
   /* 图片离上部距离 */
-  top: 50rpx;
+  top: 80rpx;
   left: 0;
   display: flex;
   flex-wrap: nowrap;
@@ -64,7 +71,7 @@ page {
   border-radius: 20rpx;
   margin-top: 20rpx;
   bottom: 20rpx;
-	background-image: var(--gradualRed);
+	background: var(--tnRed);
   color: white;
 }
 .fingerImg{

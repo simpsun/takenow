@@ -1,0 +1,5 @@
+/* pages/campus/campus.wxss */
+itemHeight{
+  height: 80rpx;
+  width: 80%;
+}

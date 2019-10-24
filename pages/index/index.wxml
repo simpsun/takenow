@@ -2,7 +2,12 @@
 <!-- <cu-custom bgColor="transparent">
   <view style='color:white;' slot="content">Take Now</view>
 </cu-custom>-->
-<view class="bg-tnRed bg-tabbar"></view> 
+<view class="CampusSelect" hover-class="navigator-hovor" bindtap="onCampusSelect">
+  <text class="cuIcon-location text-white"></text>
+  <text style="margin:0 5rpx;">天津师范大学</text>
+  <text class="cuIcon-unfold text-white"></text>
+</view>
+<view class="bg-tnRed bg-tabbar"></view>
 
 <view class="tabbarStyle">
   <block wx:for="{{funcList}}" wx:key>

@@ -30,6 +30,7 @@
 		<view hover-class="navigator-hovor" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
 	</view>
 </view>
+<!-- 筛选栏 -->
 <view class="filterBar">
 	<block wx:for="{{filterBarList}}" wx:key>
 		<view class="{{item.id==selectedFilterBtn?'selectedFilterBarBtn':''}}" data-findex="{{index}}" bindtap="onFilterBarBtn">{{item.value}}</view>
@@ -53,7 +54,7 @@
 			</view>
 		</view>
 		<view class="grabOrderItemInfoRight">
-			<view class="text-orange text-xxl">¥{{item.orderReward}}</view>
+			<view class="text-{{grabOrderStatusList[item.orderStatus].color}} text-xxl">¥{{item.orderReward}}</view>
 			<view class="text-{{grabOrderStatusList[item.orderStatus].color}} text-l">{{grabOrderStatusList[item.orderStatus].name}}</view>
 		</view>
 	</view>

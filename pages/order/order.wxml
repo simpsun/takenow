@@ -7,7 +7,7 @@
     <input type="text" placeholder="查询订单" confirm-type="search"></input>
   </view>
   <view class="action">
-    <button class="cu-btn bg-gradual-red">搜索</button>
+    <button class="cu-btn bg-tnRed">搜索</button>
   </view>
 </view>
 

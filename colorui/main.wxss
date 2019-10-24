@@ -33,10 +33,10 @@ page {
   --greym: #c4c4c4;
   --greyn:#F7f7f7;
    --greys:#ccc;
-  /* --tnRed:#F6275C; */
- --tnRed:#f6275c;
+  --tnRed:#5a87f7;
+ /* --tnRed:#f6275c; */
   /* --tnRed:#f37b1d; */
-  --tnRedLight:rgb(246, 39, 92,0.5);
+  --tnRedLight:#e2ecf7;
 	/* 浅色 */
 	--redLight: #fadbd9;
 	--orangeLight: #fde6d2;
@@ -46,7 +46,7 @@ page {
 	--cyanLight: #d2f1f0;
 	/* --blueLight: #cce6ff; */
   /* --blueLight: rgb(213, 228, 243); */
-  --blueLight: rgb(226, 236, 247);
+  --blueLight: #e2ecf7;
 	--purpleLight: #e1d7f0;
 	--mauveLight: #ebd4ef;
 	--pinkLight: #f9d7ea;
@@ -102,6 +102,9 @@ image {
 
 .radius {
 	border-radius: 6rpx;
+}
+.radius-xs{
+  border-radius:16rpx; 
 }
 .radius-l{
   border-radius:20rpx; 
@@ -3282,7 +3285,9 @@ scroll-view.cu-steps .cu-item {
 .padding-0 {
 	padding: 0;
 }
-
+.padding-s {
+	padding: 5rpx;
+}
 .padding-xs {
 	padding: 10rpx;
 }
@@ -4052,6 +4057,11 @@ background-color:rgba(190,226,148,0.4);
 	color: var(--grey);
 }
 
+.text-ghostWhite,
+.line-ghostWhite,
+.lines-ghostWhite {
+	color: var(--ghostWhite);
+}
 .text-gray,
 .line-gray,
 .lines-gray {
@@ -4094,7 +4104,7 @@ background-color:rgba(190,226,148,0.4);
 	color: var(--white);
 }
 .bg-tnRedLight{
-  background-color: rgba(246,39,92,0.4)
+  background-color: var(--blueLight)
 }
 .text-tnRed,
 .line-tnRed{
@@ -4211,7 +4221,7 @@ background-color:rgba(190,226,148,0.4);
 .bg-tabbar {
   width: 100%;
   height: 400rpx;
-  border-radius: 0 0 30rpx 30rpx;
+  border-radius: 0 0 60rpx 60rpx;
   position: absolute;
   /* 状态栏设为透明色，从屏幕顶部开始 */
   top: 0;

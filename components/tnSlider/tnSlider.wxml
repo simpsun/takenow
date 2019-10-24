@@ -1,6 +1,6 @@
 
 <view class="slidersBox">
-  <text style="color:#f6275c;">{{ hint }}</text>
+  <text style="color:#5a87f7;">{{ hint }}</text>
   <view class='operationBgBox' style='left: {{ -(w + 2) }}px; transform: {{ cssAnimation }}'>
     <text style="color:#ffffff;">{{ succeedMsg }}</text>
     <view class='operationBox' catchtouchmove='moveFun' catchtouchend='endFun'>

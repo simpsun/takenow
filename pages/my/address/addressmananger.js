@@ -2,9 +2,7 @@ var addressList = null;
 Page({
   data: {
     defaultAddress: "",
-    latitude: 39.14111,
-    longitude: 117.00739,
-    isLoaction: !1,
+
     edit: -1
   },
   formSubmit: function(e) {

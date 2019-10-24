@@ -13,18 +13,20 @@
     "pages/index/remark",
     "pages/graborder/itemOrderInfo/itemOrderInfo",
     "pages/test/text2",
-    "pages/graborder/itemOrderInfo/listOrderInfo"
+    "pages/graborder/itemOrderInfo/listOrderInfo",
+    "pages/campus/campus"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#f6275c",
+    "navigationBarBackgroundColor": "#5a87f7",
     "navigationBarTitleText": "Take Now",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#000000",
-    "selectedColor": "#f6275c",
+    "selectedColor": "#5a87f7",
     "borderStyle": "white",
+    "backgroundColor": "f1f1f1",
     "list": [
       {
         "pagePath": "pages/index/index",

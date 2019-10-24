@@ -7,9 +7,6 @@ Page({
    */
   data: {
     goodsInfoArea: '',
-    latitude: 39.14111,
-    longitude: 117.00739,
-    isLoaction: 0,
     remarkInput: "",
     AddressList: [],
     //从地址管理页面选择的信息
