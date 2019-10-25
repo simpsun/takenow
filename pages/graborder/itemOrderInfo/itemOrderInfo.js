@@ -115,7 +115,7 @@ Page({
       phoneNumber:e.currentTarget.dataset.phonenum //仅为示例，并非真实的电话号码
     })
   },
-  //  -----------加载中-----------
+  //  --------------------------------加载中------------------------------------------------
 
   loadModal: function() {
     var p = new Promise((resolve, reject) => {
@@ -131,7 +131,6 @@ Page({
     })
     return p;
   },
-
   //   loadModal(callback) {
   //     this.setData({
   //       loadModal: true

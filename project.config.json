@@ -77,9 +77,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "pages/test/test",
-					"pathName": "pages/test/test2",
+					"pathName": "pages/test/test",
 					"query": "",
 					"scene": null
 				},
@@ -108,6 +108,7 @@
 					"id": -1,
 					"name": "pages/my/address/addressmananger",
 					"pathName": "pages/my/address/addressmananger",
+					"query": "",
 					"scene": null
 				}
 			]

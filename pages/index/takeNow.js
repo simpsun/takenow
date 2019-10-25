@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dialogTitle: '未授权位置信息',
+    dialogContent: 'Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用',
     goodsInfoArea: '',
     remarkInput: "",
     AddressList: [],
@@ -203,17 +205,17 @@ Page({
         duration: 1e3
       });
     } else {
-     this.setData({
-      OrderInfoList:{
-        purchaseStyleTag: t.switchTakeTag,
-        purchaseAddress: t.purchaseAddress || '',
-        deliverAddress: t.receivingAddressList,
-        goodsInfo: t.goodsInfoArea,
-        goodsRemark: t.remarkInput || '无',
-        goodsWeight: t.userDeterminedWeight || t.selectedWeight,
-        genderLimit: t.selectedGenderLimit || t.genderLimitList[0],
-        deliverCoset:t.userDeterminedCost,
-        orderLife: t.userDeterminedOrderLife || t.orderLifeList[10]
+      this.setData({
+        OrderInfoList: {
+          purchaseStyleTag: t.switchTakeTag,
+          purchaseAddress: t.purchaseAddress || '',
+          deliverAddress: t.receivingAddressList,
+          goodsInfo: t.goodsInfoArea,
+          goodsRemark: t.remarkInput || '无',
+          goodsWeight: t.userDeterminedWeight || t.selectedWeight,
+          genderLimit: t.selectedGenderLimit || t.genderLimitList[0],
+          deliverCoset: t.userDeterminedCost,
+          orderLife: t.userDeterminedOrderLife || t.orderLifeList[10]
         }
       })
       console.log(t.OrderInfoList);
@@ -261,9 +263,7 @@ Page({
           }
         })
       } else {
-        this.setData({
-          modalName: "DialogModal"
-        });
+        that.selectComponent('#tnLocation').showModal();
       }
     } else {
       wx.navigateTo({
@@ -272,11 +272,9 @@ Page({
     }
   },
   getMyLocation: function(t) {
-    this.setData({
-      modalName: null
-    });
+    console.log(t)
     var that = this;
-    if (t.detail.authSetting["scope.userLocation"]) {
+    if (t.detail.detail.authSetting["scope.userLocation"]) {
       that.setData({
         isLocation: 1
       }), wx.getLocation({

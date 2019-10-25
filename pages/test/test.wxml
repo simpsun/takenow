@@ -6,7 +6,7 @@
   <input type="text" placeholder="想要同学帮做你什么？" confirm-type="search"></input>
 </view>
 <view class="action">
-  <button class="cu-btn bg-gradual-red shadow-blur">Take Now</button>
+  <button class="cu-btn bg-gradual-red shadow-blur" bindtap="asd">Take Now</button>
 </view>
 
 <!--公告栏 纵向滑动-->
@@ -17,3 +17,6 @@
     </swiper-item>
   </swiper>
 </view>
+
+
+<tn-dialog id="myTnDialog" bind:customEvent="consolo" title='{{dialogTitle}}' details='{{dialogContent}}' isShow='{{isShow}}'></tn-dialog>

@@ -148,6 +148,11 @@ Page({
         break;
     }
   },
+  rewardBarNav(){
+    wx.navigateTo({
+      url: '../..'
+    })
+  },
   // 筛选我能接的单
   onFilterIcan() {
     this.setData({

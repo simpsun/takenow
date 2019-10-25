@@ -1,0 +1,21 @@
+<!--components/tnDialog/tnDialog.wxml     -->
+<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
+  <view class="cu-dialog" style="width:80%">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{title}}</view>
+      <view bindtap="hideModal" class="action">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl bg-white">
+      {{details}}
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action">
+        <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
+        <button wx:if='{{isLocation}}' openType='openSetting' bindopensetting='onConfirm' class="cu-btn bg-tnRed margin-left">确定 </button>
+        <button wx:else bindtap='onConfirm' class="cu-btn bg-tnRed margin-left">确定 </button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -27,7 +27,7 @@
 	<view class="myRewardBar ">
 		<view class="text-black text-xl">我的赏金</view>
 		<view class="text-xl text-orange">￥1234</view>
-		<view hover-class="navigator-hovor" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
+		<view hover-class="navigator-hovor" bindtap="rewardBarNav" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
 	</view>
 </view>
 <!-- 筛选栏 -->

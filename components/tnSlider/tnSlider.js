@@ -101,6 +101,7 @@ Component({
 
       //使用triggerEvent事件，将绑定在此组件的myevent事件，将返回值传递过去
       this.triggerEvent('myevent', detail);
+
       //根据获取到的X轴坐标进行动画演示
       this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
       this.setData({

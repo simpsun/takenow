@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "Take Now",
 
-  "usingComponents": {}
+  "usingComponents": {
+    "tn-dialog": "/components/tnDialog/tnDialog"
+  }
 }

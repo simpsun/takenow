@@ -98,25 +98,8 @@
 
 
 <!-- 位置信息窗口 -->
-<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">未授权位置信息</view>
-      <view bindtap="hideModal" class="action">
-        <text class="cuIcon-close text-red"></text>
-      </view>
-    </view>
-    <view class="padding-xl bg-white">
-      Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用
-    </view>
-    <view class="cu-bar bg-white justify-end">
-      <view class="action">
-        <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
-        <button bindopensetting="getMyLocation" class="cu-btn bg-tnRed margin-left" openType="openSetting">确定 </button>
-      </view>
-    </view>
-  </view>
-</view>
+<tn-dialog id="tnLocation" bind:customEvent="getMyLocation" isLocation='true' title='{{dialogTitle}}' details='{{dialogContent}}' isShow='{{isShow}}'></tn-dialog>
+
 
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
   <view class="cu-dialog" catchtap="forStopBubbles">
