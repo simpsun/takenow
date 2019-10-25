@@ -1,7 +1,8 @@
 var addressList = null;
+var app = getApp();
 Page({
   data: {
-    defaultAddress: "",
+    nearCampus: "",
 
     edit: -1
   },
@@ -17,7 +18,7 @@ Page({
       duration: 1e3
     });
     else if (/^1(3|4|5|7|8|9)\d{9}$/.test(e.detail.value.mobile))
-      if ("" == e.detail.value.defaultAddress) wx.showToast({
+      if ("" == e.detail.value.nearCampus) wx.showToast({
         title: "请选择收货地址",
         icon: "none",
         duration: 1e3
@@ -29,16 +30,16 @@ Page({
     });
     else {
       var arr = wx.getStorageSync("addressList") || [],
-         name = e.detail.value.name,
-         mobile = e.detail.value.mobile,
-          defaultAddress = e.detail.value.defaultAddress,
-          exactAddress = e.detail.value.exactAddress,
-          def = e.detail.value.def
+        name = e.detail.value.name,
+        mobile = e.detail.value.mobile,
+        nearCampus = e.detail.value.nearCampus,
+        exactAddress = e.detail.value.exactAddress,
+        def = e.detail.value.def
       console.log("arr,{}", arr),
         addressList = {
           name: name,
           mobile: mobile,
-          defaultAddress: defaultAddress,
+        nearCampus: nearCampus,
           exactAddress: exactAddress,
           default: def
         }
@@ -49,7 +50,7 @@ Page({
         if (this.data.edit != -1) {
           arr.splice(this.data.edit, 1)
         }
-			
+
         arr.unshift(addressList)
       } else {
         this.data.edit == -1 ? arr.push(addressList) : arr[this.data.edit] = addressList
@@ -77,24 +78,9 @@ Page({
     });
   },
   judgeGrant: function() {
-    var that = this;
-    if (this.data.isLocation == true) {
-      wx.chooseLocation({
-        latitude: that.data.latitude,
-        longitude: that.data.longitude,
-        scale: 18,
-        success: function(e) {
-          console.log(e),
-            that.setData({
-              defaultAddress: e.name
-            })
-        }
-      })
-    } else {
-      this.setData({
-        modalName: "DialogModal"
-      });
-    }
+    wx.navigateTo({
+      url: `../../campus/campus?nearCampus=${this.data.nearCampus}`,
+    })
   },
   showModal: function(t) {
     this.setData({
@@ -108,7 +94,7 @@ Page({
     });
   },
   getMyLocation: function(t) {
-	
+
     this.setData({
       modalName: null
     });
@@ -120,7 +106,7 @@ Page({
         type: "gcj02",
         success: function(t) {
           var a = t.latitude,
-           o = t.longitude;
+            o = t.longitude;
           that.setData({
             latitude: a,
             longitude: o
@@ -131,7 +117,7 @@ Page({
             success: function(t) {
               console.log(t),
                 that.setData({
-                defaultAddress: t.name
+                nearCampus: t.name
                 });
             }
           });
@@ -144,38 +130,64 @@ Page({
     }
   },
   onLoad: function(e) {
-    console.log(e.index)
+    console.log(app.globalData.nearCampus)
+    this.setData({
+      nearCampus: app.globalData.nearCampus
+    })
     var that = this;
-    wx.getLocation({
-        type: "gcj02",
-        success: function(t) {
-          console.log(t);
-          var latitude = t.latitude,
-            longitude = t.longitude;
-          that.setData({
-            isLocation: 1,
-            latitude: latitude,
-            longitude: longitude
-          });
-        },
-        fail: function(t) {
-          console.log("拒绝授权"), that.setData({
-            isLocation: 0
-          });
-        }
-      })
-      if(e.index!=undefined) {
-      var arr= wx.getStorageSync("addressList");
-      console.log(arr[e.index]),
-   
-      this.setData({
-        edit: e.index,
-        name: arr[e.index].name,
-        mobile: arr[e.index].mobile,
-        defaultAddress: arr[e.index].defaultAddress,
-        exactAddress: arr[e.index].exactAddress,
-        default: arr[e.index].default
-      });
+    if (e.index != undefined) {
+      var arr = wx.getStorageSync("addressList");
+      console.log(arr[e.index])
+        this.setData({
+          edit: e.index,
+          name: arr[e.index].name,
+          mobile: arr[e.index].mobile,
+          nearCampus: arr[e.index].nearCampus,
+          exactAddress: arr[e.index].exactAddress,
+          default: arr[e.index].default
+        });
     }
   }
 });
+
+
+
+// wx.getLocation({
+//   type: "gcj02",
+//   success: function (t) {
+//     console.log(t);
+//     var latitude = t.latitude,
+//       longitude = t.longitude;
+//     that.setData({
+//       isLocation: 1,
+//       latitude: latitude,
+//       longitude: longitude
+//     });
+//   },
+//   fail: function (t) {
+//     console.log("拒绝授权"), that.setData({
+//       isLocation: 0
+//     });
+//   }
+// })
+
+// judgeGrant: function() {
+//   var that = this;
+//   if (this.data.isLocation == true) {
+//     wx.chooseLocation({
+//       latitude: that.data.latitude,
+//       longitude: that.data.longitude,
+//       scale: 18,
+//       success: function (e) {
+//         console.log(e),
+//           that.setData({
+//             defaultAddress: e.name
+//           })
+//       }
+//     })
+//   } else {
+//     this.setData({
+//       modalName: "DialogModal"
+//     });
+//   }
+// },

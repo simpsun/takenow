@@ -101,6 +101,13 @@
 					"id": -1,
 					"name": "pages/campus/campus",
 					"pathName": "pages/campus/campus",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my/address/addressmananger",
+					"pathName": "pages/my/address/addressmananger",
 					"scene": null
 				}
 			]

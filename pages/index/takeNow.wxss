@@ -68,9 +68,10 @@ page{
 	margin-left:175rpx;
 }
 .WeightChangeSlider{
-  widows: 100%;
+ width: 80%;
   height: 100rpx;
   margin-top: 30rpx;
+  margin:30rpx  auto 0 auto;
 }
 
 

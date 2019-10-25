@@ -3,7 +3,6 @@
 page {
   padding-bottom: 100rpx;
 }
-
 .topStatusBar {
   width: 100%;
   height: 200rpx;
@@ -11,18 +10,15 @@ page {
   top: 0;
   z-index: 1000;
 }
-
 .goodInfoBar {
   width: 94%;
   margin: 20rpx auto;
   margin-top: 220rpx;
   border-radius: 20rpx;
 }
-
 .goodInfoText {
   padding: 20rpx;
 }
-
 .addrBar {
   border-radius: 20rpx;
   width: 94%;

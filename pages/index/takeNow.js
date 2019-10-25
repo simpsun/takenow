@@ -127,7 +127,7 @@ Page({
   onGenderLimit() {
     wx.showActionSheet({
       itemList: this.data.genderLimitList,
-      itemColor: '#f6275c',
+      itemColor: '#5a87f7',
       success: (res) => {
         this.setData({
           selectedGenderLimit: this.data.genderLimitList[res.tapIndex]

@@ -13,7 +13,7 @@
     <button bindtap="judgeGrant" class="cu-form-group button" hoverClass="none">
         <view class="title address-title">学校</view>
         <text class="cuIcon-locationfill text-gray"></text>
-        <input class="addressInput" disabled="true " name="defaultAddress" placeholder="点我选择位置" value="{{defaultAddress}}"></input>
+        <input class="addressInput" disabled="true " name="nearCampus" placeholder="点我选择位置" value="{{nearCampus}}"></input>
         <text class="cuIcon-right  text-gray"></text>
     </button>
     <view class="cu-form-group">

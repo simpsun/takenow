@@ -1,5 +1,7 @@
 // pages/newindex.js
 var app = getApp();
+
+
 Page({
 
   /**
@@ -7,7 +9,7 @@ Page({
    */
   data: {
     demandInfo: "",
-
+    nearCampus:'',
     ColorList: ['放楼下就行', '999感冒颗粒', '尽快送达', '配送注意安全', '谢谢', '煎饼果子'],
     funcList: ['帮我买', '帮我送', '领包裹', '全能超人'],
     funcImgSrc: '../../images/index/func'
@@ -31,7 +33,7 @@ Page({
   // 校区选择
   onCampusSelect() {
     wx.navigateTo({
-      url: '../campus/campus',
+      url: `../campus/campus?nearCampus=${this.data.nearCampus}`,
     })
   },
   // 快捷标签输入
@@ -56,21 +58,35 @@ Page({
       url: `./takeNow?goodsInfo=${goodsInfo}`
     })
   },
+  checkLocationError() {
+    小程序是否授权
+    if (app.globalData.locationEnabled) {
+      wx.showModal({
+        title: '提示',
+        content: '您的手机可能没有开启定位功能',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      })
+    }
+  },
   // -----------------------------------------------------生命周期函数-----------------------------------------------
-
-  onLoad: function(options) {
-    wx.getLocation({
-      type: "gcj02",
-      success: function(res) {
-        app.globalData.latitude = res.latitude;
-        app.globalData.longitude = res.longitude;
-        console.log("经纬度:"+app.globalData.latitude + "," + app.globalData.longitude);
-        app.globalData.isLocation = 1;
-      },
-      fail: res => {
-        console.log("地址获取失败："+res.errMsg);
-        app.globalData.isLocation=0;
-      }
+  onLoad: function() {
+    app.userInfoReadyCallback = res => {
+      console.log('获取成功');
+      this.setData({
+        nearCampus: res
+      })
+    };
+   
+  
+  },
+  onShow(){
+    this.setData({
+      nearCampus: app.globalData.nearCampus
     })
   }
 })

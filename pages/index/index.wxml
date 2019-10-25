@@ -4,7 +4,7 @@
 </cu-custom>-->
 <view class="CampusSelect" hover-class="navigator-hovor" bindtap="onCampusSelect">
   <text class="cuIcon-location text-white"></text>
-  <text style="margin:0 5rpx;">天津师范大学</text>
+  <text style="margin:0 5rpx;">{{nearCampus}}</text>
   <text class="cuIcon-unfold text-white"></text>
 </view>
 <view class="bg-tnRed bg-tabbar"></view>

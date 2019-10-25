@@ -11,7 +11,7 @@
                     </view>
                     <text class="tag" wx:if="{{item.default}}">默认</text>
                 </view>
-                <text class="address-name">{{item.defaultAddress+' '+item.exactAddress}}</text>
+                <text class="address-name">{{item.nearCampus+' '+item.exactAddress}}</text>
             </view>
             <image catchtap='editTap' hidden='{{isManage==false}}' class="address-img" src="../../../images/address/edit.png" data-index='{{index}}'></image>
       

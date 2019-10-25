@@ -171,7 +171,7 @@
     </view>
     <view class="text-tnRed text-xl margin-top">{{selectedWeight}}</view>
     <view class="WeightChangeSlider">
-      <slider bindchange="onWeightChange" activeColor="#f6275c" min="0" max="9" />
+      <slider bindchange="onWeightChange" activeColor="#5a87f7" min="0" max="9" />
 
     </view>
   </view>
@@ -187,7 +187,7 @@
     </view>
     <view class="text-tnRed text-xl margin-top">{{orderLifeList[selectedOrderLife]}}</view>
     <view class="WeightChangeSlider">
-      <slider bindchange="onOrderLifeChange" activeColor="#f6275c" min="0" max="12" value="10" />
+      <slider bindchange="onOrderLifeChange" activeColor="#5a87f7" min="0" max="12" value="10" />
 
     </view>
   </view>

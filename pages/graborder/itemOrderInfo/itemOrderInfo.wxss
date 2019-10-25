@@ -26,6 +26,7 @@ page {
   justify-content: center;
   align-items: center;
   padding: 0;
+
 }
 
 .attrBar {
@@ -118,7 +119,7 @@ page {
 .addrBar {
   border-radius: 20rpx;
   width: 80%;
-  height: 480rpx;
+  height: 450rpx;
   background: white;
 }
 
@@ -131,11 +132,15 @@ page {
 }
 
 .addrSet {
-  height: 150rpx;
+  height: 140rpx;
   margin: 10rpx 0;
 }
 
 .iconText {
   width: 70rpx;
   text-align: center;
+}
+.dialogBtn{
+  width: 40%;
+  height: 100%;
 }
