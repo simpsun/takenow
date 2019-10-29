@@ -11,6 +11,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": false,
 		"autoAudits": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": false,
@@ -21,6 +22,8 @@
 			"outputPath": ""
 		}
 	},
+	"miniprogramRoot": "miniprogram/",
+	"cloudfunctionRoot": "cloudfunctions/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",
 	"appid": "wxaee388c77cc3f2ec",
@@ -108,6 +111,13 @@
 					"id": -1,
 					"name": "pages/my/address/addressmananger",
 					"pathName": "pages/my/address/addressmananger",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my/taker/taker",
+					"pathName": "pages/my/taker/taker",
 					"query": "",
 					"scene": null
 				}

@@ -1,0 +1,42 @@
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">搜索</view>
+    </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+<block wx:for="{{dynaList}}" wx:key>
+  <view bindtap="onSelectCampus" data-cname="{{campusList[item.index].name}}" class="weui-cell" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">
+      <view>{{campusList[item.index].name}}</view>
+    </view>
+  </view>
+  </block>
+</view>
+
+
+<view class="margin-top-xs margin-left">
+  <text class='text-grey'>当前定位：</text>
+  <text class="bg-white  padding-s margin-right-sm">{{nearCampus}}</text>
+</view>
+
+<view class="cu-list menu  margin-top">
+  <block wx:for="{{campusList}}" wx:key>
+    <view class="cu-item arrow " data-cname="{{item.name}}" bindtap="onSelectCampus">
+      <view class="flex-center " style="height:100rpx;">
+        <image src="http://image347.test.upcdn.net/{{item.ename}}.png" class="png" mode="aspectFit" style="width:50rpx;"></image>
+        <text class="margin-left text-grey text-lg">{{item.name}}</text>
+      </view>
+    </view>
+  </block>
+</view>

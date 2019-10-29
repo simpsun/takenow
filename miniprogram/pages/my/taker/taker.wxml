@@ -1,0 +1,144 @@
+<!--pages/my/taker/taker.wxml-->
+
+
+<view wx:if='{{steps!=4}}'>
+  <view class="bg-white padding">
+    <view class="cu-steps">
+      <view class="cu-item {{index>steps?'':'text-tnRed'}}" wx:for="{{numList}}" wx:key>
+        <text class="num" data-index="{{index + 1}}"></text> {{item.name}}
+      </view>
+    </view>
+  </view>
+
+  <view wx:if='{{steps==0}}'>
+    <view class='margin-top bg-white padding-xl radius shadow-lg'>
+      <view class='text-center margin-bottom text-lg  text-grey'>Take Now</view>
+      <view class='text-content text-center'>
+        <view>同学您好~感谢您对我们的支持!</view>
+        <view style='text-align:left'>我们在确认您身份之前，我们希望您告诉您一些事情：我们也是天津师范大学的在校学生，我们希望通过自己的一点努力，来为大家繁忙的大学生活带来一丢丢便利，我们发现跑腿、代办事务、取等校园生活服务存在着安全性差、收费高、无保障的问题，于是我们开发了Take Now平台，我们希望您加入我们，与我们一起，享受服务并服务于同学，并赚取一定额外收入</view>
+        <view class='margin-top-sm text-center' style='text-align:left'>您在接下来认证的信息，我们会进行一定的算法让服务器认证，服务器认证通过的则不会进入人工审核。无论何种审核，最终您的信息将会加密存储在云端，为您隐私信息保驾护航。</view>
+      </view>
+    </view>
+    <view class='margin-top margin-left text-grey'>
+      <checkbox-group bindchange='checkboxChange'>
+        <label>
+          <checkbox value='aRead' class="round tnRed" checked></checkbox>
+          我已阅读并同意
+        </label>
+        <text class='text-tnRed'>Take Now跑腿协议</text>
+      </checkbox-group>
+    </view>
+    <button class='stepsButton0' wx:if="{{steps==0}}" bindtap='nextStep' hoverClass="navigator-hovor">下一步</button>
+  </view>
+  <view wx:if='{{steps==1}}'>
+    <view class="cu-form-group margin-top-lg">
+      <view class="title">姓名</view>
+      <input placeholder="你的真实姓名" value='{{idCard_name}}' bindblur='Blur' data-update='0'></input>
+    </view>
+    <view class="cu-form-group mmmm">
+      <view class="title">性别</view>
+      <radio-group name='sex' bindchange='radioChange'>
+        <label class="radio">
+          <radio checked="{{idCard_gender==1}}" class="tnRed" value="1"></radio>
+          <text class='text-lg' decode="{{true}}">&nbsp;&nbsp;男</text>
+        </label>
+        <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</text>
+        <label class="radio">
+          <radio checked="{{idCard_gender==2}}" class="tnRed" value="2"></radio>
+          <text class='text-lg' decode="{{true}}">&nbsp;&nbsp;女</text>
+        </label>
+      </radio-group>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">身份证号</view>
+      <input placeholder="你的身份证号码18位" bindblur='Blur' type="idcard" value='{{idCard_code}}' data-update='1'></input>
+    </view>
+    <view class='stepsButtonBox'>
+      <button class='stepsButtonLast' wx:if="{{steps==1}}" bindtap='lastStep' hoverClass="navigator-hovor">上一步</button>
+      <button class='stepsButtonNext' wx:if="{{steps==1}}" bindtap='nextStep' hoverClass="navigator-hovor">下一步</button>
+    </view>
+
+  </view>
+  <view wx:if='{{steps==2}}'>
+    <view class="cu-form-group margin-top-lg">
+      <view class="title">学校</view>
+      <input placeholder="学校全名" bindblur='Blur' type='text' value='{{studentCard_schoolName}}' data-update='2'></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">学号</view>
+      <input placeholder="你的学号" bindblur='Blur' type='text' value='{{studentCard_schoolId}}' data-update='3'></input>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="title">学院</view>
+      <input placeholder="你的学院" bindblur='Blur' type='text' value='{{studentCard_faculty}}' data-update='4'></input>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="title">专业</view>
+      <input placeholder="你的专业" bindblur='Blur' type='text' value='{{studentCard_major}}' data-update='5'></input>
+    </view>
+
+    <view class="cu-form-group">
+      <view class="title">入学时间</view>
+      <picker mode="date" value="{{studentCard_date}}" start="2013-09" end="2025-09" fields='month' bindchange="DateChange">
+        <view class="date-picker">
+          {{studentCard_date}}
+        </view>
+      </picker>
+    </view>
+    <view class='imgBox'>
+      <view class='imgLeft'>
+        <image class="sImage" mode="aspectFill" src='https://ae01.alicdn.com/kf/H1eb7dc090059488cbfdbfdec41e07a61v.jpg'></image>
+      </view>
+      <view bindtap='chooseImg' class='imgRight'>
+
+        <image class="sImage" mode="aspectFill" src="{{sImage}}" wx:if="{{!!sImage}}">
+          <view class="cu-tag bg-grey del-img" catchtap="DelImg">
+            <text class="cuIcon-close text-sl"></text>
+          </view>
+
+
+        </image>
+        <block wx:else>
+          <view class='block-img'>
+            <view class="cuIcon-cameraadd chooseImgage "></view>
+            <view>立即上传</view>
+          </view>
+        </block>
+
+      </view>
+
+    </view>
+    <view class='stepsButtonBox'>
+      <button class='stepsButtonLast' wx:if="{{steps==2}} " bindtap='lastStep' hoverClass="navigator-hovor ">上一步</button>
+      <button class='stepsButtonNext' wx:if="{{steps==2}} " bindtap='nextStep' hoverClass="navigator-hovor ">下一步</button>
+    </view>
+  </view>
+  <view wx:if='{{steps==3}}'>
+
+    <view class='text-xxl text-tnRed margin-top-xl'>由于个人版无法调用获取手机号接口</view>
+    <view class='text-xxl text-tnRed margin-top-xl'>敬请期待</view>
+
+
+    <view class='stepsButtonBox'>
+      <button class='stepsButtonLast' wx:if="{{steps==3}} " bindtap='lastStep' hoverClass="navigator-hovor ">上一步</button>
+      <button class='stepsButtonNext' wx:if="{{steps==3}} " bindtap='nextStep' hoverClass="navigator-hovor">提交</button>
+    </view>
+
+  </view>
+  <view wx:if='{{steps==4}}' >
+    <view class='finish' >
+      <view class='icon cuIcon-timefill '></view>
+      <view class='text-xl text-tnRed'>提交成功</view>
+    </view>
+    <view class='margin-xl text-darkGray text-df'>我们会尽快审核，预计在2个工作日内完成，请关注手机短信通知。</view>
+  </view>
+</view>
+<view wx:else>
+  <view class='finish'>
+    <view class='icon cuIcon-timefill '></view>
+    <view class='text-xl text-tnRed'>提交成功</view>
+  </view>
+  <view class='margin-top-ml margin-lr-xl text-grey text-xl'>我们会尽快审核，预计在2个工作日内完成，请关注手机短信通知。</view>
+</view>

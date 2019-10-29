@@ -1,0 +1,46 @@
+<!--pages/test/test.wxml-->
+
+
+<view class="search-form">
+  <text class="cuIcon-search"></text>
+  <input type="text" placeholder="想要同学帮做你什么？" confirm-type="search"></input>
+</view>
+<view class="action">
+  <button class="cu-btn bg-gradual-red shadow-blur" bindtap="asd">Take Now</button>
+</view>
+
+<!--公告栏 纵向滑动-->
+<view class='index-notice'>
+  <swiper class='notice-item' vertical='true' autoplay='true' circular='true' interval='2000'>
+    <swiper-item wx:for='{{noticeList}}' wx:key>
+      <view class='bg-{{item.color}}'>{{item.content}}</view>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">搜索</view>
+    </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+<block wx:for="{{dynaList}}" wx:key>
+  <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">
+      <view>{{campusList[item.index].name}}</view>
+    </view>
+  </navigator>
+  </block>
+</view>
+<tn-dialog id="myTnDialog" bind:customEvent="consolo" title='{{dialogTitle}}' details='{{dialogContent}}' isShow='{{isShow}}'></tn-dialog>
