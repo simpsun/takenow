@@ -1,5 +1,4 @@
-
-<view class="my">
+<!-- <view class="my">
 
 
   <button wx:if="{{userInfo==null}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class='getUsername-postion cu-btn round bg-green shadow'> 获取头像昵称 </button>
@@ -10,13 +9,26 @@
       </view>
 
       <view class='margin-top text-white text-lg'>{{userInfo.nickName}}</view>
-     <!-- 、 <view class='cuIcon-mobilefill text-grey'>130****0255</view> -->
+      <view class='cuIcon-mobilefill text-grey'>130****0255</view> 
     </view>
   </block>
-</view>
-<view></view>
+</view> -->
+ <view class="userBar">
+  <view class="userInfoBar">
+    <view class='text-center'>
+      <view class=" margin-top cu-avatar xl round solids" style="background-image:url({{userInfo.wxUserInfo.avatarUrl}})">
+      </view>
 
-<view class='myBar'>
+      <view class='margin-top text-white text-lg'>{{userInfo.wxUserInfo.nickName}}</view>
+      <view class='cuIcon-edit text-greys'>修改用户信息</view> 
+    </view>
+ </view>
+ </view>
+
+
+ 
+<!--   后期可修改为  Take Now 宣传图 
+ <view class='myBar'>
   <view class="padding-top-sm padding-bottom-lg flex text-center text-black">
     <view class="flex flex-sub flex-direction solid-right">
       <view class="text-xxl text-black">10.25</view>
@@ -26,15 +38,15 @@
     <view class="flex flex-sub flex-direction solid-right">
       <view class="text-xxl text-black">5</view>
       <view class="margin-top-sm">
-        <text class="cuIcon-redpacket_fill text-grey"></text> 红包</view>
+        <text class="cuIcon-redpacket_fill text-grey"></text></view>
     </view>
     <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-black">5347</view>
+      <view class="text-xxl text-black">sadsa</view>
       <view class="margin-top-sm">
         <text class="cuIcon-choicenessfill text-gray"></text>T豆</view>
     </view>
   </view>
-</view>
+</view>  -->
 
 
 
@@ -42,6 +54,22 @@
 
 <view class="cu-list menu card-menu margin-bottom-xl radius">
   <!--显示模式：块  溢出内容忽视  20rpx圆角 左右30上10下50-->
+
+  <view class="cu-item arrow">
+    <!--
+    相对位置 右内边距30rpx导致箭头点不了 横向两端对齐 纵向居中 行高最小100rpx
+    last-child:after：最后一个孩子的下部没有边框
+    after:
+    -->
+    <navigator class="content" url="address/address" hover-class="navigator-hovor">
+      <text class="cuIcon-locationfill text-grey"></text>
+      <text class="text-grey">我的钱包</text>
+    </navigator>
+
+
+  </view>
+
+
   <view class="cu-item arrow">
     <!--
     相对位置 右内边距30rpx导致箭头点不了 横向两端对齐 纵向居中 行高最小100rpx
@@ -86,4 +114,27 @@
 </view>
 <view class="text-center margin-top">
   <text class="text-grey text-df">{{motto}}</text>
+</view>
+
+
+
+
+<view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="closeDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="closeDialog">
+    <view class="weui-dialog" catchtap="stopEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title">注册跳转</view>
+      </view>
+      <view class="weui-dialog__bd">
+        <view>您还没有注册Take Now,请前往注册</view>
+
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/> -->
+      </view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog">返回首页</view>
+        <view class="weui-dialog__btn" bindtap="navToLogin">立即注册</view>
+      </view>
+    </view>
+  </view>
 </view>

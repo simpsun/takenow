@@ -2,10 +2,11 @@
 //获取应用实例
 const app = getApp()
 const util = require('../../utils/util.js');
+const tn_data = require("../../tn_data.js")
 Page({
   data: {
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
+
+
     motto: 'I\'m Take Now',
     userInfo: null,
     hasUserInfo: false,
@@ -42,49 +43,42 @@ Page({
     })
   },
 
-  onLoad: function() {
+  onShow: function() {
     if (app.globalData.userInfo) {
+      console.log("用户信息", app.globalData.userInfo);
       this.setData({
         userInfo: app.globalData.userInfo
       })
+    } else {
+      this.setData({
+        istrue: true
+      })
     }
-
   },
 
-  onGetUserInfo: function(e) {
 
-    if (e.detail.userInfo) {
-      const db = wx.cloud.database();
-      var DATE = util.formatTime(new Date());
-      let tnUserInfo = {
-        nickName: e.detail.userInfo.nickName,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        gender: e.detail.userInfo.gender,
-        province: e.detail.userInfo.province,
-        city: e.detail.userInfo.city,
-        country: e.detail.userInfo.country,
-        create_data: DATE,
-        phone: ''
-      }
-      console.log("用户授权信息成功：", tnUserInfo);
-      this.setData({
-        userInfo: tnUserInfo
-      })
-      db.collection('tn_user').add({
-        // data 字段表示需新增的 JSON 数据
-        data: tnUserInfo
-      }).then(res => {
-        console.log("数据库添加用户成功")
-      }).catch(res => {
-        console.log("数据库添加数据失败")
-      })
-      app.globalData.userInfo = tnUserInfo;
-    } else {
-      console.log("用户拒绝授权")
-    }
-  }
-
-
+  openDialog: function() {
+    this.setData({
+      istrue: true
+    })
+  },
+  closeDialog: function() {
+    this.setData({
+      istrue: false
+    })
+    wx.switchTab({
+      url: '../../pages/index/index'
+    })
+  },
+  stopEvent(){},
+navToLogin(){
+  this.setData({
+    istrue: false
+  });
+  wx.navigateTo({
+    url: '../../pages/login/login',
+  })
+}
 
 })
 
@@ -110,4 +104,37 @@ Page({
 //       }
 //     })
 //   })
+// },
+
+// onGetUserInfo: function(e) {
+
+//   if (e.detail.userInfo) {
+//     const db = wx.cloud.database();
+//     var DATE = util.formatTime(new Date());
+//     let tnUserInfo = {
+//       nickName: e.detail.userInfo.nickName,
+//       avatarUrl: e.detail.userInfo.avatarUrl,
+//       gender: e.detail.userInfo.gender,
+//       province: e.detail.userInfo.province,
+//       city: e.detail.userInfo.city,
+//       country: e.detail.userInfo.country,
+//       create_data: DATE,
+//       phone: ''
+//     }
+//     console.log("用户授权信息成功：", tnUserInfo);
+//     this.setData({
+//       userInfo: tnUserInfo
+//     })
+//     db.collection('tn_user').add({
+//       // data 字段表示需新增的 JSON 数据
+//       data: tnUserInfo
+//     }).then(res => {
+//       console.log("数据库添加用户成功")
+//     }).catch(res => {
+//       console.log("数据库添加数据失败")
+//     })
+//     app.globalData.userInfo = tnUserInfo;
+//   } else {
+//     console.log("用户拒绝授权")
+//   }
 // },

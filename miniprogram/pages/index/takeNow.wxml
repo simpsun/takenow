@@ -1,96 +1,90 @@
-<!--pages/index/takeNow.wxml-->
-<!-- <cu-custom bgColor="bg-tnRed" isBack="{{true}}">
-  <view style='color:white;' slot="backText">返回</view>
-  <view style='color:white;' slot="content">Take Now</view>
-</cu-custom> -->
 <view class="bg-tnRed bg-tabbar"></view>
-
-  <view class='goodsInfo'>
-    <!-- 切换标签 指定地点/就近购买 -->
-    <view class="swithTakeStyle">
-      <block wx:for="{{switchTakeList}}" wx:key>
-        <view class="switchTakeBtn  {{switchTakeTag==index?'bg-white text-tnRed':'' }}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
-      </block>
-    </view>
-    <!-- 地址栏 -->
-    <view class="addressBar shadow-warp">
-      <view class="addrDividingLine"></view>
-      <block wx:for='{{2}}' wx:key>
-        <!-- 就近购买送达地址不可选 -->
-        <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
-          <view class="icon">
-            <text class="cuIcon-title text-{{index==0?'orange':'green'}}" style="font-size:36rpx;"></text>
-          </view>
-          <view class="addressText">{{index==0?(switchTakeTag==1?'Taker会在附近区域购买':addrPurchaseText):addrDeliverText}}</view>
+<view class='goodsInfo'>
+  <!-- 切换标签 指定地点/就近购买 -->
+  <view class="swithTakeStyle">
+    <block wx:for="{{switchTakeList}}" wx:key>
+      <view class="switchTakeBtn  {{switchTakeTag==index?'bg-white text-tnRed':'' }}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
+    </block>
+  </view>
+  <!-- 地址栏 -->
+  <view class="addressBar shadow-warp">
+    <view class="addrDividingLine"></view>
+    <block wx:for='{{2}}' wx:key>
+      <!-- 就近购买送达地址不可选 -->
+      <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
+        <view class="icon">
+          <text class="cuIcon-title text-{{index==0?'orange':'green'}}" style="font-size:36rpx;"></text>
         </view>
-        <view></view>
-      </block>
-    </view>
-    <!-- 购买商品信息 -->
-    <view class="cu-form-group goodsInput ">
-      <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="onGoodsInfo"></textarea>
-    </view>
-    <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
+        <view class="addressText">{{index==0?(switchTakeTag==1?'Taker会在附近区域购买':addrPurchaseText):addrDeliverText}}</view>
+      </view>
+      <view></view>
+    </block>
+  </view>
+  <!-- 购买商品信息 -->
+  <view class="cu-form-group goodsInput">
+    <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="onGoodsInfo"></textarea>
+  </view>
+  <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
 
-      <view class="title">备注</view>
+    <view class="title">备注</view>
 
-      <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
-      <text class="cuIcon-right  text-gray"></text>
-    </navigator>
-  </view>
-  <view class="cu-list menu  card-menu margin-top shadow-warp">
-    <!-- 物品重量 -->
-    <view class="cu-item arrow" bindtap="showModal" data-target="WeightModel" hover-class="navigator-hovor">
-      <view class="content">
-        <text class="cuIcon-goodsnew text-green"></text>
-        <text class="text-black">物品重量</text>
-      </view>
-      <view class="action">
-        <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{userDeterminedWeight||"小于1Kg"}}</text>
-      </view>
+    <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
+    <text class="cuIcon-right  text-gray"></text>
+  </navigator>
+</view>
+<view class="cu-list menu  card-menu margin-top shadow-warp">
+  <!-- 物品重量 -->
+  <view class="cu-item arrow" bindtap="showModal" data-target="WeightModel" hover-class="navigator-hovor">
+    <view class="content">
+      <text class="cuIcon-goodsnew text-green"></text>
+      <text class="text-black">物品重量</text>
     </view>
-    <!-- 性别限制 -->
-    <view class="cu-item arrow" bindtap="onGenderLimit" hover-class="navigator-hovor">
-      <view class="content">
-        <text class="cuIcon-friend text-black"></text>
-        <text class="text-black">性别限制</text>
-      </view>
-      <view class="action">
-        <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{selectedGenderLimit||'不限性别'}}</text>
-      </view>
+    <view class="action">
+      <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{userDeterminedWeight||"小于1Kg"}}</text>
     </view>
   </view>
-  <view class="cu-list menu  card-menu margin-top shadow-warp margin-bottom-vl">
-    <!-- 跑题费用 -->
-    <view class="cu-item arrow" bindtap="showModal" data-target="ChooseModal" hover-class="navigator-hovor">
-      <view class="content">
-        <text class="cuIcon-redpacket text-red"></text>
-        <text class="text-black">跑腿费</text>
-      </view>
-      <view class="action">
-        <text class="{{!!userDeterminedCost?'text-orange':'text-grey'}} text-l margin-right-xxl">{{!!userDeterminedCost?('￥'+userDeterminedCost):'费用越高，成功率越高哦'}}</text>
-      </view>
+  <!-- 性别限制 -->
+  <view class="cu-item arrow" bindtap="onGenderLimit" hover-class="navigator-hovor">
+    <view class="content">
+      <text class="cuIcon-friend text-black"></text>
+      <text class="text-black">性别限制</text>
     </view>
-    <!-- 订单过期 -->
-    <view class="cu-item arrow" bindtap="showModal" data-target="orderLifeModel" hover-class="navigator-hovor">
-      <view class="content">
-        <text class="cuIcon-time text-blue"></text>
-        <text class="text-black">订单过期</text>
-      </view>
-      <view class="action">
-        <text class="text-grey text-l margin-right-xxl">指定出发时间<text style="display:inline-block;color:#3aabea;">{{userDeterminedOrderLife||orderLifeList[selectedOrderLife]}}</text>内接单</text>
-      </view>
+    <view class="action">
+      <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{selectedGenderLimit||'不限性别'}}</text>
     </view>
   </view>
-  <view class="submitOrderBar">
-    <view class="submitOrderText">
-      <view class="text-lg text-black">待支付：
-        <text class="otherCostInput text-orange text-xxl">￥1</text>
-      </view>
-      <view class="text-xs text-grey">(包括跑腿费用和商品费用)</view>
+</view>
+<view class="cu-list menu  card-menu margin-top shadow-warp margin-bottom-vl">
+  <!-- 跑题费用 -->
+  <view class="cu-item arrow" bindtap="showModal" data-target="ChooseModal" hover-class="navigator-hovor">
+    <view class="content">
+      <text class="cuIcon-redpacket text-red"></text>
+      <text class="text-black">跑腿费</text>
     </view>
-    <view class="submitOrderBtn" bindtap="submitOrder">提交订单</view>
+    <view class="action">
+      <text class="{{!!userDeterminedCost?'text-orange':'text-grey'}} text-l margin-right-xxl">{{!!userDeterminedCost?('￥'+userDeterminedCost):'费用越高，成功率越高哦'}}</text>
+    </view>
   </view>
+  <!-- 订单过期 -->
+  <view class="cu-item arrow" bindtap="showModal" data-target="orderLifeModel" hover-class="navigator-hovor">
+    <view class="content">
+      <text class="cuIcon-time text-blue"></text>
+      <text class="text-black">订单过期</text>
+    </view>
+    <view class="action">
+      <text class="text-grey text-l margin-right-xxl">指定出发时间<text style="display:inline-block;color:#3aabea;">{{userDeterminedOrderLife||orderLifeList[selectedOrderLife]}}</text>内接单</text>
+    </view>
+  </view>
+</view>
+<view class="submitOrderBar">
+  <view class="submitOrderText">
+    <view class="text-lg text-black">待支付：
+      <text class="otherCostInput text-orange text-xxl">￥1</text>
+    </view>
+    <view class="text-xs text-grey">(包括跑腿费用和商品费用)</view>
+  </view>
+  <view class="submitOrderBtn" bindtap="submitOrder">提交订单</view>
+</view>
 
 
 

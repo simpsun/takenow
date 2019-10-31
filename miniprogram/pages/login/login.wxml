@@ -1,0 +1,73 @@
+<!--miniprogram/pages/login/login.wxml-->
+
+<view class="bg-tnRed bg-tabbar">
+  <image class="loginLogoText" src="../../images/logotext.png"></image>
+  <image class="loginLogo" src="../../images/logo4.png"></image>
+</view>
+<view class="loginBar">
+  <view class="loginTitle">注册Take Now</view>
+  <form bindsubmit='submitUserInfo'>
+    <view class="userInfo">
+      <view class="info">
+        <input style="width:90%" name='name' placeholder="请输入您的真实姓名"></input>
+      </view>
+    </view>
+
+    <view class="userInfo">
+      <!-- <view class="infoName">学校：</view> -->
+      <view class="info" bindtap="selectCampus">
+        <input style="width:80%;" disabled="true" placeholder="请选择您所在学校" name='nearCampus' value="{{nearCampus}}"></input>
+        <text class="cuIcon-right text-black"></text>
+      </view>
+    </view>
+
+    <view class="userInfo">
+      <!--  <view class="infoName">学号：</view> -->
+      <view class="info">
+        <input style="width:90%" name="stuId" placeholder="请输入您的真实学号" type="number" adjust-position='true'></input>
+      </view>
+    </view>
+
+
+    <view class="userInfo">
+      <!-- <view class="infoName">手机号：</view> -->
+      <view class="info">
+        <input style="width:90%" name='phone' placeholder="请输入您的手机号" type="number" adjust-position='true'></input>
+      </view>
+    </view>
+
+<view class="agreeChange">
+<checkbox-group bindchange="bindAgreeChange">
+<checkbox class="round tnRed" checked='{{isAgree}}'></checkbox>
+
+<text class=" margin-left-xs text-l" bindtap="test">阅读并同意<text class="text-tnRed">《Take Now用户协议》</text></text></checkbox-group>
+</view>
+	
+   <button wx:if="{{wxUserInfo==null}}" class="submitBtn button" hoverClass="navigator-hovor"  open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">Take Now</button>
+  <button  wx:else class="submitBtn button" hoverClass="navigator-hovor" form-type="submit">Take Now</button>
+  </form>
+</view>
+
+
+
+
+<view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="closeDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="closeDialog">
+    <view class="weui-dialog" catchtap="stopEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title">注册申明</view>
+      </view>
+      <view class="weui-dialog__bd">
+        <view>1.请确保手机号百分百有效，之后将用于发送实时订单通知</view>
+
+        <view>2.本程序采用云开发模式，您的信息经过加密后存储在腾讯云中，请您放心使用！</view>
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/> -->
+      </view>
+      <view class="weui-dialog__ft">
+        <!-- <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog">取消</view> -->
+        <button class="weui-dialog__btn" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">知道啦</button>
+      </view>
+    </view>
+  </view>
+</view>

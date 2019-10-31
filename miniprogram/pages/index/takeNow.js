@@ -6,6 +6,24 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderInfo: {
+      orderID: null,
+      user_open_id: null,
+      taker_open_id: null,
+      orderPayID: null,
+      type: null,
+      goods: null,
+      purchAddr: null,
+      delAddr: null,
+      remark: null,
+      weight: null,
+      gender: null,
+      cost: null,
+      create_time: null,
+      expire_time: null,
+    },
+
+    isSwitchTakeBtn: true, //控制能不能点就近购买
     dialogTitle: '未授权位置信息',
     dialogContent: 'Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用',
     goodsInfoArea: '',
@@ -32,7 +50,6 @@ Page({
     userDeterminedOrderLife: undefined,
     selectedOrderLife: 10,
     OrderInfoList: {},
-
     checkbox: [{
       value: 0,
       money: 1,
@@ -58,20 +75,21 @@ Page({
       money: 100,
       hot: false,
     }]
-  }
+  },
 
 
-  ,
+
   // -----=---------------------------------------事件监听函数------------------------------------------------------------------
 
 
 
   // 指定和就近地点标签转换
   switchTakeBtn(e) {
-    this.setData({
-      switchTakeTag: e.currentTarget.dataset.sindex,
-    })
-
+    if (this.data.isSwitchTakeBtn) {
+      this.setData({
+        switchTakeTag: e.currentTarget.dataset.sindex,
+      })
+    }
   },
 
   //  商品信息输入监听
@@ -248,7 +266,7 @@ Page({
   selectAddressTap(e) {
     var that = this;
     // 判断是购买地址还是配送地址
-    if (e.currentTarget.dataset.aindex == 0) {
+    if (e.currentTarget.dataset.aindex == 0&&this.data.location!=1) {
       if (this.data.isLocation == true) {
         wx.chooseLocation({
           latitude: that.data.latitude,
@@ -317,11 +335,24 @@ Page({
   },
   // -------------------------------------------------------生命周期函数------------------------------------------------------------
   onLoad: function(e) {
+    console.log('接收到数据:',e);
     if (!!e.goodsInfo) {
       console.log('接收到数据:' + e.goodsInfo);
       this.setData({
         goodsInfoArea: e.goodsInfo
       })
+    }
+
+    switch (e.index) {
+      case '1': //帮我送
+        this.setData({
+          location:parseInt(e.index),
+          isSwitchTakeBtn: false, // 不能点就近购买
+          addrDeliverText: '去哪里配送',
+          addrPurchaseText: '去哪里取货'
+        })
+        break;
+
     }
     this.getDefaultAddressList();
     var that = this;

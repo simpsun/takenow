@@ -18,8 +18,10 @@ App({
       })
     }
     const db = wx.cloud.database();
+
+  
     // 获取OpenId
-    wx.cloud.callFunction({
+   wx.cloud.callFunction({
       name: 'login'
     }).then(res => {
       return new Promise((resolve, reject) => {
@@ -35,16 +37,7 @@ App({
       }).get().then(res => {
         if (res.data.length > 0) {
           console.log("已存在用户", res)
-          this.globalData.userInfo = {
-            nickName: res.data[0].nickName,
-            avatarUrl: res.data[0].avatarUrl,
-            gender: res.data[0].gender,
-            province: res.data[0].province,
-            city: res.data[0].city,
-            country: res.data[0].country,
-            create_data: res.data[0].create_data,
-            phone: res.data[0].phone
-          }
+          this.globalData.userInfo = res.data[0]
         } else {
           console.log("未授权用户，需要用户手动授权")
         }

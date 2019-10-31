@@ -73,33 +73,33 @@ Page({
     })
 
   },
-	bindinput(e){
- this.setData({
-	 remarkTextarea: e.detail.value
+  bindinput(e) {
+    this.setData({
+      remarkTextarea: e.detail.value
 
- })
-		console.log(this.data.remarkTextarea)
-	},
+    })
+    console.log(this.data.remarkTextarea)
+  },
   remarkSubmit() {
     var that = this;
     var pages = getCurrentPages();
     var currentPage = pages[pages.length - 1];
     var prePage = pages[pages.length - 2];
-		prePage.setData({
-			remarkInput: this.data.remarkTextarea
-		})
-		wx.navigateBack({
-			delta:1
-		})
+    prePage.setData({
+      remarkInput: this.data.remarkTextarea
+    })
+    wx.navigateBack({
+      delta: 1
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-		this.setData({
-			remarkTextarea: options.remarkInput
-		})
-	},
+    this.setData({
+      remarkTextarea: options.remarkInput
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -110,8 +110,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏

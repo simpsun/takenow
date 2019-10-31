@@ -3160,6 +3160,9 @@ scroll-view.cu-steps .cu-item {
 .margin-top-xxl{
   margin-top: 60rpx;
 }
+.margin-top-hl{
+  margin-top: 100rpx;
+}
 .margin-top-ml{
   margin-top: 120rpx;
 }
@@ -3232,7 +3235,9 @@ scroll-view.cu-steps .cu-item {
 .margin-left-xl {
 	margin-left: 50rpx;
 }
-
+.margin-l-auto{
+margin-left: auto;
+}
 .margin-lr-xs {
 	margin-left: 10rpx;
 	margin-right: 10rpx;

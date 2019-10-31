@@ -12,7 +12,8 @@ Page({
     nearCampus: '',
     ColorList: ['放楼下就行', '999感冒颗粒', '尽快送达', '配送注意安全', '谢谢', '煎饼果子'],
     funcList: ['帮我买', '帮我送', '领包裹', '全能超人'],
-    funcImgSrc: '../../images/index/func'
+    funcImgSrc: '../../images/index/func',
+    location:0
   },
 
   // -------- 事件响应函数--------
@@ -20,12 +21,6 @@ Page({
   // 切换功能
   selectFunc(e) {
     let index = e.currentTarget.dataset.index;
-    if (index == 3) {
-      index++;
-      wx.navigateTo({
-        url: '2',
-      })
-    }
     this.setData({
       location: index
     })
@@ -55,24 +50,10 @@ Page({
     console.log(e);
     const goodsInfo = e.detail.value.demandInfo;
     wx.navigateTo({
-      url: `./takeNow?goodsInfo=${goodsInfo}`
+      url: `./takeNow?goodsInfo=${goodsInfo}&&index=${this.data.location}`
     })
   },
-  checkLocationError() {
-    小程序是否授权
-    if (app.globalData.locationEnabled) {
-      wx.showModal({
-        title: '提示',
-        content: '您的手机可能没有开启定位功能',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          }
-        }
-      })
-    }
-  },
+
   // -----------------------------------------------------生命周期函数-----------------------------------------------
   onLoad: function() {
     app.userInfoReadyCallback = res => {
