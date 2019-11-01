@@ -16,45 +16,54 @@ Page({
     })
   },
   selectAddress(e) {
-    if (this.data.isManage =="false") {
+    if (this.data.isManage == "false") {
       var address = this.data.addressList[e.currentTarget.dataset.index];
       console.log(address);
 
       var pages = getCurrentPages();
       var prevPage = pages[pages.length - 2]; //上一个页面
       //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-      prevPage.setData({
-        receivingAddressList: address,
-        receivingAddress: address.nearCampus + address.exactAddress
-      });
+      if (this.data.addrStyle == 1) {
+        prevPage.setData({
+          receivingAddressList: address,
+          receivingAddress: address.nearCampus + address.exactAddress
+        });
+      }
+      if (this.data.addrStyle == 0) {
+        prevPage.setData({
+          purchAddressList: address,
+          purchAddress: address.nearCampus + address.exactAddress
+        });
+      }
       wx.navigateBack({
         delta: 1
       });
     }
   },
-	storageAddress:function(){
-		var arr = wx.getStorageSync("addressList") || [];
-		console.info("缓存数据：" + arr);
-		this.setData({
-			addressList: arr
-		});
-	},
+  storageAddress: function() {
+    var arr = wx.getStorageSync("addressList") || [];
+    console.info("缓存数据：",arr);
+    this.setData({
+      addressList: arr
+    });
+  },
   onLoad: function(options) {
 
 
-		if (options.ismanage=="false"){
-			console.log("当前为地址选择模式")
-			this.setData({
-				isManage:options.ismanage
-			})
-		}
+    if (options.ismanage == "false") {
+      console.log("当前为地址选择模式")
+      this.setData({
+        isManage: options.ismanage,
+        addrStyle:options.addrStyle
+      })
+    }
     this.storageAddress();
   },
   onReady: function() {},
   onShow: function() {
-		this.storageAddress();
+    this.storageAddress();
   },
- 
+
   showModal: function(t) {
     this.setData({
       modalName: t.currentTarget.dataset.target,

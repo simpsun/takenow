@@ -28,6 +28,7 @@ page{
   margin: 50rpx auto;
   background-color: white;
 }
+
 .addressOption{
   height: 49%;
   width: 100%;

@@ -12,7 +12,7 @@
 <view class="tabbarStyle">
   <block wx:for="{{funcList}}" wx:key>
     <view class="test" bindtap="selectFunc" data-index="{{index}}">
-      <image class="funcItemStyle" src="{{funcImgSrc+(index+1)+((location==index&&index!=4)?'_active':'')+'.png'}}" mode="aspectFit"></image>
+      <image class="funcItemStyle" src="{{funcImgSrc+(index+1)+((location==index&&index!=3)?'_active':'')+'.png'}}" mode="aspectFit"></image>
       <view class="text-white">{{item}}</view>
     </view>
   </block>

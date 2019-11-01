@@ -1,4 +1,5 @@
 // pages/index/takeNow.js
+const util = require('../../utils/util.js')
 var app = getApp();
 Page({
 
@@ -6,22 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderInfo: {
-      orderID: null,
-      user_open_id: null,
-      taker_open_id: null,
-      orderPayID: null,
-      type: null,
-      goods: null,
-      purchAddr: null,
-      delAddr: null,
-      remark: null,
-      weight: null,
-      gender: null,
-      cost: null,
-      create_time: null,
-      expire_time: null,
-    },
+    // orderInfo: {
+    //   orderID: null,
+    //   user_open_id: null,
+    //   taker_open_id: null,
+    //   orderPayID: null,
+    //   type: null,
+    //   goods: null,
+    //   purchAddr: null,
+    //   delAddr: null,
+    //   remark: null,
+    //   weight: null,
+    //   gender: null,
+    //   cost: null,
+    //   create_time: null,
+    //   expire_time: null,
+    // },
 
     isSwitchTakeBtn: true, //控制能不能点就近购买
     dialogTitle: '未授权位置信息',
@@ -31,8 +32,13 @@ Page({
     AddressList: [],
     //从地址管理页面选择的信息
     receivingAddressList: undefined,
-    receivingAddress: "",
+    receivingAddress: null,
+    purchAddressList: null,
+    purchAddress: null,
+
+
     switchTakeTag: 0,
+    nearPurchaseText: 'Taker会在附近区域购买',
     switchTakeList: ['指定地点', '就近购买'],
     addrDeliverText: '送到哪里去',
     addrPurchaseText: '在哪里购买',
@@ -46,6 +52,7 @@ Page({
     selectedWeight: '小于1Kg',
     weightList: ['小于1Kg', '1Kg~2kg', '2Kg~3Kg', '3Kg~4Kg', '4Kg~5Kg', '5Kg~10Kg', '10Kg~20Kg', '20Kg~30Kg', '30Kg~50Kg', '50Kg以上'],
     orderLifeList: ['30分钟', '1小时', '2小时', '3小时', '4小时', '5小时', '7小时', '10小时', '15小时', '20小时', '24小时', '48小时', '一周'],
+    orderLifeSecList: [1800000, 3600000, 7200000, 10800000, 14400000, 18000000, 25200000, 36000000, 54000000, 72000000, 86400000, 172800000, 604800017],
     userDeterminedWeight: undefined,
     userDeterminedOrderLife: undefined,
     selectedOrderLife: 10,
@@ -88,6 +95,12 @@ Page({
     if (this.data.isSwitchTakeBtn) {
       this.setData({
         switchTakeTag: e.currentTarget.dataset.sindex,
+      })
+    } else {
+      wx.showToast({
+        icon: 'none',
+        title: '如需就近购买，请重新选择跑腿类型',
+        duration: 2000,
       })
     }
   },
@@ -223,18 +236,40 @@ Page({
         duration: 1e3
       });
     } else {
-      this.setData({
-        OrderInfoList: {
-          purchaseStyleTag: t.switchTakeTag,
-          purchaseAddress: t.purchaseAddress || '',
-          deliverAddress: t.receivingAddressList,
-          goodsInfo: t.goodsInfoArea,
-          goodsRemark: t.remarkInput || '无',
-          goodsWeight: t.userDeterminedWeight || t.selectedWeight,
-          genderLimit: t.selectedGenderLimit || t.genderLimitList[0],
-          deliverCoset: t.userDeterminedCost,
-          orderLife: t.userDeterminedOrderLife || t.orderLifeList[10]
+      let orderInfo = {
+        status: 0,
+        addrStyleTag: t.switchTakeTag,
+        purchaseAddress: t.purchaseAddress || '',
+        deliverAddress: t.receivingAddressList,
+        goodsInfo: t.goodsInfoArea,
+        goodsRemark: t.remarkInput || '无',
+        goodsWeight: t.userDeterminedWeight || t.selectedWeight,
+        genderLimit: t.selectedGenderLimit || t.genderLimitList[0],
+        deliverCost: t.userDeterminedCost,
+        orderLife: t.userDeterminedOrderLife || t.orderLifeList[10],
+        create_time: new Date().getTime(),
+        type: t.location,
+        taker_open_id: null,
+        orderID: util.tnFormatTime(new Date()) + Math.floor(Math.random() * 9999 + 1000),
+        orderPayID: null,
+      }
+      const sindex = t.orderLifeList.indexOf(orderInfo.orderLife);
+      const timeStamp = (parseInt(orderInfo.create_time) + t.orderLifeSecList[sindex]);
+      orderInfo.orderLife = timeStamp
+      wx.cloud.callFunction({
+        name: 'submit_order',
+        data: {
+          orderInfo: orderInfo
         }
+
+      }).then(res => {
+        console.log("创建订单成功：", res)
+      }).catch(res => {
+        wx.showToast({
+          title: '创建失败，请及时反馈或稍后再试',
+          icon: 'none',
+          duration: 2000
+        })
       })
       console.log(t.OrderInfoList);
 
@@ -266,7 +301,7 @@ Page({
   selectAddressTap(e) {
     var that = this;
     // 判断是购买地址还是配送地址
-    if (e.currentTarget.dataset.aindex == 0&&this.data.location!=1) {
+    if (e.currentTarget.dataset.aindex == 0 && this.data.location != 1) {
       if (this.data.isLocation == true) {
         wx.chooseLocation({
           latitude: that.data.latitude,
@@ -285,7 +320,7 @@ Page({
       }
     } else {
       wx.navigateTo({
-        url: '../../pages/my/address/address?ismanage=false'
+        url: `../../pages/my/address/address?ismanage=false&&addrStyle=${e.currentTarget.dataset.aindex}`
       })
     }
   },
@@ -335,7 +370,12 @@ Page({
   },
   // -------------------------------------------------------生命周期函数------------------------------------------------------------
   onLoad: function(e) {
-    console.log('接收到数据:',e);
+    if (e.index) {
+      this.setData({
+        location: parseInt(e.index),
+      })
+    }
+    console.log('接收到数据:', e);
     if (!!e.goodsInfo) {
       console.log('接收到数据:' + e.goodsInfo);
       this.setData({
@@ -346,10 +386,17 @@ Page({
     switch (e.index) {
       case '1': //帮我送
         this.setData({
-          location:parseInt(e.index),
           isSwitchTakeBtn: false, // 不能点就近购买
           addrDeliverText: '去哪里配送',
           addrPurchaseText: '去哪里取货'
+        })
+        break;
+      case '2': //领包裹
+        this.setData({
+          switchTakeList: ['指定地点', '本校领取'],
+          addrDeliverText: '送到哪里去',
+          nearPurchaseText: 'Taker会在当前校区快递处领取',
+          switchTakeTag: 1
         })
         break;
 
@@ -377,10 +424,10 @@ Page({
 
   },
   onShow: function() {
-    if (!!this.data.receivingAddress)
+    if (this.data.receivingAddress != null || this.data.purchAddress != null)
       this.setData({
-        addrDeliverText: this.data.receivingAddress
-
+        addrDeliverText: this.data.receivingAddress != null ? this.data.receivingAddress : this.data.addrDeliverText,
+        addrPurchaseText: this.data.purchAddress != null ? this.data.purchAddress : this.data.addrPurchaseText
       })
   },
   onUnload: function() {

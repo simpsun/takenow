@@ -1,10 +1,15 @@
 // pages/graborder/graborder.js
+const db = wx.cloud.database();
+const _ = db.command;
+const util = require('../../utils/util.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    nomore: false,
+    list: [],
     //  抢单列表
     grabOrderList: [{
       id: 0,
@@ -75,7 +80,7 @@ Page({
         color: 'purple'
       }
     ],
-   
+
     // 抢单订单状态
     grabOrderStatusList: [{
       id: 0,
@@ -103,7 +108,9 @@ Page({
       name: '',
       reward: ''
     }],
-
+    loadmore() {
+      console.log('loadmore')
+    },
     isFilterIcan: false,
     filterBarList: [{
         value: '最新',
@@ -122,7 +129,7 @@ Page({
   // 跳转至抢单页面
   navigateGrabOrder(e) {
     console.log(e);
-    const id=e.currentTarget.dataset.orderid;
+    const id = e.currentTarget.dataset.orderid;
     wx.navigateTo({
       url: `itemOrderInfo/itemOrderInfo?id=${id}`,
     })
@@ -148,7 +155,7 @@ Page({
         break;
     }
   },
-  rewardBarNav(){
+  rewardBarNav() {
     wx.navigateTo({
       url: '../..'
     })
@@ -159,25 +166,120 @@ Page({
       isFilterIcan: !this.data.isFilterIcan
     })
   },
+
+  getList() {
+    let that = this;
+    db.collection('tn_order').where({
+      status: 0,
+      orderLife: _.gt(new Date().getTime()),
+    }).orderBy('create_time', 'asc').limit(20).get().then(res => {
+      return new Promise((resolve, reject) => {
+        console.log('当前列表：', res)
+        resolve();
+        wx.stopPullDownRefresh(); //暂停刷新动作
+        if (res.data.length == 0) {
+          that.setData({
+            nomore: true,
+            list: [],
+          })
+          return false;
+        }
+        if (res.data.length < 20) {
+          that.setData({
+            nomore: true,
+            page: 0,
+            list: res.data,
+          })
+        } else {
+          that.setData({
+            page: 0,
+            list: res.data,
+            nomore: false,
+          })
+        }
+      })
+    }).then(res => {
+      console.log('处理数据')
+      this.dealData();
+    })
+  },
+  dealData() {
+    var orderList = this.data.list.map((item, index) => {
+      return {
+        id: index,
+        orderGoodInfo: item.goodsInfo,
+        orderGoodSort: item.type,
+        orderReleaseTime: util.commentTimeHandle(item.create_time),
+        orderDeliverTime: item.genderLimit,
+        orderReward: item.deliverCost,
+        orderStatus: item.status,
+        orderGoodSort: item.type
+      }
+    })
+    this.setData({
+      grabOrderList: orderList
+    })
+  },
+  more() {
+    let that = this;
+    if (that.data.nomore || that.data.list.length < 20) {
+      wx.hideLoading();
+      wx.showToast({
+        title: '别拉了,到底啦φ(>ω<*) ',
+        icon:'none',
+        duration:2000
+      })
+      return false
+    }
+    let page = that.data.page + 1;
+    db.collection('tn_order').where({
+      status: 0,
+      orderLife: _.gt(new Date().getTime())
+    }).orderBy('creat_time', 'asc').skip(page * 20).limit(20).get().then(
+      res => {
+        return new Promise((resolve, reject) => {
+          console.log('触底更新数据成功', res)
+          wx.hideLoading();
+          resolve();
+          if (res.data.length == 0) {
+            that.setData({
+              nomore: true
+            })
+            return false;
+          }
+          if (res.data.length < 20) {
+            that.setData({
+              nomore: true
+            })
+          }
+          that.setData({
+            page: page,
+            list: [...that.data.list,...res.data]
+          })
+        })
+      }).catch(res => {
+      wx.showToast({
+        title: '获取失败',
+        icon: 'none'
+      })
+    }).then(res=>{
+      this.dealData();
+    })
+  },
   // ------------------------------------------------------------生命周期函数-----------------------------------------------------
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getList();
   },
   onPullDownRefresh: function() {
-    wx.request({
-      url: 'test',
-      data: {},
-      method: 'GET',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {
-        wx.stopPullDownRefresh();
-      }
+    this.getList()
+  },
+  onReachBottom() {
+    wx.showLoading({
+      title: '加载数据中···',
     })
+    this.more()
   }
-
-
 })

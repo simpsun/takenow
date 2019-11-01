@@ -15,12 +15,13 @@
         <view class="icon">
           <text class="cuIcon-title text-{{index==0?'orange':'green'}}" style="font-size:36rpx;"></text>
         </view>
-        <view class="addressText">{{index==0?(switchTakeTag==1?'Taker会在附近区域购买':addrPurchaseText):addrDeliverText}}</view>
+        <view class="addressText">{{index==0?(switchTakeTag==1?nearPurchaseText:addrPurchaseText):addrDeliverText}}</view>
       </view>
       <view></view>
     </block>
   </view>
   <!-- 购买商品信息 -->
+  <view class="shadow-warp radius-xs">
   <view class="cu-form-group goodsInput">
     <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="onGoodsInfo"></textarea>
   </view>
@@ -30,7 +31,7 @@
 
     <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
     <text class="cuIcon-right  text-gray"></text>
-  </navigator>
+  </navigator></view>
 </view>
 <view class="cu-list menu  card-menu margin-top shadow-warp">
   <!-- 物品重量 -->
