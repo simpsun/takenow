@@ -162,9 +162,9 @@ App({
             this.userInfoReadyCallback(this.globalData.nearCampus)
           }
           wx.showToast({
-            title: this.globalData.nearCampus,
+            title: '我猜你是' + this.globalData.nearCampus +'的小可爱(❁´ω`❁)',
             icon: 'none',
-            duration: 2000
+            duration: 3000
           })
 
         } else

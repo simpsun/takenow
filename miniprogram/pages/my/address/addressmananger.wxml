@@ -22,7 +22,7 @@
     </view>
     <view class="cu-form-group margin-top">
         <view class="title">设为默认</view>
-        <switch checked="{{default}}" class="tnRed sm" name="def"></switch>
+        <switch checked="{{defTag}}" class="tnRed sm" name="def"></switch>
     </view>
     <button class="addressSubmit" formType="submit" hoverClass="navigator-hovor">保存</button>
 </form>

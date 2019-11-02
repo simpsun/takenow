@@ -10,56 +10,9 @@ Page({
   data: {
     nomore: false,
     list: [],
+    genderLimitList: ['限女生', '限男生', '不限性别'],
     //  抢单列表
-    grabOrderList: [{
-      id: 0,
-      orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 2,
-      orderReleaseTime: '一小时前',
-      orderDeliverTime: '即刻送达',
-      orderReward: 25,
-      orderStatus: 0
-    }, {
-      id: 1,
-      orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 0,
-      orderReleaseTime: '20分钟前前',
-      orderDeliverTime: '即刻送达',
-      orderReward: 0.25,
-      orderStatus: 2
-    }, {
-      id: 2,
-      orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 1,
-      orderReleaseTime: '1年前',
-      orderDeliverTime: '即刻送达',
-      orderReward: 2.5,
-      orderStatus: 0
-    }, {
-      id: 3,
-      orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 2,
-      orderReleaseTime: '2分钟前',
-      orderDeliverTime: '即刻送达',
-      orderReward: 25,
-      orderStatus: 1
-    }, {
-      id: 4,
-      orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 3,
-      orderReleaseTime: '4小时前',
-      orderDeliverTime: '明天14:20',
-      orderReward: 445,
-      orderStatus: 2
-    }, {
-      id: 5,
-      orderGoodInfo: '【菜0前凭23-4-1004及时取，询18526227847',
-      orderGoodSort: 1,
-      orderReleaseTime: '一小时前',
-      orderDeliverTime: '即刻送达',
-      orderReward: 25,
-      orderStatus: 0
-    }],
+    grabOrderList: [],
     // 配送分类Tag列表
     grabOrderGoodSortList: [{
         id: 0,
@@ -165,14 +118,44 @@ Page({
     this.setData({
       isFilterIcan: !this.data.isFilterIcan
     })
+    if (this.data.isFilterIcan) {
+      var newList=[];
+      if (this.data.list != []) {
+        console.log('list处理中···')
+        this.data.list.forEach(item => {
+          console.log(item)
+          if ((item.genderLimit == this.data.gender || item.genderLimit ==2)&&item.status==0)
+          {
+              newList.push(item)
+          }
+        })
+      }
+      console.log(newList)
+      this.setData({
+        list: newList
+      })
+      this.dealData();
+    }
+ else{
+   this.getList();
+ }
   },
+  //   db.collection('tn_order').where({
+  //     status: 0,
+  //     gender:this.data.gender || '不限性别',
+  //     nearCampus: this.data.nearCampus,
+  //     orderLife: _.gt(new Date().getTime()),
+  //   }).orderBy('create_time', 'desc').limit(20).get()
+  // 
+
 
   getList() {
     let that = this;
     db.collection('tn_order').where({
       status: 0,
+      nearCampus: this.data.nearCampus,
       orderLife: _.gt(new Date().getTime()),
-    }).orderBy('create_time', 'asc').limit(20).get().then(res => {
+    }).orderBy('create_time', 'desc').limit(20).get().then(res => {
       return new Promise((resolve, reject) => {
         console.log('当前列表：', res)
         resolve();
@@ -226,14 +209,16 @@ Page({
       wx.hideLoading();
       wx.showToast({
         title: '别拉了,到底啦φ(>ω<*) ',
-        icon:'none',
-        duration:2000
+        icon: 'none',
+        duration: 2000
       })
       return false
     }
     let page = that.data.page + 1;
+
     db.collection('tn_order').where({
       status: 0,
+      nearCampus: this.data.nearCampus,
       orderLife: _.gt(new Date().getTime())
     }).orderBy('creat_time', 'asc').skip(page * 20).limit(20).get().then(
       res => {
@@ -254,7 +239,7 @@ Page({
           }
           that.setData({
             page: page,
-            list: [...that.data.list,...res.data]
+            list: [...that.data.list, ...res.data]
           })
         })
       }).catch(res => {
@@ -262,7 +247,7 @@ Page({
         title: '获取失败',
         icon: 'none'
       })
-    }).then(res=>{
+    }).then(res => {
       this.dealData();
     })
   },
@@ -271,7 +256,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getList();
+    db.collection('tn_user').get().then(res => {
+      console.log(res)
+      this.setData({
+        gender: res.data[0].wxUserInfo.gender,
+        nearCampus: res.data[0].nearCampus
+      })
+    }).catch(res => {
+      console.log(res)
+    }).then(this.getList());
   },
   onPullDownRefresh: function() {
     this.getList()
@@ -283,3 +276,57 @@ Page({
     this.more()
   }
 })
+
+
+
+
+
+// {
+//   id: 0,
+//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 2,
+//         orderReleaseTime: '一小时前',
+//           orderDeliverTime: '即刻送达',
+//             orderReward: 25,
+//               orderStatus: 0
+// }, {
+//   id: 1,
+//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 0,
+//         orderReleaseTime: '20分钟前前',
+//           orderDeliverTime: '即刻送达',
+//             orderReward: 0.25,
+//               orderStatus: 2
+// }, {
+//   id: 2,
+//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 1,
+//         orderReleaseTime: '1年前',
+//           orderDeliverTime: '即刻送达',
+//             orderReward: 2.5,
+//               orderStatus: 0
+// }, {
+//   id: 3,
+//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 2,
+//         orderReleaseTime: '2分钟前',
+//           orderDeliverTime: '即刻送达',
+//             orderReward: 25,
+//               orderStatus: 1
+// }, {
+//   id: 4,
+//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 3,
+//         orderReleaseTime: '4小时前',
+//           orderDeliverTime: '明天14:20',
+//             orderReward: 445,
+//               orderStatus: 2
+// }, {
+//   id: 5,
+//     orderGoodInfo: '【菜0前凭23-4-1004及时取，询18526227847',
+//       orderGoodSort: 1,
+//         orderReleaseTime: '一小时前',
+//           orderDeliverTime: '即刻送达',
+//             orderReward: 25,
+//               orderStatus: 0
+// }]

@@ -77,7 +77,7 @@ Page({
   },
   deleteAddress: function(t) {
     console.log(this.data.addressList)
-    if (this.data.addressList[t.target.dataset.dd].default == true) {
+    if (this.data.addressList[t.target.dataset.dd].defTag == true) {
       wx.showToast({
         title: "不能删除默认地址",
         icon: "none",

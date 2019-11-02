@@ -42,7 +42,7 @@
 
 
 
-<view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList">
+<view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList margin-bottom">
 	<block wx:for='{{grabOrderList}}' wx:key>
 	<view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem" data-orderid="{{item.id}}"  bindtap="navigateGrabOrder">
 		<view class="grabOrderItemInfoLeft">
@@ -52,7 +52,7 @@
 				<view class="cu-tag radius sm bg-{{grabOrderGoodSortList[item.orderGoodSort].color}} light">{{grabOrderGoodSortList[item.orderGoodSort].name}}</view>
 				<text class="itemReleaseTime">{{item.orderReleaseTime}}</text>
 
-				<text class="text-grey">{{item.orderDeliverTime}}</text>
+				<text class="text-grey">{{genderLimitList[item.orderDeliverTime]}}</text>
 			</view>
 		</view>
 		<view class="grabOrderItemInfoRight">

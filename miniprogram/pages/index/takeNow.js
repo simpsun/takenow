@@ -47,8 +47,8 @@ Page({
     userFilledOtherCost: 0,
     OtherCostInputStaus: 0,
     focusedOtherCost: false,
-    selectedGenderLimit: undefined,
-    genderLimitList: ['不限性别', '限女生', '限男生'],
+    selectedGenderLimit: null,
+    genderLimitList: ['限女生', '限男生', '不限性别'],
     selectedWeight: '小于1Kg',
     weightList: ['小于1Kg', '1Kg~2kg', '2Kg~3Kg', '3Kg~4Kg', '4Kg~5Kg', '5Kg~10Kg', '10Kg~20Kg', '20Kg~30Kg', '30Kg~50Kg', '50Kg以上'],
     orderLifeList: ['30分钟', '1小时', '2小时', '3小时', '4小时', '5小时', '7小时', '10小时', '15小时', '20小时', '24小时', '48小时', '一周'],
@@ -162,8 +162,10 @@ Page({
       itemList: this.data.genderLimitList,
       itemColor: '#5a87f7',
       success: (res) => {
+
         this.setData({
-          selectedGenderLimit: this.data.genderLimitList[res.tapIndex]
+          // selectedGenderLimit: this.data.genderLimitList[res.tapIndex]
+          selectedGenderLimit: res.tapIndex
         })
       },
       fail: (res) => {
@@ -208,7 +210,7 @@ Page({
     //  genderLimit      ===>selectedGenderLimit
     //  deliverCoset     ===>userDeterminedCost
     //  orderLife        ===>userDeterminedOrderLife
-    if ((t.switchTakeTag == 0) && (!t.purchaseAddress)) {
+    if ((t.switchTakeTag == 0) && ((!t.purchaseAddress) && (!t.purchAddress))) {
       wx.showToast({
         title: "请填写购买地址",
         icon: "none",
@@ -236,15 +238,17 @@ Page({
         duration: 1e3
       });
     } else {
+
+      // 构建订单参数
       let orderInfo = {
         status: 0,
         addrStyleTag: t.switchTakeTag,
-        purchaseAddress: t.purchaseAddress || '',
+        purchaseAddress: t.purchAddress != null ? t.purchAddressList : (t.purchaseAddress ? t.purchaseAddress : '就近购买'),
         deliverAddress: t.receivingAddressList,
         goodsInfo: t.goodsInfoArea,
         goodsRemark: t.remarkInput || '无',
         goodsWeight: t.userDeterminedWeight || t.selectedWeight,
-        genderLimit: t.selectedGenderLimit || t.genderLimitList[0],
+        genderLimit: t.selectedGenderLimit!=null ? t.selectedGenderLimit:2,
         deliverCost: t.userDeterminedCost,
         orderLife: t.userDeterminedOrderLife || t.orderLifeList[10],
         create_time: new Date().getTime(),
@@ -252,6 +256,7 @@ Page({
         taker_open_id: null,
         orderID: util.tnFormatTime(new Date()) + Math.floor(Math.random() * 9999 + 1000),
         orderPayID: null,
+        nearCampus: t.nearCampus
       }
       const sindex = t.orderLifeList.indexOf(orderInfo.orderLife);
       const timeStamp = (parseInt(orderInfo.create_time) + t.orderLifeSecList[sindex]);
@@ -370,9 +375,10 @@ Page({
   },
   // -------------------------------------------------------生命周期函数------------------------------------------------------------
   onLoad: function(e) {
-    if (e.index) {
+    if (e.index && e.nearCampus) {
       this.setData({
         location: parseInt(e.index),
+        nearCampus: e.nearCampus
       })
     }
     console.log('接收到数据:', e);

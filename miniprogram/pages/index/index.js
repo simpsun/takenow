@@ -13,7 +13,7 @@ Page({
     ColorList: ['放楼下就行', '999感冒颗粒', '尽快送达', '配送注意安全', '谢谢', '煎饼果子'],
     funcList: ['帮我买', '帮我送', '领包裹', '全能超人'],
     funcImgSrc: '../../images/index/func',
-    location:0
+    location: 0
   },
 
   // -------- 事件响应函数--------
@@ -47,11 +47,35 @@ Page({
     })
   },
   submitFormInfo(e) {
-    console.log(e);
-    const goodsInfo = e.detail.value.demandInfo;
-    wx.navigateTo({
-      url: `./takeNow?goodsInfo=${goodsInfo}&&index=${this.data.location}`
-    })
+    let list = [] //校区列表
+    if (app.globalData.campusList) {
+      app.globalData.campusList.forEach(item => {
+        list.push(item.name)
+      })
+      //如果已经选择了校区，把校区名传给下单 页面
+      if (list.indexOf(this.data.nearCampus) >= 0) {
+        console.log(e);
+        const goodsInfo = e.detail.value.demandInfo;
+        wx.navigateTo({
+          url: `./takeNow?goodsInfo=${goodsInfo}&&index=${this.data.location}&&nearCampus=${this.data.nearCampus}`
+        })
+      }
+      // 如果没选校区，提醒用户
+      else {
+        wx.showToast({
+          title: '还没选择校区哦o((⊙﹏⊙))o',
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    } else { //列表不存在，就等待
+      wx.showToast({
+        title: '获取校区列表失败，请稍微再试',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+
   },
 
   // -----------------------------------------------------生命周期函数-----------------------------------------------

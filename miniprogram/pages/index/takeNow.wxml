@@ -51,7 +51,7 @@
       <text class="text-black">性别限制</text>
     </view>
     <view class="action">
-      <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{selectedGenderLimit||'不限性别'}}</text>
+      <text class="{{!!selectedGenderLimit?'text-black':'text-grey'}} text-l margin-right-xxl">{{genderLimitList[selectedGenderLimit]||'不限性别'}}</text>
     </view>
   </view>
 </view>

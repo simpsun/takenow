@@ -40,11 +40,11 @@ Page({
           mobile: mobile,
           nearCampus: nearCampus,
           exactAddress: exactAddress,
-          default: def
+          defTag: def
         }
-      if (def == true) {
-        if (arr[0].default != undefined) {
-          arr[0].default = false
+      if (def == true&&arr[0]) {
+        if (arr[0].defTag != undefined) {
+          arr[0].defTag = false
         }
         if (this.data.edit != -1) {
           arr.splice(this.data.edit, 1)
@@ -83,7 +83,7 @@ Page({
   },
 
   onLoad: function(e) {
-    console.log(app.globalData.nearCampus)
+ 
     this.setData({
       nearCampus: app.globalData.nearCampus
     })
@@ -97,7 +97,7 @@ Page({
         mobile: arr[e.index].mobile,
         nearCampus: arr[e.index].nearCampus,
         exactAddress: arr[e.index].exactAddress,
-        default: arr[e.index].default
+        defTag: arr[e.index].defTag
       });
     }
   }

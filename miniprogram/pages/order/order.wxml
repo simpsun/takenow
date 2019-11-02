@@ -18,5 +18,24 @@
     </view>
 
   </view>
-
 </scroll-view>
+
+<view class="cu-list menu ">
+<block wx:for='{{10}}' wx:key>
+  <view class="cu-item">
+    <view class="order">
+      <view class="order_left">
+        <view class="addr_top">
+   <text class="text-xl margin-left-xs">帮我买一盒避孕套</text>
+        </view>
+        <view class="addr_bottom margin-top-xs">
+         <text class="cuIcon-locationfill text-grey"></text><text class="text-lg text-grey">天津师范大学32号楼327</text>
+        </view>
+      </view>
+      <view class="order_right"><text class="text-xl text-orange">已接单</text></view>
+    </view>
+  </view>
+ </block>
+
+
+</view>
