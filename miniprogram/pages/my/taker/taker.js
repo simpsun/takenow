@@ -11,7 +11,7 @@ Page({
     sec: 2,
     timer: '',
     sImage: "",
-    studentCard_date: '2017-09',
+    // studentCard_date: '2017-09',
     steps: 3,
     idCard_name: "",
     idCard_code: "",
@@ -20,7 +20,7 @@ Page({
     studentCard_schoolId: null,
     studentCard_schoolName: null,
     studentCard_faculty: "",
-    studentCard_major: "",
+    // studentCard_major: "",
     numList: [{
       name: '阅读需知'
     }, {
@@ -77,12 +77,6 @@ Page({
           studentCard_faculty: e.detail.value
         })
         console.log("更新学院成功")
-        break;
-      case "5":
-        that.setData({
-          studentCard_major: e.detail.value
-        })
-        console.log("更新专业成功")
         break;
 
 
@@ -173,12 +167,6 @@ Page({
             icon: "none",
             duration: 1e3
           })
-        } else if (!!!this.data.studentCard_major) {
-          wx.showToast({
-            title: "专业也要填呃(⊙o⊙)",
-            icon: "none",
-            duration: 1e3
-          })
         } else if (!!!this.data.sImage) {
           wx.showToast({
             title: "记得上传证件哦(⊙o⊙)",
@@ -199,8 +187,8 @@ Page({
           studentCard_schoolId: this.data.studentCard_schoolId,
           studentCard_schoolName: this.data.studentCard_schoolName,
           studentCard_faculty: this.data.studentCard_faculty,
-          studentCard_major: this.data.studentCard_major,
-          studentCard_date: this.data.studentCard_date,
+          // studentCard_major: this.data.studentCard_major,
+          // studentCard_date: this.data.studentCard_date,
           sImage: this.data.sImage
         }
         wx.setStorageSync("authList", authList)
@@ -217,11 +205,7 @@ Page({
     })
 
   },
-  DateChange(e) {
-    this.setData({
-      studentCard_date: e.detail.value
-    })
-  },
+
   chooseImg() {
     var that = this
     wx.chooseImage({
@@ -334,3 +318,10 @@ Page({
 
   }
 })
+//  else if (!!!this.data.studentCard_major) {
+//   wx.showToast({
+//     title: "专业也要填呃(⊙o⊙)",
+//     icon: "none",
+//     duration: 1e3
+//   })
+// }

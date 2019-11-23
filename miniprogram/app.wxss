@@ -2,3 +2,19 @@
 @import "colorui/icon.wxss";
 @import "takenowui/tnicon.wxss";
 @import "takenowui/weui.wxss";
+@import "colorui/animation.wxss";
+
+
+ /* iphone X 适配 */
+.fix-iphonex-button {
+    bottom:58rpx!important;
+    width:100vw;
+}
+.fix-iphonex-button::after {
+    content: ' ';
+    position: fixed;
+    bottom: 0!important;
+    height: 58rpx!important;
+    width: 100%;
+    background: #fff;
+}

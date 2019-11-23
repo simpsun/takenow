@@ -20,7 +20,7 @@
       </view>
 
       <view class='margin-top text-white text-lg'>{{userInfo.wxUserInfo.nickName}}</view>
-      <view class='cuIcon-edit text-greys'>修改用户信息</view> 
+      <view class='cuIcon-edit text-greys'>修改用户信息</view>
     </view>
  </view>
  </view>
@@ -62,7 +62,7 @@
     after:
     -->
     <navigator class="content" url="address/address" hover-class="navigator-hovor">
-      <text class="cuIcon-locationfill text-grey"></text>
+      <text class="cuIcon-moneybagfill text-red"></text>
       <text class="text-grey">我的钱包</text>
     </navigator>
 

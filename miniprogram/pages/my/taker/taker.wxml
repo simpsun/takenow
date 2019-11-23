@@ -74,7 +74,7 @@
       <input placeholder="你的学院" bindblur='Blur' type='text' value='{{studentCard_faculty}}' data-update='4'></input>
     </view>
 
-    <view class="cu-form-group">
+    <!-- <view class="cu-form-group">
       <view class="title">专业</view>
       <input placeholder="你的专业" bindblur='Blur' type='text' value='{{studentCard_major}}' data-update='5'></input>
     </view>
@@ -86,7 +86,7 @@
           {{studentCard_date}}
         </view>
       </picker>
-    </view>
+    </view> -->
     <view class='imgBox'>
       <view class='imgLeft'>
         <image class="sImage" mode="aspectFill" src='https://ae01.alicdn.com/kf/H1eb7dc090059488cbfdbfdec41e07a61v.jpg'></image>
@@ -116,10 +116,23 @@
     </view>
   </view>
   <view wx:if='{{steps==3}}'>
-
-    <view class='text-xxl text-tnRed margin-top-xl'>由于个人版无法调用获取手机号接口</view>
-    <view class='text-xxl text-tnRed margin-top-xl'>敬请期待</view>
-
+    <view class="cu-form-group margin-top-lg">
+      <view class="title">手机号</view>
+      <input placeholder="手机号"></input>
+      <view class="cu-capsule radius">
+        <view class="cu-tag bg-tnRed">
+          +86
+        </view>
+        <view class="cu-tag line-blue">
+          中国大陆
+        </view>
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">验证码</view>
+      <input placeholder="验证码"></input>
+      <button class="cu-btn bg-tnRed shadow">验证码</button>
+    </view>
 
     <view class='stepsButtonBox'>
       <button class='stepsButtonLast' wx:if="{{steps==3}} " bindtap='lastStep' hoverClass="navigator-hovor ">上一步</button>
@@ -127,8 +140,8 @@
     </view>
 
   </view>
-  <view wx:if='{{steps==4}}' >
-    <view class='finish' >
+  <view wx:if='{{steps==4}}'>
+    <view class='finish'>
       <view class='icon cuIcon-timefill '></view>
       <view class='text-xl text-tnRed'>提交成功</view>
     </view>

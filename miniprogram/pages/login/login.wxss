@@ -40,11 +40,11 @@ align-items: center;
 font-weight: 500;
 }
 .loginLogoText{
-    width: 40%;
-  height: 40%;
+    width: 30%;
+  height: 25%;
   position: absolute;
  left: 15%;
- top: 50rpx;
+ top: 60rpx;
 }
 .bg-tabbar {
   width: 100%;

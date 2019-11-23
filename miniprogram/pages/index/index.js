@@ -86,13 +86,23 @@ Page({
         nearCampus: res
       })
     };
+    wx.showToast({
+      title: '我猜你是' + app.globalData.nearCampus + '的小可爱(❁´ω`❁)',
+      icon: 'none',
+      duration: 3000
+    })
   },
   onShow() {
     this.setData({
       nearCampus: app.globalData.nearCampus
     })
+   
   },
   onShareAppMessage() {
-
+    return {
+      title:'天津师范大学校园跑腿',
+      imageUrl: "../../images/share.png",
+      path: '/pages/start/start'
+    }
   }
 })

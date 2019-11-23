@@ -23,7 +23,7 @@ page {
   border-radius: 20rpx;
   width: 94%;
   background: white;
-  margin: auto;
+  margin:0 auto 50rpx auto;
 }
 
 .addrTag {
@@ -45,6 +45,7 @@ page {
 }
 
 .attrBar {
+  bottom: 30rpx;
   width: 94%;
   margin: 30rpx auto;
   border-radius: 20rpx;
@@ -68,6 +69,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding: 0 30rpx;
 }
 
 .bBtn {

@@ -1,50 +1,55 @@
 <!--pages/graborder/itemOrderInfo/listOrderInfo.wxml-->
 <view class="topStatusBar bg-tnRed flex-center">
-  <view  bindtap="showModal" data-target="bottomModal">
+  <view bindtap="showModal" data-target="bottomModal">
     <view class="text-xl text-white margin-bottom" style="text-align:center">
-    未支付<text class="cuIcon-right text-white"></text>
+      {{statusList[orderInfo.status]}}
+      <text class="cuIcon-right text-white"></text>
     </view>
-    <view class="text-df text-ghostWhite">15分钟内未支付，超时将自动取消</view>
-    <view class="text-df text-ghostWhite flex-center">剩余时间：{{orderList[0].leftTime}}</view>
+    <!-- <view class="text-df text-ghostWhite">感谢您使用Take Now,如有疑问请联系taker或客服</view> -->
+    <block wx:if='{{orderInfo.status==4}}'>
+
+      <view  class="text-df text-ghostWhite">15分钟内未支付，超时将自动取消</view>
+      <view class="text-df text-ghostWhite flex-center">剩余时间：{{orderInfo.leftTime}}</view>
+    </block>
   </view>
   <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" bindtap="hideModal">
     <view class=" cu-dialog" catchtap>
 
-        <scroll-view scroll-y="true" style="height: 700rpx;">
-          <view class="cu-timeline">
-            <view class="cu-time">昨天</view>
-            <view class="cu-item cur cuIcon-infofill">
-              <view class="content  shadow-blur">
-                <text>22:22</text> 用户提交订单
-              </view>
-            </view>
-            <view class="cu-item cuIcon-infofill">
-              <view class="content shadow-blur">
-                <text>22:22</text> 用户付款成功
-              </view>
-            </view>
-
-            <view class="cu-item cuIcon-infofill">
-              <view class="content shadow-blur">
-                <text>22:22</text> 订单已被接单
-              </view>
-            </view>
-            <view class="cu-time">今天</view>
-            <view class="cu-item  text-grey cuIcon-infofill">
-              <view class="content bg-tnRed shadow-blur ">
-                <text>  <text>22:22</text> 完成配送</text>
-              </view>
+      <scroll-view scroll-y="true" style="height: 700rpx;">
+        <view class="cu-timeline">
+          <view class="cu-time">昨天</view>
+          <view class="cu-item cur cuIcon-infofill">
+            <view class="content  shadow-blur">
+              <text>22:22</text> 用户提交订单
             </view>
           </view>
-        </scroll-view>
+          <view class="cu-item cuIcon-infofill">
+            <view class="content shadow-blur">
+              <text>22:22</text> 用户付款成功
+            </view>
+          </view>
+
+          <view class="cu-item cuIcon-infofill">
+            <view class="content shadow-blur">
+              <text>22:22</text> 订单已被接单
+            </view>
+          </view>
+          <view class="cu-time">今天</view>
+          <view class="cu-item  text-grey cuIcon-infofill">
+            <view class="content bg-tnRed shadow-blur ">
+              <text>  <text>22:22</text> 完成配送</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
   <!-- iconfont iconquotL -->
 </view>
-<view class="goodInfoBar bg-white " >
+<view class="goodInfoBar bg-white ">
   <view class="goodInfoText">
     <text class="iconfont iconquotL text-greys"></text>
-    <text class="margin-lr-sm text-lg">【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847</text>
+    <text class="margin-lr-sm text-lg" selectable>{{orderInfo.goodsInfo}}</text>
     <text class="iconfont iconquotR text-greys"></text>
   </view>
 </view>
@@ -65,27 +70,36 @@
         <text class="text-grey iconText">{{index==0?'前往':'送达'}}</text>
       </view>
       <view class="flex-center flex-direction" style="align-items:flex-start;">
-        <text class=" margin-left text-black text-l">河南省天津市大断交多久啊票的商品房配电盘萨德122号</text>
+        <text class=" margin-left text-black text-l" selectable>{{index==0?(orderInfo.type!=1?orderInfo.purchaseAddress:(orderInfo.purchaseAddress.nearCampus+orderInfo.purchaseAddress.exactAddress)):(orderInfo.deliverAddress.nearCampus+orderInfo.deliverAddress.exactAddress)}}</text>
         <view class="text-l">
-          <text class=" margin-left text-grey">伊泽瑞</text>
-          <text bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="13002260255">13002260255</text>
+          <text class=" margin-left text-grey" selectable>{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.name):orderInfo.deliverAddress.name}}</text>
+          <text selectable bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}">{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}</text>
         </view>
       </view>
     </view>
   </block>
 </view>
 <!-- 属性栏 -->
-<view class="attrBar bg-white shadow-warp ">
+<view class="attrBar bg-white shadow-warp">
   <block wx:for='{{attrList}}' wx:key>
     <view class=" attrTag flex  margin-tb-sm align-center">
-      <view class="attrTextL text-df text-grey ">{{item.name}}</view>
-      <view class="text-df text-black attrTextR ">{{item.value}}</view>
+      <view class="attrTextL text-df text-grey ">
+        <text selectable>{{item.name}}</text>
+      </view>
+      <view class="text-df text-black attrTextR ">
+        <text selectable>{{orderAttrList[index]}}</text>
+      </view>
     </view>
   </block>
 </view>
 <!-- 底部栏 -->
-<view class="bottomBar bg-white">
-  <view class="bBtn flex justify-center align-center">
+<view class="bottomBar bg-white  {{isIphoneX?'fix-iphonex-button':''}}">
+  <button wx:if="{{orderInfo.status==0}}" class="cu-btn round l margin-left" bindtap="onCancelOrder">取消订单</button>
+    <button class="cu-btn round l margin-left"  open-type="contact">咨询客服</button>
+        <button wx:if="{{canIcallTaker}}" class="cu-btn round l margin-left"  bindtap="callPhone" >联系Taker</button>
+      <button wx:if="{{orderInfo.status==2}}" class="cu-btn round l bg-tnRed margin-left">确认收货</button>
+         <button wx:if="{{orderInfo.status==8}}" class="cu-btn round l bg-tnRed margin-left">评价</button>
+  <!-- <view class="bBtn flex justify-center align-center">
     取消订单
   </view>
   <view class="bBtn flex justify-center align-center">
@@ -93,5 +107,25 @@
   </view>
   <view class="bBtn flex justify-center align-center" style="background:var(--tnRed)">
     确认配送
+  </view> -->
+</view>
+
+<!-- 取消订单-->
+<view class="weui-demo-dialog {{isCancel ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="hideCancelDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="hideCancelDialog">
+    <view class="weui-dialog" catchtap="stopCancelEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title" bindtap="onCancelOrder">取消订单</view>
+      </view>
+      <view class="weui-dialog__bd">
+        <view>{{cancelOrderText}}</view>
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/>-->
+      </view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="hideCancelDialog" >再等等吧</view>
+        <view class="weui-dialog__btn" bindtap="cancelOrder">残忍拒绝</view>
+      </view>
+    </view>
   </view>
 </view>

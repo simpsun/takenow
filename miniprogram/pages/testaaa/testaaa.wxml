@@ -1,0 +1,20 @@
+<view class="cu-modal {{modalName=='codeModal'?'show':''}}">
+  <view class="cu-dialog takeCodeBar">
+    <!-- <view class="cu-bar bg-white justify-end"> -->
+    <view class="title">
+      <view class="content"> 请输入Take Code</view>
+      <view class="icon" bindtap="closeCodeModal">
+        <text class="cuIcon-close text-grey"></text>
+      </view>
+    </view>
+    <view class="takeCodeContent">
+      <view class="nums">
+        <block wx:for="{{inputLength}}" wx:key>
+          <input wx:key="{{index}}" value="{{inputValue.length - 1 >= index ? inputValue[index]: ''}}" type="number" adjust-position disabled catchtap="handleInputTap" />
+        </block>
+        <input class="hidden-input" type="number" focus="{{isFocus}}" maxlength="{{inputLength}}" bindinput="handleInputChange" adjust-position cursor-spacing='80'></input>
+      </view>
+      <view hidden="{{hideTip}}" class="tip  animation-{{animation=='shake'?'shake':''}}" bindtap="toggle" >验证码错误</view>
+    </view>
+  </view>
+</view>

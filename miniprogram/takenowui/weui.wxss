@@ -79,7 +79,7 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 0 24px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   min-height: 40px;
   font-size: 17px;
   line-height: 1.4;

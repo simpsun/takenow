@@ -782,7 +782,11 @@ radio.white[checked] .wx-radio-input {
 	font-size: 20rpx;
 	height: 48rpx;
 }
-
+.cu-btn.l {
+	padding: 0 30rpx;
+	font-size: 26rpx;
+	height: 64rpx;
+}
 .cu-btn.lg {
 	padding: 0 40rpx;
 	font-size: 32rpx;
@@ -3164,7 +3168,7 @@ scroll-view.cu-steps .cu-item {
   margin-top: 100rpx;
 }
 .margin-top-ml{
-  margin-top: 120rpx;
+  margin-top: 150rpx;
 }
 .margin-top-nl{
     margin-top: 200rpx;
@@ -3932,7 +3936,9 @@ background-color:rgba(190,226,148,0.4);
 .text-xl {
 	font-size: 36rpx;
 }
-
+.text-xsl {
+	font-size: 40rpx;
+}
 .text-xxl {
 	font-size: 44rpx;
 }

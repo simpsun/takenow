@@ -23,13 +23,13 @@
   <!-- 购买商品信息 -->
   <view class="shadow-warp radius-xs">
   <view class="cu-form-group goodsInput">
-    <textarea name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="onGoodsInfo"></textarea>
+    <textarea  hidden="{{istrue}}" name="goodsInfoArea" maxlength="100" placeholder="请输入要购买的商品" value="{{goodsInfoArea}}" bindinput="onGoodsInfo"></textarea>
   </view>
   <navigator url='remark?remarkInput={{remarkInput}}' class="cu-form-group radius-bottom-x" hoverClass="none">
 
     <view class="title">备注</view>
 
-    <input class="remarkInput" disabled="true " name="remarkInput" placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
+    <input class="remarkInput"  hidden="{{istrue}}" disabled="true " name="remarkInput"  placeholder="备注仅Taker接单后可见" value="{{remarkInput}}"></input>
     <text class="cuIcon-right  text-gray"></text>
   </navigator></view>
 </view>
@@ -77,21 +77,37 @@
     </view>
   </view>
 </view>
-<view class="submitOrderBar">
+<view class="submitOrderBar  {{isIphoneX?'fix-iphonex-button':''}}">
   <view class="submitOrderText">
     <view class="text-lg text-black">待支付：
-      <text class="otherCostInput text-orange text-xxl">￥1</text>
+      <text class="otherCostInput text-orange text-xxl">￥{{!!userDeterminedCost?userDeterminedCost:0}}</text>
     </view>
     <view class="text-xs text-grey">(包括跑腿费用和商品费用)</view>
   </view>
   <view class="submitOrderBtn" bindtap="submitOrder">提交订单</view>
 </view>
 
-
-
 <!-- -------------------------------------------调用窗口--------------------------------------------- -->
-
-
+<!-- 模拟微信支付窗口 -->
+<view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="closeDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="closeDialog">
+    <view class="weui-dialog" style="width:90%" catchtap="stopEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title">确认支付</view>
+      </view>
+      <view class="weui-dialog__bd flex-center">
+        <view >金额：</view>
+         <view class="text-orange text-xxl">￥{{orderInfo.deliverCost}}</view>
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/> -->
+      </view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog">取消</view>
+          <view class="weui-dialog__btn" style="color:var(--green)" bindtap="onPayOrder"><text class="cuIcon-moneybag"></text>确定</view>
+      </view>
+    </view>
+  </view>
+</view>
 <!-- 位置信息窗口 -->
 <tn-dialog id="tnLocation" bind:customEvent="getMyLocation" isLocation='true' title='{{dialogTitle}}' details='{{dialogContent}}'></tn-dialog>
 
@@ -124,7 +140,7 @@
 
 
 <!-- 调用窗口 -->
-<view class="cu-modal {{modalName=='BackDialogModal'?'show':''}}">
+<!-- <view class="cu-modal {{modalName=='BackDialogModal'?'show':''}}">
   <view class="dialog">
 
     <view class="padding-xl padding-bottom-sm bg-white text-xl">
@@ -137,7 +153,7 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
 
 
 <!-- 物品重量窗口 -->

@@ -1,6 +1,7 @@
 {
   "cloud": true,
   "pages": [
+    "pages/start/start",
     "pages/index/index",
     "pages/my/my",
     "pages/about/about",
@@ -16,7 +17,10 @@
     "pages/test/text2",
     "pages/graborder/itemOrderInfo/listOrderInfo",
     "pages/campus/campus",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/index/paySuccess/paySuccess",
+    "pages/testaaa/testaaa"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -25,10 +29,11 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
+
     "color": "#000000",
     "selectedColor": "#5a87f7",
     "borderStyle": "white",
-    "backgroundColor": "f1f1f1",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",

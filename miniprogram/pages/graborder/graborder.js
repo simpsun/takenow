@@ -2,6 +2,7 @@
 const db = wx.cloud.database();
 const _ = db.command;
 const util = require('../../utils/util.js')
+const app = getApp();
 Page({
 
   /**
@@ -9,6 +10,7 @@ Page({
    */
   data: {
     nomore: false,
+    orderAttr: 'create_time', // 按照什么排序
     list: [],
     genderLimitList: ['限女生', '限男生', '不限性别'],
     //  抢单列表
@@ -52,14 +54,16 @@ Page({
     isAuthenticate: 0,
     rewardHunterList: [{
       id: 0,
-      avatar: '',
-      name: '',
-      reward: ''
+      avatar: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg',
+      name: '王安',
+      college:'软件学院',
+      reward: '580'
     }, {
       id: 1,
-      avatar: '',
-      name: '',
-      reward: ''
+        avatar: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg',
+      name: '李伟',
+        college: '管理学院',
+      reward: '499'
     }],
     loadmore() {
       console.log('loadmore')
@@ -82,35 +86,76 @@ Page({
   // 跳转至抢单页面
   navigateGrabOrder(e) {
     console.log(e);
+    const my_open_id = app.globalData.openid;
+    const user_open_id = e.currentTarget.dataset.order_open_id;
     const id = e.currentTarget.dataset.orderid;
-    wx.navigateTo({
-      url: `itemOrderInfo/itemOrderInfo?id=${id}`,
-    })
+    // 检验是否自己下的订单
+    if (my_open_id != user_open_id) {
+      wx.navigateTo({
+        url: `itemOrderInfo/itemOrderInfo?orderid=${id}`,
+      })
+    } else {
+      wx.showToast({
+        title: '不能抢自己发布的订单',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
-
   onFilterBarBtn(e) {
     const index = e.currentTarget.dataset.findex
-
+    const before_index = this.data.selectedFilterBtn
     this.setData({
       selectedFilterBtn: this.data.selectedFilterBtn == index ? -1 : index
     })
-    switch (index) {
-      case 0:
-        break;
-      case 1:
-        break;
-      case 2:
-        this.setData({
-          grabOrderList: this.data.grabOrderList.sort(function(a, b) {
-            return a.orderReward - b.orderReward;
+    if (before_index != index) {
+      switch (index) {
+
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          this.setData({
+            orderAttr: 'deliverCost'
           })
-        });
-        break;
+          this.getList();
+          break;
+      }
+    } else {
+      this.setData({
+
+        orderAttr: 'create_time'
+
+      })
+      this.getList();
     }
   },
   rewardBarNav() {
     wx.navigateTo({
-      url: '../..'
+      url: '../../pages/my/taker/taker'
+    })
+  },
+  // 我能接的
+  filterICan() {
+    return new Promise((resolve, reject) => {
+      if (this.data.isFilterIcan) {
+        var newList = [];
+        if (this.data.list != []) {
+          // 筛选出性别为我的性别或者不限性别的且未接单的订单 且不是我发布的订单
+          this.data.list.forEach(item => {
+            if ((item.genderLimit == this.data.gender || item.genderLimit == 2) && item.status == 0 && (item.user_openId != app.globalData.openid)) {
+              newList.push(item)
+            }
+          })
+        }
+        this.setData({
+          list: newList
+        })
+        resolve();
+        // 将筛选的数据提取出来并渲染到页面
+      }
+      resolve();
     })
   },
   // 筛选我能接的单
@@ -118,27 +163,13 @@ Page({
     this.setData({
       isFilterIcan: !this.data.isFilterIcan
     })
-    if (this.data.isFilterIcan) {
-      var newList=[];
-      if (this.data.list != []) {
-        console.log('list处理中···')
-        this.data.list.forEach(item => {
-          console.log(item)
-          if ((item.genderLimit == this.data.gender || item.genderLimit ==2)&&item.status==0)
-          {
-              newList.push(item)
-          }
-        })
-      }
-      console.log(newList)
-      this.setData({
-        list: newList
-      })
-      this.dealData();
+    this.filterICan().then(res => {
+      this.dealData()
+    });
+    if (!this.data.isFilterIcan) {
+      // 如果取消按钮,执行刷新页面
+      this.getList();
     }
- else{
-   this.getList();
- }
   },
   //   db.collection('tn_order').where({
   //     status: 0,
@@ -148,14 +179,14 @@ Page({
   //   }).orderBy('create_time', 'desc').limit(20).get()
   // 
 
-
+  // 获取数据库最新数据
   getList() {
     let that = this;
     db.collection('tn_order').where({
       status: 0,
       nearCampus: this.data.nearCampus,
       orderLife: _.gt(new Date().getTime()),
-    }).orderBy('create_time', 'desc').limit(20).get().then(res => {
+    }).orderBy(`${this.data.orderAttr}`, 'desc').limit(20).get().then(res => {
       return new Promise((resolve, reject) => {
         console.log('当前列表：', res)
         resolve();
@@ -182,7 +213,7 @@ Page({
         }
       })
     }).then(res => {
-      console.log('处理数据')
+      console.log('订单信息提取中···')
       this.dealData();
     })
   },
@@ -190,13 +221,15 @@ Page({
     var orderList = this.data.list.map((item, index) => {
       return {
         id: index,
+        orderID: item.orderID,
         orderGoodInfo: item.goodsInfo,
         orderGoodSort: item.type,
         orderReleaseTime: util.commentTimeHandle(item.create_time),
         orderDeliverTime: item.genderLimit,
         orderReward: item.deliverCost,
         orderStatus: item.status,
-        orderGoodSort: item.type
+        orderGoodSort: item.type,
+        userOpenId: item.user_openId
       }
     })
     this.setData({
@@ -205,7 +238,7 @@ Page({
   },
   more() {
     let that = this;
-    if (that.data.nomore || that.data.list.length < 20) {
+    if (that.data.nomore || ((that.data.list.length < 20) && (!this.data.isFilterIcan))) {
       wx.hideLoading();
       wx.showToast({
         title: '别拉了,到底啦φ(>ω<*) ',
@@ -220,7 +253,7 @@ Page({
       status: 0,
       nearCampus: this.data.nearCampus,
       orderLife: _.gt(new Date().getTime())
-    }).orderBy('creat_time', 'asc').skip(page * 20).limit(20).get().then(
+    }).orderBy(`${this.data.orderAttr}`, 'desc').skip(page * 20).limit(20).get().then(
       res => {
         return new Promise((resolve, reject) => {
           console.log('触底更新数据成功', res)
@@ -248,7 +281,9 @@ Page({
         icon: 'none'
       })
     }).then(res => {
-      this.dealData();
+      this.filterICan().then(res => {
+        this.dealData()
+      });
     })
   },
   // ------------------------------------------------------------生命周期函数-----------------------------------------------------
@@ -264,9 +299,15 @@ Page({
       })
     }).catch(res => {
       console.log(res)
-    }).then(this.getList());
+    }).then(res => {
+      this.getList()
+    });
   },
   onPullDownRefresh: function() {
+    this.setData({
+      selectedFilterBtn: -1,
+      isFilterIcan: false
+    })
     this.getList()
   },
   onReachBottom() {
@@ -330,3 +371,10 @@ Page({
 //             orderReward: 25,
 //               orderStatus: 0
 // }]
+
+
+// this.setData({
+//   grabOrderList: this.data.grabOrderList.sort(function(a, b) {
+//     return b.orderReward - a.orderReward;
+//   })
+// });

@@ -1,5 +1,8 @@
 /* pages/order/order.wxss */
-
+page{
+  width: 100%;
+  height: 90%;
+}
 .order-content0 {
   background-color: black;
   height: 100%;
@@ -19,9 +22,29 @@
   height: 100%;
   width: 100%;
 }
+.addressEmpty{
+display: flex;
+flex-direction: column;
+width: 100%;
+height:100%;
+justify-content: center;
+align-items: center;
 
+}
+.addressEmpty .icon {
+    height: 248rpx;
+    width: 258rpx;
+    margin-bottom: 10rpx;
+}
+
+.addressEmpty .text {
+    width: auto;
+    font-size: 28rpx;
+    line-height: 35rpx;
+    color: #999;
+}
 .cu-item .order {
-  height: 140rpx;
+  height: 120rpx;
   width: 100%;
   display: flex;
   flex-direction: row;

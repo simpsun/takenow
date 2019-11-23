@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -12,7 +12,7 @@
 		"newFeature": true,
 		"coverView": true,
 		"nodeModules": true,
-		"autoAudits": false,
+		"autoAudits": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": false,
 		"uploadWithSourceMap": true,
@@ -94,10 +94,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 5,
 					"name": "pages/graborder/itemOrderInfo/listOrderInfo",
 					"pathName": "pages/graborder/itemOrderInfo/listOrderInfo",
-					"query": "",
+					"query": "isTaker=true&&id=ca2e6eb55dbd9ebd009994f6137e59b5",
 					"scene": null
 				},
 				{
@@ -139,6 +139,21 @@
 					"id": -1,
 					"name": "pages/order/order",
 					"pathName": "pages/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index",
+					"pathName": "pages/index/paySuccess/paySuccess",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/testaaa/testaaa",
+					"pathName": "pages/testaaa/testaaa",
+					"query": "",
 					"scene": null
 				}
 			]

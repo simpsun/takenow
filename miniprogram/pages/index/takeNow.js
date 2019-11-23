@@ -23,7 +23,7 @@ Page({
     //   create_time: null,
     //   expire_time: null,
     // },
-
+    istrue: false,
     isSwitchTakeBtn: true, //控制能不能点就近购买
     dialogTitle: '未授权位置信息',
     dialogContent: 'Take Now需要获取您的位置信息，以便您快速的设置收货地址，请点击确认，并在授权页面开启位置信息授权，即可使用',
@@ -87,8 +87,47 @@ Page({
 
 
   // -----=---------------------------------------事件监听函数------------------------------------------------------------------
+  //  支付订单
+  onPayOrder() {
+    wx.showLoading({
+      title: '提交中',
+    })
+    this.closeDialog();
+    if (!this.data.orderInfo) {
+      wx.showToast({
+        title: '订单信息错误o(╥﹏╥)o',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.cloud.callFunction({
+        name: 'submit_order',
+        data: {
+          orderInfo: this.data.orderInfo
+        }
+      }).then(res => {
+        wx.hideLoading();
+        console.log("创建订单成功：", res)
+        wx.redirectTo({
+          url: 'paySuccess/paySuccess',
+        })
+      }).catch(res => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '创建失败，请及时反馈或稍后再试(ಥ_ಥ) ',
+          icon: 'none',
+          duration: 2000
+        })
+      })
+    }
+  },
 
-
+  // 关闭支付窗口
+  closeDialog: function() {
+    this.setData({
+      istrue: false
+    })
+  },
 
   // 指定和就近地点标签转换
   switchTakeBtn(e) {
@@ -248,7 +287,7 @@ Page({
         goodsInfo: t.goodsInfoArea,
         goodsRemark: t.remarkInput || '无',
         goodsWeight: t.userDeterminedWeight || t.selectedWeight,
-        genderLimit: t.selectedGenderLimit!=null ? t.selectedGenderLimit:2,
+        genderLimit: t.selectedGenderLimit != null ? t.selectedGenderLimit : 2,
         deliverCost: t.userDeterminedCost,
         orderLife: t.userDeterminedOrderLife || t.orderLifeList[10],
         create_time: new Date().getTime(),
@@ -256,28 +295,16 @@ Page({
         taker_open_id: null,
         orderID: util.tnFormatTime(new Date()) + Math.floor(Math.random() * 9999 + 1000),
         orderPayID: null,
-        nearCampus: t.nearCampus
+        nearCampus: t.nearCampus,
+        version: 1 //乐观锁
       }
       const sindex = t.orderLifeList.indexOf(orderInfo.orderLife);
       const timeStamp = (parseInt(orderInfo.create_time) + t.orderLifeSecList[sindex]);
       orderInfo.orderLife = timeStamp
-      wx.cloud.callFunction({
-        name: 'submit_order',
-        data: {
-          orderInfo: orderInfo
-        }
-
-      }).then(res => {
-        console.log("创建订单成功：", res)
-      }).catch(res => {
-        wx.showToast({
-          title: '创建失败，请及时反馈或稍后再试',
-          icon: 'none',
-          duration: 2000
-        })
+      this.setData({
+        orderInfo: orderInfo,
+        istrue: true
       })
-      console.log(t.OrderInfoList);
-
     }
     // } else if (!remarkInput) {
     //   goodsRemark: '无'
@@ -375,6 +402,9 @@ Page({
   },
   // -------------------------------------------------------生命周期函数------------------------------------------------------------
   onLoad: function(e) {
+    this.setData({
+      isIphoneX: app.globalData.isIphoneX
+    })
     if (e.index && e.nearCampus) {
       this.setData({
         location: parseInt(e.index),

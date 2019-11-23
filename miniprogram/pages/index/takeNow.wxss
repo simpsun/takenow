@@ -3,6 +3,7 @@ page{
   background-color: ghostWhite;
 
 }
+
 .dialog {
 	position: relative;
 	display: inline-block;
@@ -141,7 +142,7 @@ color: white;
 size: 32rpx;                                                      
 }
 .submitOrderText{
-    width: 250rpx;
+    width: 500rpx;
   height: 100%;
   display: flex;
   flex-direction: column;

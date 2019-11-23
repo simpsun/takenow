@@ -1,33 +1,34 @@
 <!--pages/graborder/itemOrderInfo/itemOrderInfo.wxml-->
+<wxs src="../../../utils/tools.wxs" module="tools" />
 <!-- 顶部赏金栏 -->
 <view class="rewardBar">
   <block wx:if="{{isSucceedGrab}}">
-    <view class="text-xl text-white" bindtap="showModal" data-target="bottomModal">已接单
+    <view class="text-xl text-white" bindtap="showModal" data-target="bottomModal">{{statusList[orderInfo.status]}}
       <text class="cuIcon-right text-white"></text>
     </view>
   </block>
   <block wx:else>
     <view class="text-white text-xxxl">
-      <text class="text-price">34.7</text>
+      <text class="text-price">{{orderInfo.deliverCost}}</text>
     </view>
     <view class="text-greys">本单赏金</view>
   </block>
 </view>
-<view class="navDetails" wx:if='{{isSucceedGrab}}' bindtap="navDetails">
+<!-- <view class="navDetails" wx:if='{{orderInfo.status>0&&openid==orderInfo.taker_open_id}}' bindtap="navDetails">
   <text class="text-grey">点击切换列表显示模式</text>
 
-</view>
+</view> -->
 <!-- 聊天栏 -->
 
-<view class="cu-chat margin-top-{{isSucceedGrab?'n':'m'}}l">
+<view class="cu-chat margin-top-ml" style="margin-bottom:30rpx;">
   <view class="cu-item">
     <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
     <view class="main">
       <view class="content bg-tnRed">
-        <text>【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847</text>
+        <text>{{orderInfo.goodsInfo}}</text>
       </view>
     </view>
-    <view class="date "> 13:23</view>
+    <!-- <view class="date "> 13:23</view> -->
   </view>
   <!-- 订单属性栏 -->
   <view class="attrBox">
@@ -38,7 +39,7 @@
       <block wx:for='{{attrList}}' wx:key>
         <view class="attrTag">
           <view class="itemtag">
-            <view class="text-center text-{{item.color}}">{{item.attr}}</view>
+            <view class="text-center text-{{item.color}}">{{orderAttrList[index]}}</view>
             <text class="cuIcon-{{item.icon}} text-gray"></text>
             <text class="text-gray">{{item.context}}</text>
           </view>
@@ -63,26 +64,51 @@
             <text class="text-grey iconText">{{index==0?'前往':'送达'}}</text>
           </view>
           <view class="flex-center flex-direction" style="align-items:flex-start;">
-            <text class=" margin-left text-black text-l">天津师范大学32号楼</text>
+
+            <text class=" margin-left text-black text-l">{{index==0?(orderInfo.type!=1?orderInfo.purchaseAddress:(orderInfo.purchaseAddress.nearCampus+orderInfo.purchaseAddress.exactAddress)):(orderInfo.deliverAddress.nearCampus+orderInfo.deliverAddress.exactAddress)}}</text>
             <view class="text-l">
-              <text class=" margin-left text-grey">伊泽瑞</text>
-              <text bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="13002260255">13002260255</text>
+              <text class=" margin-left text-grey"></text>{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.name):orderInfo.deliverAddress.name}}
+              <text bindtap="{{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'callPhone':''}}" class=" margin-left-xs {{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'text-green':''}}" data-phoneNum="{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}">{{index==0?(orderInfo.type!=1?'':tools.handleSliceMobile(orderInfo.purchaseAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id))):tools.handleSliceMobile(orderInfo.deliverAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id))}}</text>
             </view>
           </view>
         </view>
       </block>
     </view>
   </view>
-  <view class="cu-item self">
+  <!-- <view class="orderDetail">
+  <block wx:for='{{attrList}}' wx:key>
+    <view class=" attrTag flex  margin-tb-sm align-center">
+      <view class="attrTextL text-df text-grey ">
+        <text selectable>{{item.name}}</text>
+      </view>
+      <view class="text-df text-black attrTextR ">
+        <text selectable>{{orderAttrList[index]}}</text>
+      </view>
+    </view>
+  </block>
+  </view> -->
+  <view wx:if="{{isSucceedGrab}}" class="orderDetail bg-white">
+  <block wx:for='{{orderDetailList}}' wx:key>
+    <view class="  flex  margin-tb-sm align-center">
+      <view class="attrTextL text-df text-grey ">
+        <text selectable>{{item.name}}</text>
+      </view>
+      <view class="text-df text-black attrTextR ">
+        <text selectable>{{orderAttrList[index+3]}}</text>
+      </view>
+    </view>
+  </block>
+</view>
+  <view wx:if="{{orderInfo.status>0}}" class="cu-item self">
     <view class="main">
       <view class="content shadow">
         <text>您好，我已接单并将及时为您配送</text>
       </view>
     </view>
     <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
-    <view class="date">2018年3月23日 13:23</view>
+    <!-- <view class="date">2018年3月23日 13:23</view> -->
   </view>
-  <view class="cu-item self">
+  <!-- <view class="cu-item self">
     <view class="main">
       <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" class="radius" mode="widthFix"></image>
     </view>
@@ -125,35 +151,67 @@
       </view>
     </view>
     <view class="date">13:23</view>
-  </view>
+  </view> -->
 </view>
+
 <!-- 底部栏 -->
-<view class="bottomGrabOrderBar">
+<view class="bottomGrabOrderBar {{isIphoneX?'fix-iphonex-button':''}}" style="height:{{isSucceedGrab?200:110}}rpx;">
+  <view class="optBtn " wx:if="{{isSucceedGrab}}">
+    <button class="cu-btn bg-white round " bindtap="onCancelOrder">取消订单</button>
+    <button class="cu-btn bg-white round " open-type="contact">在线客服</button>
+    <button class="cu-btn bg-white round " bindtap="callPhone">联系用户</button>
+    <button  wx:if="{{orderInfo.status==8}}" class="cu-btn bg-white round">评价</button>
+  </view>
+
   <sliders id='mySlider' bindmyevent="myEventListener"></sliders>
   <!-- <view wx:else class="grabOrderDetails">查看订单详情</view>  wx:if='{{isGrabOrderSliderBar}}'-->
 </view>
 
 <!-- ------------------------------------------调用窗口----------------------------- -->
+<view class="cu-modal {{modalName=='codeModal'?'show':''}}">
+  <view class="cu-dialog takeCodeBar">
+    <!-- <view class="cu-bar bg-white justify-end"> -->
+    <view class="title">
+      <view class="content"> 请输入Take Code</view>
+      <view class="icon" bindtap="closeCodeModal">
+        <text class="cuIcon-close text-grey"></text>
+      </view>
+    </view>
+    <view class="takeCodeContent">
+      <view class="nums">
+        <block wx:for="{{inputLength}}" wx:key>
+          <input wx:key="{{index}}" value="{{inputValue.length - 1 >= index ? inputValue[index]: ''}}" type="number" disabled catchtap="handleInputTap" />
+        </block>
+        <input class="hidden-input" type="number" focus="{{isFocus}}" maxlength="{{inputLength}}" bindinput="handleInputChange" cursor-spacing='80'></input>
+      </view>
+      <view hidden="{{hideTip}}" class="tip  animation-{{animation=='shake'?'shake':''}}" bindtap="toggle">验证码错误</view>
+      <view class="bottom">
+        <text class='cuIcon-question'></text>Take Code为保障双方利益，跑腿完成后由发单人告知</view>
+    </view>
+  </view>
+</view>
 <view class='cu-load load-modal' wx:if="{{loadModal}}">
   <!-- <view class='cuIcon-emojifill text-orange'></view> -->
   <image src='/images/logo.png' class='png' mode='aspectFit'></image>
   <view class='gray-text'>抢单中...</view>
 </view>
-<view class="cu-modal {{modalName=='DialogModal'?'show':''}}">
-  <view class="cu-dialog" style="width:80%">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">同意用户协议</view>
-      <view bindtap="hideModal" class="action">
-        <text class="cuIcon-close text-red"></text>
+
+
+<view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="closeDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="closeDialog">
+    <view class="weui-dialog" catchtap="stopEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title">同意用户协议</view>
       </view>
-    </view>
-    <view class="padding-xl bg-white">
-      我将遵循"Take Now跑腿协议",并遵照法律、法规及学校规定，安全快速的送达
-    </view>
-    <view class="cu-bar bg-white justify-end">
-      <view class="action">
-        <button bindtap="hideModal" class="cu-btn line-tnRed text-tnRed">取消</button>
-        <button bindtap="changeBottomBar" class="cu-btn bg-tnRed margin-left">确定 </button>
+      <view class="weui-dialog__bd">
+        <view>我将遵循《Take Now跑腿协议》,并遵照法律、法规及学校规定，安全、快速地送达。</view>
+        <view class="text-black">15分钟内可无条件取消</view>
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/>-->
+      </view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closeDialog" data-isreset="true">再想想</view>
+        <view class="weui-dialog__btn" bindtap="grabOrder">我要抢单</view>
       </view>
     </view>
   </view>
@@ -161,34 +219,34 @@
 
 <!-- 订单状态 -->
 <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" bindtap="hideModal">
-    <view class=" cu-dialog" catchtap>
-  
-        <scroll-view scroll-y="true" style="height: 700rpx;">
-          <view class="cu-timeline">
-            <view class="cu-time">昨天</view>
-            <view class="cu-item cur cuIcon-infofill">
-              <view class="content  shadow-blur">
-                <text>22:22</text> 用户提交订单
-              </view>
-            </view>
-            <view class="cu-item cuIcon-infofill">
-              <view class="content shadow-blur">
-                <text>22:22</text> 用户付款成功
-              </view>
-            </view>
+  <view class=" cu-dialog" catchtap>
 
-            <view class="cu-item cuIcon-infofill">
-              <view class="content shadow-blur">
-                <text>22:22</text> 订单已被接单
-              </view>
-            </view>
-            <view class="cu-time">今天</view>
-            <view class="cu-item  text-grey cuIcon-infofill">
-              <view class="content bg-tnRed shadow-blur ">
-                <text>  <text>22:22</text> 完成配送</text>
-              </view>
-            </view>
+    <scroll-view scroll-y="true" style="height: 700rpx;">
+      <view class="cu-timeline">
+        <view class="cu-time">昨天</view>
+        <view class="cu-item cur cuIcon-infofill">
+          <view class="content  shadow-blur">
+            <text>22:22</text> 用户提交订单
           </view>
-        </scroll-view>
-    </view>
+        </view>
+        <view class="cu-item cuIcon-infofill">
+          <view class="content shadow-blur">
+            <text>22:22</text> 用户付款成功
+          </view>
+        </view>
+
+        <view class="cu-item cuIcon-infofill">
+          <view class="content shadow-blur">
+            <text>22:22</text> 订单已被接单
+          </view>
+        </view>
+        <view class="cu-time">今天</view>
+        <view class="cu-item  text-grey cuIcon-infofill">
+          <view class="content bg-tnRed shadow-blur ">
+            <text>  <text>22:22</text> 完成配送</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
+</view>

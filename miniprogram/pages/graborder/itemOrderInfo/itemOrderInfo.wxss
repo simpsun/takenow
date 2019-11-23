@@ -1,7 +1,6 @@
 /* pages/graborder/itemOrderInfo/itemOrderInfo.wxss */
 
 page {
-
   padding-bottom: 110rpx;
 }
 
@@ -26,9 +25,7 @@ page {
   justify-content: center;
   align-items: center;
   padding: 0;
-
 }
-
 .attrBar {
   border-radius: 20rpx;
   margin: 0;
@@ -50,7 +47,6 @@ page {
   position: relative;
   top: 40rpx;
 }
-
 .attrTag {
   display: inline-flex;
   background-color: var(--greyn);
@@ -92,9 +88,12 @@ page {
 .bottomGrabOrderBar {
   position: fixed;
   bottom: 0rpx;
-  height: 110rpx;
+  
   width: 100%;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .grabOrderDetails {
@@ -140,7 +139,107 @@ page {
   width: 70rpx;
   text-align: center;
 }
-.dialogBtn{
+
+.dialogBtn {
   width: 40%;
   height: 100%;
+}
+
+.takeCodeBar {
+  height: 400rpx;
+  width: 90%;
+  border-radius: 30rpx;
+}
+
+.takeCodeBar .title {
+  height: 30%;
+  top: 0;
+  width: 100%;
+  font-size: 48rpx;
+  position: relative;
+  background: white;
+  padding-top: 30rpx;
+}
+
+.takeCodeBar .title .icon {
+  position: absolute;
+  top: 40rpx;
+  right: 20rpx;
+}
+
+.takeCodeBar .takeCodeContent {
+  height: 70%;
+  width: 100%;
+  background: white;
+}
+
+.nums {
+  padding-top: 50rpx;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  height: 120rpx;
+  width: 90%;
+  font-size: 60rpx;
+  color: #17233d;
+}
+
+.nums>input {
+  width: 90rpx;
+  height: 84rpx;
+  margin-right: 20rpx;
+  border-bottom: 1rpx solid #17233d;
+  text-align: center;
+  line-height: 84rpx;
+}
+
+.nums>input:nth-last-of-type(2) {
+  margin-right: 0;
+}
+
+.nums>input.hidden-input {
+  width: 0;
+  height: 0;
+  border: none;
+  margin: 0;
+}
+
+.tip {
+  margin-top: 30rpx;
+  font-size: 24rpx;
+  color: #fe4d62;
+}
+
+.takeCodeContent .bottom {
+  position: absolute;
+  bottom: 20rpx;
+  left: 10%;
+  font-size: 24rpx;
+  width: 80%;
+  color: var(--grey);
+}
+
+.optBtn {
+ background: #f0f0f0;
+  height: 80rpx;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.attrTextL {
+  width: 23%;
+}
+
+.attrTextR {
+  width: 77%;
+ text-align: right;
+}
+.orderDetail {
+  bottom: 30rpx;
+  width: 80%;
+  margin: 0 auto 20rpx auto;
+  border-radius: 20rpx;
+  padding: 10rpx 30rpx;
 }

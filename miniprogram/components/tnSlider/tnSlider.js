@@ -82,7 +82,7 @@ Component({
         //元素X轴坐标等于可移动范围的最大值
         this.data.xAxial = this.data.w;
         //设置验证成功提示语
-        this.data.succeedMsg = '请求成功';
+        this.data.succeedMsg = '已完成';
         //设置detail对象的返回值
         detail.msg = true;
         //验证成功后，禁止滑块滑动

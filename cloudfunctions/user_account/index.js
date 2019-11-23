@@ -20,6 +20,7 @@ exports.main = async (event, context) => {
         reward:0,
         comingReward:0,
         create_time: new Date(),
+       
       }
     })
   } catch (e) {

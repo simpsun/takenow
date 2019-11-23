@@ -1,10 +1,9 @@
 {
   "usingComponents": {
-    "tn-refresh": "../../components/tnRefresh/wx-pulltorefresh-view"},
+    "tn-refresh": "../../components/tnRefresh/wx-pulltorefresh-view"
+  },
   "enablePullDownRefresh": true,
-
   "backgroundTextStyle": "light",
-
-  "backgroundColor":"#5a87f7",
+  "backgroundColor": "#5a87f7",
   "navigationBarTitleText": "抢单"
 }

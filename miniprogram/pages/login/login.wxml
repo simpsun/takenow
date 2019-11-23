@@ -1,7 +1,7 @@
 <!--miniprogram/pages/login/login.wxml-->
 
 <view class="bg-tnRed bg-tabbar">
-  <image class="loginLogoText" src="../../images/logotext.png"></image>
+  <!-- <image class="loginLogoText" src="../../images/logotext.png"></image> -->
   <image class="loginLogo" src="../../images/logo4.png"></image>
 </view>
 <view class="loginBar">

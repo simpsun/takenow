@@ -8,7 +8,7 @@ var qqmapsdk = new QQMap({
 
 App({
   onLaunch: function() {
-// 初始化云服务
+    // 初始化云服务
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -19,9 +19,9 @@ App({
     }
     const db = wx.cloud.database();
 
-  
+
     // 获取OpenId
-   wx.cloud.callFunction({
+    wx.cloud.callFunction({
       name: 'login'
     }).then(res => {
       return new Promise((resolve, reject) => {
@@ -43,14 +43,20 @@ App({
         }
       })
     });
-
-
+    // 手机型号是否为iPhone X
+    wx.getSystemInfo({
+      success: res => {
+        let model = res.model.substring(0, res.model.indexOf("X")) + "X"
+        if (model == 'iPhone X') {
+          this.globalData.isIphoneX = true
+        }
+      }
+    })
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || [];
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    this.onGetUserInfo();
     db.collection('tn_campus_list').get().then(res => {
       return new Promise((resolve, reject) => {
         console.log("学校列表", res);
@@ -74,6 +80,9 @@ App({
     }).then(res => {
       return this.calculateDistance(res)
     })
+
+
+
   },
 
 
@@ -161,11 +170,7 @@ App({
           if (this.userInfoReadyCallback) {
             this.userInfoReadyCallback(this.globalData.nearCampus)
           }
-          wx.showToast({
-            title: '我猜你是' + this.globalData.nearCampus +'的小可爱(❁´ω`❁)',
-            icon: 'none',
-            duration: 3000
-          })
+      
 
         } else
           console.log("校区距离列表有误")
@@ -201,15 +206,8 @@ App({
 
 })
 
-// // 获取系统状态栏信息
-// wx.getSystemInfo({
-//   success: e => {
-//     this.globalData.StatusBar = e.statusBarHeight;
-//     let custom = wx.getMenuButtonBoundingClientRect();
-//     this.globalData.locationAuthorized = e.locationAuthorized || null,
-//       this.globalData.locationEnabled = e.locationEnabled || null
-//   }
-// })
+
+
 // {
 //   id: 0,
 //     name: "天津师范大学",
