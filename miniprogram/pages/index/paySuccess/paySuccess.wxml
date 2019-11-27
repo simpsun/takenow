@@ -2,7 +2,7 @@
 <view class="top bg-tnRed">
   <image src="../../../images/smile.png" style="width:120rpx;height:120rpx;"></image>
       <view class='text-xxl margin-top-sm'>提交成功</view>
-      <view class="navMyOrder text-tnRed">查看订单</view>
+      <view bindtap="navOrder" class="navMyOrder text-tnRed">查看订单</view>
 </view>
 
 

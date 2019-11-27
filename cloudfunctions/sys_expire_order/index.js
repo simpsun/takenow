@@ -4,19 +4,23 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
 const db = cloud.database();
+const _=db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const _id = event._id;
   try {
-    const result = await db.collection('tn_order').doc(_id).update({
+    const result = await db.collection('tn_order').where({
+      status:0,
+      orderLife:_.lt(new Date().getTime())
+    }).update({
       data: {
-        status: 5,
-        user_cancel_time:new Date().getTime()
+        status: 3,
+        expire_time: new Date().getTime()
       }
-    })
+    }).get()
     return result
+    console.log('过期的订单',res)
   } catch (e) {
-    console.log('error:',e)
+    console.log('error:')
   }
 }

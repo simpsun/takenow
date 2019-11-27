@@ -15,6 +15,36 @@ page {
   margin: 20rpx auto;
   margin-top: 220rpx;
   border-radius: 20rpx;
+
+}
+.takeCodeBar{
+  width: 94%;
+  margin: 20rpx auto;
+  border-radius: 20rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.takeCode{
+  width: 90%;
+  height: 60%;
+  text-align: center;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.takeCodeText{
+  width: 90%;
+  height: 30%;
+
+      display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .goodInfoText {
   padding: 20rpx;
@@ -92,4 +122,11 @@ border-bottom: 3rpx solid var(--greyn);
 background: white;
 padding: 10rpx 0;
 
+}
+.cu-item:last-child .content{
+  background: var(--tnRed) !important;
+}
+.orderStatusTime{
+  position: relative;
+  right: 20rpx;
 }

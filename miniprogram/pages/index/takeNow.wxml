@@ -2,14 +2,14 @@
 <view class='goodsInfo'>
   <!-- 切换标签 指定地点/就近购买 -->
   <view class="swithTakeStyle">
-    <block wx:for="{{switchTakeList}}" wx:key>
+    <block wx:for="{{switchTakeList}}" wx:key='item'>
       <view class="switchTakeBtn  {{switchTakeTag==index?'bg-white text-tnRed':'' }}" bindtap="switchTakeBtn" data-sindex="{{index}}">{{item}}</view>
     </block>
   </view>
   <!-- 地址栏 -->
   <view class="addressBar shadow-warp">
     <view class="addrDividingLine"></view>
-    <block wx:for='{{2}}' wx:key>
+    <block wx:for='{{2}}' wx:key='item'>
       <!-- 就近购买送达地址不可选 -->
       <view class="addressOption" bindtap="{{(switchTakeTag==1&&index==0)?'':'selectAddressTap'}}" data-aindex="{{index}}" hover-class="{{(switchTakeTag==1&&index==0)?'none':'navigator-hovor'}}">
         <view class="icon">
@@ -119,7 +119,7 @@
       <view class="action text-tnRed" bindtap="determineCost">确定</view>
     </view>
     <view class="grid col-3 padding-sm">
-      <view wx:for="{{checkbox}}" class="padding-xs" wx:key="{{index}}">
+      <view wx:for="{{checkbox}}" class="padding-xs" wx:key="item">
 
         <button class="cu-btn tnRed lg block {{selectedCostTag==item.value?'bg-tnRed':'line-tnRed'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}">
           {{item.money}}元

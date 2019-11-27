@@ -20,7 +20,6 @@
     "pages/login/login",
     "pages/index/paySuccess/paySuccess",
     "pages/testaaa/testaaa"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -29,7 +28,6 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-
     "color": "#000000",
     "selectedColor": "#5a87f7",
     "borderStyle": "white",

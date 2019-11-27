@@ -88,15 +88,22 @@ Page({
         }
       }).then(res => {
         wx.cloud.callFunction({
-          name: 'create_account'}).then(res => {
-            console.log("创建账户成功：", res)
-          }).catch(res=>{
-            wx.showToast({
-              title: '创建失败，请及时反馈或稍后再试',
-              icon: 'none',
-              duration:2000
-            })
-          }) 
+          name: 'create_account'
+        }).then(res => {
+          console.log("创建账户成功：", res)
+          wx.showToast({
+            title: '注册成功',
+            icon: 'none',
+            duration: 2000
+          })
+        }).catch(res => {
+          wx.hideLoading();
+          wx.showToast({
+            title: '创建失败，请及时反馈或稍后再试',
+            icon: 'none',
+            duration: 2000
+          })
+        })
         return db.collection('tn_user').doc(res._id).get()
       }).then(res => {
         app.globalData.userInfo = res.data;
@@ -154,9 +161,24 @@ Page({
       },
     })
   },
+  // 显示Toast并返回
+  showToastAndBack(res) {
+    wx.showToast({
+      title: res,
+      icon: 'none',
+      duration: 2000
+    })
+    setTimeout(res => {
+      wx.navigateBack({
+        delta: 1
+      })
+    }, 2000)
+  },
   // ---------------------------------------------生命周期函数----------------------------------------------
   onShow() {
-
+    if (app.globalData.userInfo) {
+      this.showToastAndBack('账户信息已存在')
+    }
   },
 
   onReady() {

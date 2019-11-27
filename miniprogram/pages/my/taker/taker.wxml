@@ -51,18 +51,21 @@
     </view>
     <view class="cu-form-group">
       <view class="title">身份证号</view>
-      <input placeholder="你的身份证号码18位" bindblur='Blur' type="idcard" value='{{idCard_code}}' data-update='1'></input>
+      <input placeholder="你的身份证号码18位" bindfocus="focusID" bindblur='Blur' focus='{{isFocusId}}' type="idcard" value='{{idCard_code}}' data-update='1'></input>
     </view>
     <view class='stepsButtonBox'>
       <button class='stepsButtonLast' wx:if="{{steps==1}}" bindtap='lastStep' hoverClass="navigator-hovor">上一步</button>
-      <button class='stepsButtonNext' wx:if="{{steps==1}}" bindtap='nextStep' hoverClass="navigator-hovor">下一步</button>
+      <button class='stepsButtonNext'  wx:if="{{steps==1}}" bindtap='nextStep' hoverClass="navigator-hovor">下一步</button>
     </view>
 
   </view>
   <view wx:if='{{steps==2}}'>
-    <view class="cu-form-group margin-top-lg">
+    <view class="cu-form-group  margin-top-lg">
       <view class="title">学校</view>
-      <input placeholder="学校全名" bindblur='Blur' type='text' value='{{studentCard_schoolName}}' data-update='2'></input>
+      <view class="chooseCampus" bindtap="chooseCampus">
+        <input disabled="true " name="nearCampus" placeholder="点我选择位置" value="{{nearCampus}}"></input>
+        <text class="cuIcon-right  text-gray"></text>
+      </view>
     </view>
     <view class="cu-form-group">
       <view class="title">学号</view>
@@ -118,7 +121,7 @@
   <view wx:if='{{steps==3}}'>
     <view class="cu-form-group margin-top-lg">
       <view class="title">手机号</view>
-      <input placeholder="手机号"></input>
+      <input name='phone' placeholder="手机号" value="{{phone}}" bindblur='Blur' data-update="5"></input>
       <view class="cu-capsule radius">
         <view class="cu-tag bg-tnRed">
           +86
@@ -130,8 +133,8 @@
     </view>
     <view class="cu-form-group">
       <view class="title">验证码</view>
-      <input placeholder="验证码"></input>
-      <button class="cu-btn bg-tnRed shadow">验证码</button>
+      <input name='code' placeholder="验证码" value="{{code}}" bindblur='Blur' data-update="6"></input>
+      <button bindtap="randomCode" class="cu-btn bg-tnRed shadow">验证码</button>
     </view>
 
     <view class='stepsButtonBox'>
@@ -140,18 +143,13 @@
     </view>
 
   </view>
-  <view wx:if='{{steps==4}}'>
-    <view class='finish'>
-      <view class='icon cuIcon-timefill '></view>
-      <view class='text-xl text-tnRed'>提交成功</view>
-    </view>
-    <view class='margin-xl text-darkGray text-df'>我们会尽快审核，预计在2个工作日内完成，请关注手机短信通知。</view>
-  </view>
+
 </view>
-<view wx:else>
-  <view class='finish'>
-    <view class='icon cuIcon-timefill '></view>
-    <view class='text-xl text-tnRed'>提交成功</view>
+<view wx:if="{{steps==4}}" class="result">
+  <view class="top bg-tnRed">
+    <image src="../../../images/smile.png" style="width:120rpx;height:120rpx;"></image>
+    <view class='text-xxl margin-top-sm'>认证成功</view>
+    <view bindtap="navGrab" class="navMyOrder text-tnRed">前往接单</view>
   </view>
-  <view class='margin-top-ml margin-lr-xl text-grey text-xl'>我们会尽快审核，预计在2个工作日内完成，请关注手机短信通知。</view>
+  
 </view>

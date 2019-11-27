@@ -1,6 +1,6 @@
 {
     "navigationBarTitleText": "Take Now",
-
+  "disableScroll": true,
   "usingComponents": {
 
   }

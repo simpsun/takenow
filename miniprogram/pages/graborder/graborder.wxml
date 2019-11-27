@@ -7,7 +7,7 @@
   <view class="rewardListBar">
     <text class="margin-left-sm margin-top-xs text-black text-xl">赏金排行榜</text>
     <text class="margin-left text-grey text-sm">人人都是赏金猎人</text>
-    <block wx:for="{{rewardHunterList}}" wx:key>
+    <block wx:for="{{rewardHunterList}}" wx:key="item">
       <view class="rewardHunter">
         <image class="medal" src="../../images/graborder/medal{{item.id}}.png"></image>
         <view class="cu-avatar l round  rewardAvatar" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big1000{{index}}.jpg);"></view>
@@ -27,12 +27,12 @@
   <view class="myRewardBar ">
     <view class="text-black text-xl">我的赏金</view>
     <view class="text-xl text-orange">￥1234</view>
-    <view hover-class="navigator-hovor" bindtap="rewardBarNav" class="myRewardBtn">{{isAuthenticate?'去体现':'去认证'}}</view>
+    <view hover-class="navigator-hovor" bindtap="rewardBarNav" class="myRewardBtn">{{isTaker?'去体现':'去认证'}}</view>
   </view>
 </view>
 <!-- 筛选栏 -->
 <view class="filterBar">
-  <block wx:for="{{filterBarList}}" wx:key>
+  <block wx:for="{{filterBarList}}"  wx:key="item">
     <view class="{{item.id==selectedFilterBtn?'selectedFilterBarBtn':''}}" data-findex="{{index}}" bindtap="onFilterBarBtn">{{item.value}}</view>
   </block>
   <view class="filterIcan" style="{{isFilterIcan?'color:var(--tnRed)':''}}" bindtap="onFilterIcan">我能接的
@@ -40,8 +40,8 @@
   </view>
 </view>
 <view class="cu-list menu  card-menu margin-top shadow-warp grabOrderList margin-bottom">
-  <block wx:for='{{grabOrderList}}' wx:key>
-    <view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem" data-order_open_id="{{item.userOpenId}}" data-orderid="{{item.orderID}}" bindtap="navigateGrabOrder">
+  <block wx:for='{{grabOrderList}}' wx:key="item">
+    <view wx:if='{{!(isFilterIcan&&item.orderStatus!=0)}}' class="cu-item grabOrderItem" data-order_open_id="{{item.userOpenId}}" data-id="{{item._id}}" bindtap="navigateGrabOrder">
       <view class="grabOrderItemInfoLeft">
         <view class="itemGoodInfo">{{item.orderGoodInfo}}
         </view>

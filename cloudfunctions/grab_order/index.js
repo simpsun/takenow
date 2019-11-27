@@ -20,7 +20,7 @@ exports.main = async(event, context) => {
         data: {
           status: 1,
           taker_open_id: openid,
-          grab_time: Date().getTime(),
+          grab_time:new Date().getTime(),
           taker_phone: takerInfo.phone
         }
       })

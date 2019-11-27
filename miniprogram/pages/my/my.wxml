@@ -26,32 +26,6 @@
  </view>
 
 
- 
-<!--   后期可修改为  Take Now 宣传图 
- <view class='myBar'>
-  <view class="padding-top-sm padding-bottom-lg flex text-center text-black">
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-black">10.25</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-attentionfill text-gray"></text>余额</view>
-    </view>
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-black">5</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-redpacket_fill text-grey"></text></view>
-    </view>
-    <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-black">sadsa</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-choicenessfill text-gray"></text>T豆</view>
-    </view>
-  </view>
-</view>  -->
-
-
-
-
-
 <view class="cu-list menu card-menu margin-bottom-xl radius">
   <!--显示模式：块  溢出内容忽视  20rpx圆角 左右30上10下50-->
 

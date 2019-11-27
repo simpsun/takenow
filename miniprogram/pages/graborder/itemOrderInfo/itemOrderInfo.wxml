@@ -68,37 +68,26 @@
             <text class=" margin-left text-black text-l">{{index==0?(orderInfo.type!=1?orderInfo.purchaseAddress:(orderInfo.purchaseAddress.nearCampus+orderInfo.purchaseAddress.exactAddress)):(orderInfo.deliverAddress.nearCampus+orderInfo.deliverAddress.exactAddress)}}</text>
             <view class="text-l">
               <text class=" margin-left text-grey"></text>{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.name):orderInfo.deliverAddress.name}}
-              <text bindtap="{{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'callPhone':''}}" class=" margin-left-xs {{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'text-green':''}}" data-phoneNum="{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}">{{index==0?(orderInfo.type!=1?'':tools.handleSliceMobile(orderInfo.purchaseAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id))):tools.handleSliceMobile(orderInfo.deliverAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id))}}</text>
+              <text bindtap="{{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'callPhone':''}}" class=" margin-left-xs {{(orderInfo.status>0&&openid==orderInfo.taker_open_id)?'text-green':''}}" data-phoneNum="{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}">{{index==0?tools.handleSliceMobile(orderInfo.purchaseAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id)):tools.handleSliceMobile(orderInfo.deliverAddress.mobile,!(orderInfo.status>0&&openid==orderInfo.taker_open_id))}}</text>
             </view>
           </view>
         </view>
       </block>
     </view>
   </view>
-  <!-- <view class="orderDetail">
-  <block wx:for='{{attrList}}' wx:key>
-    <view class=" attrTag flex  margin-tb-sm align-center">
-      <view class="attrTextL text-df text-grey ">
-        <text selectable>{{item.name}}</text>
-      </view>
-      <view class="text-df text-black attrTextR ">
-        <text selectable>{{orderAttrList[index]}}</text>
-      </view>
-    </view>
-  </block>
-  </view> -->
+
   <view wx:if="{{isSucceedGrab}}" class="orderDetail bg-white">
-  <block wx:for='{{orderDetailList}}' wx:key>
-    <view class="  flex  margin-tb-sm align-center">
-      <view class="attrTextL text-df text-grey ">
-        <text selectable>{{item.name}}</text>
+    <block wx:for='{{orderDetailList}}' wx:key>
+      <view class="  flex  margin-tb-sm align-center">
+        <view class="attrTextL text-df text-grey ">
+          <text selectable>{{item.name}}</text>
+        </view>
+        <view class="text-df text-black attrTextR ">
+          <text selectable>{{orderAttrList[index+3]}}</text>
+        </view>
       </view>
-      <view class="text-df text-black attrTextR ">
-        <text selectable>{{orderAttrList[index+3]}}</text>
-      </view>
-    </view>
-  </block>
-</view>
+    </block>
+  </view>
   <view wx:if="{{orderInfo.status>0}}" class="cu-item self">
     <view class="main">
       <view class="content shadow">
@@ -108,50 +97,7 @@
     <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
     <!-- <view class="date">2018年3月23日 13:23</view> -->
   </view>
-  <!-- <view class="cu-item self">
-    <view class="main">
-      <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" class="radius" mode="widthFix"></image>
-    </view>
-    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
-    <view class="date"> 13:23</view>
-  </view>
-  <view class="cu-item self">
-    <view class="main">
-      <view class="action text-bold text-grey">
-        3"
-      </view>
-      <view class="content shadow">
-        <text class="cuIcon-sound text-xxl padding-right-xl"> </text>
-      </view>
-    </view>
-    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
-    <view class="date">13:23</view>
-  </view>
-  <view class="cu-item self">
-    <view class="main">
-      <view class="action">
-        <text class="cuIcon-locationfill text-orange text-xxl"></text>
-      </view>
-      <view class="content shadow">
-        喵星球，喵喵市
-      </view>
-    </view>
-    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big107000.jpg);"></view>
-    <view class="date">13:23</view>
-  </view>
-  <view class="cu-item">
-    <view class="cu-avatar radius" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big143004.jpg);"></view>
-    <view class="main">
-      <view class="content shadow">
-        感谢您的服务！
-      </view>
-      <view class="action text-grey">
-        <text class="cuIcon-warnfill text-red text-xxl"></text>
-        <text class="text-sm margin-left-sm">网络错误</text>
-      </view>
-    </view>
-    <view class="date">13:23</view>
-  </view> -->
+
 </view>
 
 <!-- 底部栏 -->
@@ -160,7 +106,7 @@
     <button class="cu-btn bg-white round " bindtap="onCancelOrder">取消订单</button>
     <button class="cu-btn bg-white round " open-type="contact">在线客服</button>
     <button class="cu-btn bg-white round " bindtap="callPhone">联系用户</button>
-    <button  wx:if="{{orderInfo.status==8}}" class="cu-btn bg-white round">评价</button>
+    <button wx:if="{{orderInfo.status==8}}" class="cu-btn bg-white round">评价</button>
   </view>
 
   <sliders id='mySlider' bindmyevent="myEventListener"></sliders>
@@ -223,30 +169,35 @@
 
     <scroll-view scroll-y="true" style="height: 700rpx;">
       <view class="cu-timeline">
-        <view class="cu-time">昨天</view>
-        <view class="cu-item cur cuIcon-infofill">
-          <view class="content  shadow-blur">
-            <text>22:22</text> 用户提交订单
+        <!-- <view class="cu-time">昨天</view> -->
+        <block wx:for="{{timeList}}" wx:key>
+          <view class="cu-item cur cuIcon-infofill">
+            <view class="content  shadow-blur">
+              <text class="orderStatusTime">{{tools.customFormatTime(item.value,'M.D h:m')}}</text>{{timeTextList[item.name]}}
+            </view>
           </view>
-        </view>
-        <view class="cu-item cuIcon-infofill">
-          <view class="content shadow-blur">
-            <text>22:22</text> 用户付款成功
-          </view>
-        </view>
-
-        <view class="cu-item cuIcon-infofill">
-          <view class="content shadow-blur">
-            <text>22:22</text> 订单已被接单
-          </view>
-        </view>
-        <view class="cu-time">今天</view>
-        <view class="cu-item  text-grey cuIcon-infofill">
-          <view class="content bg-tnRed shadow-blur ">
-            <text>  <text>22:22</text> 完成配送</text>
-          </view>
-        </view>
+        </block>
       </view>
     </scroll-view>
+  </view>
+</view>
+
+<!-- 取消订单-->
+<view class="weui-demo-dialog {{isCancel ? 'weui-demo-dialog_show' : ''}}">
+  <view class="weui-mask" bindtap="hideCancelDialog"></view>
+  <view class="weui-dialog__wrp" bindtap="hideCancelDialog">
+    <view class="weui-dialog" catchtap="stopCancelEvent">
+      <view class="weui-dialog__hd">
+        <view class="weui-dialog__title" bindtap="onCancelOrder">取消订单</view>
+      </view>
+      <view class="weui-dialog__bd">
+        <view>{{cancelOrderText}}</view>
+        <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/>-->
+      </view>
+      <view class="weui-dialog__ft">
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="hideCancelDialog">再等等吧</view>
+        <view class="weui-dialog__btn" bindtap="cancelOrder">残忍拒绝</view>
+      </view>
+    </view>
   </view>
 </view>

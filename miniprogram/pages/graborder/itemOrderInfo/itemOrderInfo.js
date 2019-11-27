@@ -1,14 +1,17 @@
 const db = wx.cloud.database();
 var util = require("../../../utils/util.js")
+var DATA = require("../../../tn_config.js")
 const app = getApp();
 Page({
 
   data: {
+    isExp: false,
     inputLength: 4,
     inputValue: '', //输入的验证码
     isFocus: false, //聚焦
     hideTip: true,
-    statusList: ['未接单', '待送达', '待收货', '已过期', '未支付', '已取消', '退款中', '等待确认', '已完成'],
+    cancelOrderText: '前15分钟可无条件取消订单(一天只能取消三次）',
+    statusList: [],
     orderStatus: -1,
     grabOrderGoodSortList: ['帮我买', '帮我送', '领包裹', '全能跑腿'],
     isSucceedGrab: 0,
@@ -29,19 +32,21 @@ Page({
       attr: '帮我买'
     }],
     orderDetailList: [{
-      name: '订单编号:',
-      value: '2019102200001'
-    },
-    {
-      name: '下单时间:',
-      value: '2019年10月16日 23:02'
-    },
-     {name:'抢单时间',
-       value: '2019年10月16日 23:02'},
-    {
-      name: '备注信息:',
-      value: '撒娇鲁大师卡打卡时口娇鲁大师卡打卡时口袋里卡塑料袋里来了的沙拉大说了输了第娇鲁大师卡打卡时口袋里卡塑料袋里来了的沙拉大说了输了第袋里卡塑料袋里来了的沙拉大说了输了第三轮'
-    }
+        name: '订单编号:',
+        value: '2019102200001'
+      },
+      {
+        name: '下单时间:',
+        value: '2019年10月16日 23:02'
+      },
+      {
+        name: '抢单时间',
+        value: '2019年10月16日 23:02'
+      },
+      {
+        name: '备注信息:',
+        value: '撒娇鲁大师卡打卡时口娇鲁大师卡打卡时口袋里卡塑料袋里来了的沙拉大说了输了第娇鲁大师卡打卡时口袋里卡塑料袋里来了的沙拉大说了输了第袋里卡塑料袋里来了的沙拉大说了输了第三轮'
+      }
     ]
   },
   // ----------------------------------------------------------窗体显示函数------------------------------------------------
@@ -98,8 +103,10 @@ Page({
     this.mySlider.resetSlider(1);
   },
   showModal: function(t) {
+    let timeList = this.getOrderStatus()
     this.setData({
-      modalName: t.currentTarget.dataset.target
+      modalName: t.currentTarget.dataset.target,
+      timeList: timeList
     });
   },
   hideModal: function(t) {
@@ -121,16 +128,39 @@ Page({
 
     console.log('是否验证通过:' + e.detail.msg)
     if (e.detail.msg) {
+      if (this.data.isExp) {
+        wx.showToast({
+          title: '您为体验用户不能抢单哦(｡･ω･｡)',
+          icon: "none"
+        })
+        this.mySlider.resetSlider();
+        return;
+      }
+
       this.loadLoadingModal();
       let _id = this.data.orderInfo._id
       db.collection('tn_order').doc(_id).get().then(res => {
         console.log(res);
         const my_open_id = app.globalData.openid;
+        console.log('openid', res.data.taker_open_id)
         switch (res.data.taker_open_id) {
           case null:
             if (res.data.user_openId == my_open_id) {
-              this.showToastAndBack('您不能抢自己发布的订单哦ヾ(●´∀｀●) ')
+              wx.showToast({
+                title: '您不能抢自己发布的订单哦ヾ(●´∀｀●)',
+                icon: "none"
+              })
               return;
+            }
+            if (this.data.gender != null) {
+                if(this.data.gender!=res.data.genderLimit&&res.data.genderLimit!=2)
+            {
+                  wx.showToast({
+                    title: '您不满足该订单性别限制哦(｡･ω･｡)',
+                    icon: "none"
+                  })
+                  return;
+            }
             }
             this.handleOrderStatus(res.data.status)
             break;
@@ -158,12 +188,12 @@ Page({
       data: {
         _id: order._id
       }
-    }).then(res=>{
-      console.log("订单取消成功",res)
+    }).then(res => {
+      console.log("订单取消成功", res)
       this.showToastAndBack("订单取消成功");
     })
     this.hideCancelDialog();
-      },
+  },
   // 跳转列表显示模式
   navDetails() {
     wx.navigateTo({
@@ -246,11 +276,6 @@ Page({
         break;
       case 1:
         this.showCodeModal();
-        // wx.showToast({
-        //   title: "感谢您对Take Now的支持!用户确认或两个小时后赏金到账",
-        //   icon: "none",
-        //   duration: 2e3
-        // });
         break;
 
     }
@@ -265,7 +290,46 @@ Page({
     })
   },
 
-
+  //获取订单状态详情
+  getOrderStatus() {
+    let order = this.data.orderInfo;
+    let status = order.status;
+    let list = [{
+        name: 'create_time',
+        value: order.create_time
+      }, {
+        name: 'pay_time',
+        value: order.pay_time || null
+      }, {
+        name: 'grab_time',
+        value: order.grab_time || null
+      }, {
+        name: 'expire_time',
+        value: order.expire_time || null
+      }, {
+        name: 'user_expire_time',
+        value: order.user_expire_time || null
+      },
+      {
+        name: 'user_cancel_time',
+        value: order.user_cancel_time || null
+      },
+      {
+        name: 'cancel_time',
+        value: order.cancel_time || null
+      },
+      {
+        name: 'complete_time',
+        value: order.complete_time || null
+      }
+    ];
+    let timeList = [];
+    list.forEach(item => {
+      if (item.value != null)
+        timeList.push(item)
+    });
+    return timeList
+  },
   grabOrder() {
     let _id = this.data.orderInfo._id
     wx.cloud.callFunction({
@@ -303,17 +367,20 @@ Page({
   },
 
   updateDate() {
+    console.log('订单号：', this.data.id)
     db.collection('tn_order').where({
-      orderID: this.data.orderid
+      _id: this.data.id
     }).get().then(res => {
       console.log('当前订单数据为：', res)
-      if (res.data[0].status == 0 || res.data[0].status == 1) 
-        this.mySlider.resetSlider(res.data[0].status);
+      if (res.data[0].status == 0)
+        this.mySlider.resetSlider();
+      if (res.data[0].status == 1)
+        this.mySlider.resetSlider(1);
       this.setData({
-        isSucceedGrab: res.data[0].status?true:false,
+        isSucceedGrab: res.data[0].status ? true : false,
         openid: app.globalData.openid,
         orderInfo: res.data[0],
-        orderAttrList: [res.data[0].deliverCost + '元', res.data[0].goodsWeight, this.data.grabOrderGoodSortList[res.data[0].type], res.data[0].orderID, util.customFormatTime(res.data[0].create_time, 'Y年M月D日 h:m:s'), util.customFormatTime(res.data[0].grab_time, 'Y年M月D日 h:m:s'), res.data[0].goodsRemark ? res.data[0].goodsRemark:'无']
+        orderAttrList: [res.data[0].deliverCost + '元', res.data[0].goodsWeight, this.data.grabOrderGoodSortList[res.data[0].type], res.data[0].orderID, util.customFormatTime(res.data[0].create_time, 'Y年M月D日 h:m:s'), util.customFormatTime(res.data[0].grab_time, 'Y年M月D日 h:m:s'), res.data[0].goodsRemark ? res.data[0].goodsRemark : '无']
       })
     })
   },
@@ -323,14 +390,20 @@ Page({
   onReady: function() {
     this.mySlider = this.selectComponent('#mySlider')
   },
-  onLoad: function(options) {
+  async onLoad(options) {
 
     console.log(options);
-    this.setData({
+    await this.setData({
+      statusList: DATA.data.statusList,
+      timeTextList: DATA.data.timeTextList,
       isIphoneX: app.globalData.isIphoneX,
-      orderid: options.orderid
+      id: options.id,
+      gender:options.gender || null
     })
-    this.updateDate();
+    await this.updateDate();
   },
+  onShow() {
+
+  }
 
 })

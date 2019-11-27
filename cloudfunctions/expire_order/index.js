@@ -11,7 +11,7 @@ exports.main = async(event, context) => {
   try {
     const result = await db.collection('tn_order').doc(_id).update({
       data: {
-        status:3,
+        status: 3,
         expire_time:Date().getTime()
       }
     })

@@ -1,7 +1,7 @@
 /* pages/graborder/itemOrderInfo/itemOrderInfo.wxss */
 
 page {
-  padding-bottom: 110rpx;
+  padding-bottom: 180rpx;
 }
 
 .rewardBar {
@@ -242,4 +242,11 @@ page {
   margin: 0 auto 20rpx auto;
   border-radius: 20rpx;
   padding: 10rpx 30rpx;
+}
+.cu-item:last-child .content{
+  background: var(--tnRed) !important;
+}
+.orderStatusTime{
+  position: relative;
+  right: 20rpx;
 }

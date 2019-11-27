@@ -109,7 +109,7 @@ Page({
         wx.hideLoading();
         console.log("创建订单成功：", res)
         wx.redirectTo({
-          url: 'paySuccess/paySuccess',
+          url: `paySuccess/paySuccess?id=${res.result._id}`,
         })
       }).catch(res => {
         wx.hideLoading();
@@ -296,7 +296,15 @@ Page({
         orderID: util.tnFormatTime(new Date()) + Math.floor(Math.random() * 9999 + 1000),
         orderPayID: null,
         nearCampus: t.nearCampus,
-        version: 1 //乐观锁
+        pay_time: new Date().getTime(),
+        grab_time:null,
+        expire_time:null,
+        user_expire_time:null,
+        cancel_time:null,
+        grab_count:0,
+        complete_time:null,
+        version: 1 //乐观锁,
+
       }
       const sindex = t.orderLifeList.indexOf(orderInfo.orderLife);
       const timeStamp = (parseInt(orderInfo.create_time) + t.orderLifeSecList[sindex]);

@@ -1,26 +1,28 @@
 // pages/my/taker/taker.js
 var authList = null
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    isFocusId: false,
     checkBox: 1,
     authTag: null,
     sec: 2,
     timer: '',
     sImage: "",
-    // studentCard_date: '2017-09',
-    steps: 3,
+    steps: 0,
     idCard_name: "",
     idCard_code: "",
     idCard_gender: 0,
     studentCard_code: "",
     studentCard_schoolId: null,
-    studentCard_schoolName: null,
+    nearCampus: null,
     studentCard_faculty: "",
-    // studentCard_major: "",
+    code: '',
+    phone: '',
     numList: [{
       name: '阅读需知'
     }, {
@@ -43,7 +45,16 @@ Page({
     })
     console.log("更新性别信息成功")
   },
-
+  navGrab() {
+    wx.switchTab({
+      url: '../../../pages/graborder/graborder',
+    })
+  },
+  focusID() {
+    this.setData({
+      isFocusId: true
+    })
+  },
   Blur(e) {
     var that = this
     switch (e.currentTarget.dataset.update) {
@@ -62,7 +73,7 @@ Page({
         break;
       case "2":
         that.setData({
-          studentCard_schoolName: e.detail.value
+          nearCampus: e.detail.value
         })
         console.log("更新学校成功")
         break;
@@ -78,8 +89,18 @@ Page({
         })
         console.log("更新学院成功")
         break;
-
-
+      case "5":
+        that.setData({
+          phone: e.detail.value
+        })
+        console.log("更新手机号成功")
+        break;
+      case "6":
+        that.setData({
+          code: e.detail.value
+        })
+        console.log("更新验证码成功")
+        break;
     }
 
 
@@ -97,7 +118,7 @@ Page({
           })
         } else if (this.data.sec > 0) {
           wx.showToast({
-            title: "再坚持一下~挺住",
+            title: "认真读一读吧~",
             icon: "none",
             duration: 1e3
           })
@@ -114,6 +135,9 @@ Page({
         }
         break;
       case 1:
+        this.setData({
+          isFocusId: false
+        })
         if (this.data.idCard_name == "") {
           wx.showToast({
             title: "名字不能为空哦~",
@@ -147,10 +171,10 @@ Page({
         break;
       case 2:
 
-        if (!!!this.data.studentCard_schoolName) {
-          console.log(!!!this.data.studentCard_schoolName)
+        if (this.data.nearCampus == '定位失败') {
+          console.log(!!!this.data.nearCampus)
           wx.showToast({
-            title: "学校不能为空哦~",
+            title: "没选学校呀~",
             icon: "none",
             duration: 1e3
           })
@@ -180,24 +204,75 @@ Page({
         }
         break;
       case 3:
+        if (!!!this.data.phone) {
+          wx.showToast({
+            title: "手机号不能为空~",
+            icon: "none",
+            duration: 1e3
+          })
+          return
+        } else if (!(/^1(3|4|5|7|8|9)\d{9}$/.test(this.data.phone))) {
+          wx.showToast({
+            title: "手机号格式不对~",
+            icon: "none",
+            duration: 1e3
+          })
+          return
+        } else if (!!!this.data.code) {
+          wx.showToast({
+            title: "验证码不能为空~",
+            icon: "none",
+            duration: 1e3
+          })
+          return
+        }
+
         authList = {
           idCard_name: this.data.idCard_name,
           idCard_code: this.data.idCard_code,
           idCard_gender: this.data.idCard_gender,
           studentCard_schoolId: this.data.studentCard_schoolId,
-          studentCard_schoolName: this.data.studentCard_schoolName,
+          nearCampus: this.data.nearCampus,
           studentCard_faculty: this.data.studentCard_faculty,
           // studentCard_major: this.data.studentCard_major,
           // studentCard_date: this.data.studentCard_date,
-          sImage: this.data.sImage
+          sImage: this.data.sImage,
+          code: this.data.code,
+          phone: this.data.phone,
+          openid: app.globalData.openid
         }
-        wx.setStorageSync("authList", authList)
-        this.setData({
-          steps: this.data.steps + 1
+        wx.showLoading({
+          title: '提交中',
         })
-        console.log(authList)
+        wx.cloud.callFunction({
+          name: 'add_taker',
+          data: {
+            authList: authList
+          }
+        }).then(res => {
+          console.log('信息提交成功')
+          wx.hideLoading()
+          this.setData({
+            steps: this.data.steps + 1
+          })
+        }).catch(res => {
+          wx.hideLoading()
+          wx.showToast({
+            title: '提交失败',
+            icon: 'none',
+            duration: 2000
+          })
+        })
+
+
         break;
     }
+  },
+  //验证码生成
+  randomCode() {
+    this.setData({
+      code: Math.floor(Math.random() * 9999 + 1000)
+    })
   },
   lastStep: function() {
     this.setData({
@@ -205,7 +280,12 @@ Page({
     })
 
   },
-
+  // 选择学校
+  chooseCampus() {
+    wx.navigateTo({
+      url: `../../campus/campus?nearCampus=${this.data.nearCampus}`,
+    })
+  },
   chooseImg() {
     var that = this
     wx.chooseImage({
@@ -226,7 +306,7 @@ Page({
       content: '确定要删除证件照吗？',
       cancelText: '点错啦',
       confirmText: '给我删',
-      confirmColor: '#F6275C',
+      confirmColor: '#5a87f7',
       success: res => {
         if (res.confirm) {
           this.setData({
@@ -246,12 +326,48 @@ Page({
         checkBox: 1
       })
   },
+  // 显示Toast并返回
+  showToastAndBack(res) {
+    wx.showToast({
+      title: res,
+      icon: 'none',
+      duration: 2000
+    })
+    setTimeout(res => {
+      wx.navigateBack({
+        delta: 1
+      })
+    }, 2000)
+  },
   /**
    * 
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    this.setData({
+  async onLoad(options) {
+    wx.showLoading({
+      title: '加载中···',
+    })
+    await wx.cloud.callFunction({
+      name: 'query_taker',
+      data: {
+        openid: app.globalData.openid
+      }
+    }).then(res=>{
+      wx.hideLoading()
+      console.log('查询Taker',res)
+      if(res.result.data.length==1){
+        this.setData({
+          steps:4
+        })
+      }
+      else if (res.result.data.length == 0){
+
+      }
+      else{
+        this.showToastAndBack('信息异常，请联系客服')
+      }
+    })
+   await this.setData({
       authTag: wx.getStorageSync("authList") || null
     })
 
@@ -261,9 +377,10 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+ 
     var that = this
-    console.log(new Date())
     this.setData({
+      nearCampus: app.globalData.nearCampus,
       timer: setInterval(function() {
         that.setData({
           sec: that.data.sec - 1
@@ -297,12 +414,7 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
 
-  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -318,10 +430,3 @@ Page({
 
   }
 })
-//  else if (!!!this.data.studentCard_major) {
-//   wx.showToast({
-//     title: "专业也要填呃(⊙o⊙)",
-//     icon: "none",
-//     duration: 1e3
-//   })
-// }

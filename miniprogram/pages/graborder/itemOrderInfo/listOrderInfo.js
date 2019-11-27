@@ -1,5 +1,6 @@
 // pages/graborder/itemOrderInfo/listOrderInfo.js
 var util = require("../../../utils/util.js")
+var DATA = require("../../../tn_config.js")
 var leftTime = 1800000;
 var app = getApp();
 const db = wx.cloud.database();
@@ -9,6 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cancelOrder: 'cancelOrder_0',
+    canIcallTaker: false,
     cancelOrderText: "不要再等等嘛~Taker或许马上就来",
     orderList: [{
       createTime: '1571757909000',
@@ -16,7 +19,7 @@ Page({
       status: 0
     }],
 
-    statusList: ['未接单', '待送达', '待收货', '已过期', '未支付', '已取消', '退款中', '等待确认', '已完成'],
+    statusList: [],
     statusInfo: ['感谢您使用Take Now,如有疑问请联系taker或客服', '订单已过期，请返回主页重新发布订单哦~'],
     grabOrderGoodSortList: ['帮我买', '帮我送', '领包裹', '全能跑腿'],
     genderLimitList: ['限女生', '限男生', '不限性别'],
@@ -143,35 +146,104 @@ Page({
   },
 
 
-  showModal(e) {
+  showModal: function(t) {
+    let timeList = this.getOrderStatus()
     this.setData({
-      modalName: e.currentTarget.dataset.target
-    })
+      modalName: t.currentTarget.dataset.target,
+      timeList: timeList
+    });
   },
   hideModal(e) {
     this.setData({
       modalName: null
     })
   },
+  //获取订单状态详情
+  getOrderStatus() {
+    let order = this.data.orderInfo;
+    let status = order.status;
+    let list = [{
+        name: 'create_time',
+        value: order.create_time
+      }, {
+        name: 'pay_time',
+        value: order.pay_time || null
+      }, {
+        name: 'grab_time',
+        value: order.grab_time || null
+      }, {
+        name: 'expire_time',
+        value: order.expire_time || null
+      }, {
+        name: 'user_expire_time',
+        value: order.user_expire_time || null
+      },
+      {
+        name: 'cancel_time',
+        value: order.cancel_time || null
+      },
+      {
+        name: 'complete_time',
+        value: order.complete_time || null
+      }
+    ];
+    let timeList = [];
+    list.forEach(item => {
+      if (item.value != null)
+        timeList.push(item)
+    });
+    return timeList
+  },
 
   updateDate() {
     db.collection('tn_order').doc(this.data._id).get().then(res => {
       console.log('当前订单数据为：', res)
-      let canIcallTaker= this.callTaker(res.data.status);
+      let canIcallTaker = this.callTaker(res.data.status);
       this.setData({
         canIcallTaker: canIcallTaker,
         orderInfo: res.data,
         orderAttrList: [res.data.orderID, util.customFormatTime(res.data.create_time, 'Y年M月D日 h:m:s'), this.data.grabOrderGoodSortList[res.data.type], '￥' + res.data.deliverCost, res.data.goodsWeight, this.data.genderLimitList[res.data.genderLimit], res.data.nearCampus, res.data.goodsRemark]
       });
+      if (res.data.status == 1) {
+        wx.cloud.callFunction({
+          name: 'get_take_code',
+          data: {
+           orderID: res.data.orderID
+          }
+        }).then(res=>{
+         if(res.result.data.length==1)
+         this.setData({
+           takeCode: res.result.data[0].take_code
+         })
+        })
+      }
       if (res.data.status == 4) {
         this.orderTimer();
       }
     })
   },
   // --------------------------------------------------取消订单窗口-------------------------------------------- 
+
+  stopCancelEvent() {},
   //取消订单
   onCancelOrder() {
+    let order = this.data.orderInfo
+    let left_minute = (new Date().getTime() - order.grab_time) / 1000 / 60
+    let cancelOrderText = this.data.cancelOrderText
+    let cancelOrder = this.data.cancelOrder
+    // 当 未抢单 或者 被接单后的前10分钟 无条件取消
+    if (order.status == 1) {
+      console.log('已过分钟数', left_minute)
+      if (left_minute <= 10) {
+        cancelOrderText = '订单前十分钟无条件取消，您确定要取消订单吗？'
+      } else {
+        cancelOrderText = '订单已超过无条件取消时间，需和Taker协商后，才能取消订单'
+        cancelOrder = 'cancelOrder_1' // 用户申请取消订单
+      }
+    }
     this.setData({
+      cancelOrder: cancelOrder,
+      cancelOrderText: cancelOrderText,
       isCancel: true
     })
   },
@@ -180,8 +252,8 @@ Page({
       isCancel: false
     })
   },
-  //取消订单
-  cancelOrder() {
+  //未接单取消订单
+  cancelOrder_0() {
     const order = this.data.orderInfo;
     wx.cloud.callFunction({
       name: 'user_cancel_order',
@@ -194,6 +266,11 @@ Page({
     })
     this.hideCancelDialog();
   },
+  //申请取消订单
+  cancelOrder_1() {
+
+  },
+
   // ------------------------------------------------------------------------
   // 显示Toast并返回
   showToastAndBack(res) {
@@ -208,30 +285,26 @@ Page({
       })
     }, 2000)
   },
-  // 拨打电话
-  callPhone() {
 
-    wx.makePhoneCall({
-      phoneNumber: this.data.orderInfo.taker_phone
-    })
-  },
   // 是否能联系Taker
   callTaker(res) {
-    let list = [1, 2, , 5, 6, 7, 8];
+    let list = [1, 2, 6, 7, 8, 9];
 
-    return  (list.indexOf(res) != -1) ? true : false
+    return (list.indexOf(res) != -1) ? true : false
 
   },
   /**
    * 
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  async onLoad(options) {
 
     let _id = options.id
     console.log('options', options)
 
-    this.setData({
+    await this.setData({
+      statusList: DATA.data.statusList,
+      timeTextList: DATA.data.timeTextList,
       openid: app.globalData.openid,
       isTaker: options.isTaker || '',
       _id: _id || '',
@@ -250,28 +323,63 @@ Page({
     //   console.log('订单详情获取成功:', this.data.orderInfo)
     // })
   },
-
+  //获取订单状态详情
+  getOrderStatus() {
+    let order = this.data.orderInfo;
+    let status = order.status;
+    let list = [{
+        name: 'create_time',
+        value: order.create_time
+      }, {
+        name: 'pay_time',
+        value: order.pay_time || null
+      }, {
+        name: 'grab_time',
+        value: order.grab_time || null
+      }, {
+        name: 'expire_time',
+        value: order.expire_time || null
+      }, {
+        name: 'user_expire_time',
+        value: order.user_expire_time || null
+      },
+      {
+        name: 'user_cancel_time',
+        value: order.user_cancel_time || null
+      },
+      {
+        name: 'cancel_time',
+        value: order.cancel_time || null
+      },
+      {
+        name: 'complete_time',
+        value: order.complete_time || null
+      }
+    ];
+    let timeList = [];
+    list.forEach(item => {
+      if (item.value != null)
+        timeList.push(item)
+    });
+    return timeList
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-
-    console.log(Date.now());
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // console.log(new Date('2019-10-22 23:25:09').getTime())
+    console.log(new Date('2019-11-25 10:25:09').getTime())
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
-
-  },
+  onHide: function() {},
 
   /**
    * 生命周期函数--监听页面卸载

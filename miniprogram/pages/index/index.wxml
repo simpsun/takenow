@@ -10,7 +10,7 @@
 <view class="bg-tnRed bg-tabbar"></view>
 
 <view class="tabbarStyle">
-  <block wx:for="{{funcList}}" wx:key>
+  <block wx:for="{{funcList}}"  wx:key="item">
     <view class="test" bindtap="selectFunc" data-index="{{index}}">
       <image class="funcItemStyle" src="{{funcImgSrc+(index+1)+((location==index&&index!=3)?'_active':'')+'.png'}}" mode="aspectFit"></image>
       <view class="text-white">{{item}}</view>
@@ -23,7 +23,7 @@
     <textarea class='demandInfo' name="demandInfo" maxlength="200" value='{{demandInfo}}' bindinput='demandInfoInput' placeholder="请在此填写需要代购的任何商品"></textarea>
     <view style="color:grey;margin-left:30rpx;">点击标签快捷输入</view>
     <view class="quickTag">
-      <block wx:for="{{ColorList}}" wx:key>
+      <block wx:for="{{ColorList}}"  wx:key="item">
         <view class="cu-tag bg-tnRedLight margin-xs " hover-class="navigator-hovor" bindtap="quickTag" data-text="{{item}}">{{item}}</view>
       </block>
     </view>
@@ -34,3 +34,5 @@
 <!-- <image   class='advertiseImg' src="https://ae01.alicdn.com/kf/H2f9b297d3d154087b67150048b08663da.png"> </image> -->
 
 <!-- 搜狗图床链接：https://img03.sogoucdn.com/app/a/100520146/d3e305ab9283877752fdbe48b54318a4 -->
+
+

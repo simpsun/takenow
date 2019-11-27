@@ -1,5 +1,6 @@
 // pages/test/test.js
 var pinyin=require('../../utils/pinyin.js')
+
 Page({
 
   /**

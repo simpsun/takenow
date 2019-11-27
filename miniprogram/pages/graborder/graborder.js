@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isTaker: false,
     nomore: false,
     orderAttr: 'create_time', // 按照什么排序
     list: [],
@@ -56,13 +57,13 @@ Page({
       id: 0,
       avatar: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg',
       name: '王安',
-      college:'软件学院',
+      college: '软件学院',
       reward: '580'
     }, {
       id: 1,
-        avatar: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg',
+      avatar: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10002.jpg',
       name: '李伟',
-        college: '管理学院',
+      college: '管理学院',
       reward: '499'
     }],
     loadmore() {
@@ -88,17 +89,35 @@ Page({
     console.log(e);
     const my_open_id = app.globalData.openid;
     const user_open_id = e.currentTarget.dataset.order_open_id;
-    const id = e.currentTarget.dataset.orderid;
-    // 检验是否自己下的订单
-    if (my_open_id != user_open_id) {
+    const id = e.currentTarget.dataset.id;
+    // 检查是否为Taker
+    if (this.data.isTaker) {
       wx.navigateTo({
-        url: `itemOrderInfo/itemOrderInfo?orderid=${id}`,
+        url: `itemOrderInfo/itemOrderInfo?id=${id}&gender=${this.data.gender}`,
       })
-    } else {
+    } else if (this.data.isDataError) {
       wx.showToast({
-        title: '不能抢自己发布的订单',
+        title: '数据异常，请联系客服处理',
         icon: 'none',
         duration: 2000
+      })
+    } else {
+      wx.showModal({
+        title: 'Take Now提示',
+        content: '您必须通过认证以后才能接单哦~',
+        cancelText: '再想想',
+        confirmText: '前往认证',
+        cancelColor: '#c4c4c4',
+        confirmColor: '#576b95',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../pages/my/taker/taker',
+            })
+          } else if (res.cancel) {
+
+          }
+        }
       })
     }
   },
@@ -229,7 +248,8 @@ Page({
         orderReward: item.deliverCost,
         orderStatus: item.status,
         orderGoodSort: item.type,
-        userOpenId: item.user_openId
+        userOpenId: item.user_openId,
+        _id: item._id
       }
     })
     this.setData({
@@ -286,29 +306,84 @@ Page({
       });
     })
   },
+
   // ------------------------------------------------------------生命周期函数-----------------------------------------------------
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    db.collection('tn_user').get().then(res => {
-      console.log(res)
-      this.setData({
-        gender: res.data[0].wxUserInfo.gender,
-        nearCampus: res.data[0].nearCampus
-      })
-    }).catch(res => {
-      console.log(res)
+  async isTaker(){
+
+    await wx.cloud.callFunction({
+      name: 'query_taker_info',
+      data: {
+        openid: app.globalData.openid
+      }
     }).then(res => {
-      this.getList()
-    });
+      console.log('result', res)
+      // 已认证用户
+      if (res.result.data.length == 1) {
+        this.setData({
+          isTaker: true,
+          gender: res.result.data[0].idCard_gender,
+          nearCampus: res.result.data[0].nearCampus
+        })
+        this.getList();
+      } else {
+        this.setData({
+          isTaker: false,
+          isDataError: res.result.data.length != 0 ? true : false
+        })
+        if (res.result.data.length != 0) {
+          wx.showToast({
+            title: '数据异常，请联系客服处理',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        // 使用用户注册信息查询订单
+        db.collection('tn_user').get().then(res => {
+          console.log(res)
+          this.setData({
+            gender: res.data[0].wxUserInfo.gender,
+            nearCampus: res.data[0].nearCampus
+          })
+        }).catch(res => {
+          console.log(res)
+        }).then(res => {
+          this.getList()
+        });
+      }
+    }).catch(res => {
+      console.log('result', res)
+    })
+  },
+  onLoad(){
+    if (app.globalData.userInfo == {}) {
+      wx.showModal({
+        title: 'Take Now提醒',
+        content: '您还没有注册,是否前往注册？',
+        cancelText: '无情拒绝',
+        confirmText: '前往注册',
+        confirmColor: '#5a87f7',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../pages/login/login',
+            })
+          }
+        }
+      })
+      return
+    }
+    this.isTaker();
   },
   onPullDownRefresh: function() {
+    this.isTaker();
     this.setData({
       selectedFilterBtn: -1,
       isFilterIcan: false
     })
-    this.getList()
+
   },
   onReachBottom() {
     wx.showLoading({
@@ -317,64 +392,3 @@ Page({
     this.more()
   }
 })
-
-
-
-
-
-// {
-//   id: 0,
-//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 2,
-//         orderReleaseTime: '一小时前',
-//           orderDeliverTime: '即刻送达',
-//             orderReward: 25,
-//               orderStatus: 0
-// }, {
-//   id: 1,
-//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 0,
-//         orderReleaseTime: '20分钟前前',
-//           orderDeliverTime: '即刻送达',
-//             orderReward: 0.25,
-//               orderStatus: 2
-// }, {
-//   id: 2,
-//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 1,
-//         orderReleaseTime: '1年前',
-//           orderDeliverTime: '即刻送达',
-//             orderReward: 2.5,
-//               orderStatus: 0
-// }, {
-//   id: 3,
-//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 2,
-//         orderReleaseTime: '2分钟前',
-//           orderDeliverTime: '即刻送达',
-//             orderReward: 25,
-//               orderStatus: 1
-// }, {
-//   id: 4,
-//     orderGoodInfo: '【菜鸟驿站】您的申通包裹已到天津师范大学一食堂旁菜鸟驿站了，请20:00前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 3,
-//         orderReleaseTime: '4小时前',
-//           orderDeliverTime: '明天14:20',
-//             orderReward: 445,
-//               orderStatus: 2
-// }, {
-//   id: 5,
-//     orderGoodInfo: '【菜0前凭23-4-1004及时取，询18526227847',
-//       orderGoodSort: 1,
-//         orderReleaseTime: '一小时前',
-//           orderDeliverTime: '即刻送达',
-//             orderReward: 25,
-//               orderStatus: 0
-// }]
-
-
-// this.setData({
-//   grabOrderList: this.data.grabOrderList.sort(function(a, b) {
-//     return b.orderReward - a.orderReward;
-//   })
-// });

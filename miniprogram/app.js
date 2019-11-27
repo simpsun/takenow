@@ -27,6 +27,7 @@ App({
       return new Promise((resolve, reject) => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         this.globalData.openid = res.result.openid;
+
         resolve(res.result.openid);
       })
     }).catch(err => {
@@ -167,11 +168,9 @@ App({
         if (dis != []) {
           this.globalData.nearCampus = this.globalData.campusList[this.indexOfSmallest(dis)].name;
           console.log("最近的校区为：" + this.globalData.nearCampus);
-          if (this.userInfoReadyCallback) {
-            this.userInfoReadyCallback(this.globalData.nearCampus)
+          if (this.nearCampusReadyCallback) {
+            this.nearCampusReadyCallback(this.globalData.nearCampus)
           }
-      
-
         } else
           console.log("校区距离列表有误")
       },
@@ -200,36 +199,7 @@ App({
     longitude: null,
     isLocation: 0,
     nearCampus: '定位失败',
-    campusList: []
-
+    campusList: [],
+    isIphoneX: false
   },
-
 })
-
-
-
-// {
-//   id: 0,
-//     name: "天津师范大学",
-//       ename: 'tjnu',
-//         latitude: 39.0651812870,
-//           longitude: 117.1239566803
-// }, {
-//   id: 1,
-//     name: "清华大学",
-//       ename: 'tsinghua',
-//         latitude: 40.0033480000,
-//           longitude: 116.3261920000
-// }, {
-//   id: 2,
-//     name: "天津工业大学",
-//       ename: 'tjnu',
-//         latitude: 39.0661142615,
-//           longitude: 117.1075630188
-// }, {
-//   id: 3,
-//     name: "天津理工大学",
-//       ename: 'tjnu',
-//         latitude: 39.0606960000,
-//           longitude: 117.1420980000
-// }

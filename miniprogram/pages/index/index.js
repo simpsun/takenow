@@ -47,6 +47,23 @@ Page({
     })
   },
   submitFormInfo(e) {
+    if (app.globalData.userInfo == {}) {
+      wx.showModal({
+        title: 'Take Now提醒',
+        content: '您还没有注册,是否前往注册？',
+        cancelText: '无情拒绝',
+        confirmText: '前往注册',
+        confirmColor: '#5a87f7',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../pages/login/login',
+            })
+          }
+        }
+      })
+      return
+    }
     let list = [] //校区列表
     if (app.globalData.campusList) {
       app.globalData.campusList.forEach(item => {
@@ -80,29 +97,30 @@ Page({
 
   // -----------------------------------------------------生命周期函数-----------------------------------------------
   onLoad: function() {
-    app.userInfoReadyCallback = res => {
-      console.log('获取成功');
+    app.nearCampusReadyCallback = res => {
       this.setData({
         nearCampus: res
       })
     };
-    wx.showToast({
-      title: '我猜你是' + app.globalData.nearCampus + '的小可爱(❁´ω`❁)',
-      icon: 'none',
-      duration: 3000
-    })
+
+    if (app.globalData.nearCampus != '定位失败')
+      wx.showToast({
+        title: '我猜你是' + app.globalData.nearCampus + '的小可爱(❁´ω`❁)',
+        icon: 'none',
+        duration: 3000
+      })
   },
   onShow() {
     this.setData({
       nearCampus: app.globalData.nearCampus
     })
-   
   },
   onShareAppMessage() {
     return {
-      title:'天津师范大学校园跑腿',
+      title: '天津师范大学校园跑腿',
       imageUrl: "../../images/share.png",
       path: '/pages/start/start'
     }
-  }
+  },
+
 })

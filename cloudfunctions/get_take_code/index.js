@@ -7,16 +7,19 @@ const db = cloud.database();
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const _id = event._id;
+  const orderID = event.orderID
   try {
-    const result = await db.collection('tn_order').doc(_id).update({
-      data: {
-        status: 5,
-        user_cancel_time:new Date().getTime()
-      }
-    })
+    const result = await db.collection('tn_take_code').where({
+      orderID:orderID
+    }).get()
     return result
   } catch (e) {
-    console.log('error:',e)
+    console.log(e)
   }
+  // return {
+  //   event,
+  //   openid: wxContext.OPENID,
+  //   appid: wxContext.APPID,
+  //   unionid: wxContext.UNIONID,
+  // }
 }

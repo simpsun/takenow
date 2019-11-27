@@ -1,4 +1,5 @@
 <!--pages/graborder/itemOrderInfo/listOrderInfo.wxml-->
+<wxs src="../../../utils/tools.wxs" module="tools" />
 <view class="topStatusBar bg-tnRed flex-center">
   <view bindtap="showModal" data-target="bottomModal">
     <view class="text-xl text-white margin-bottom" style="text-align:center">
@@ -15,33 +16,19 @@
   <view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" bindtap="hideModal">
     <view class=" cu-dialog" catchtap>
 
-      <scroll-view scroll-y="true" style="height: 700rpx;">
-        <view class="cu-timeline">
-          <view class="cu-time">昨天</view>
-          <view class="cu-item cur cuIcon-infofill">
-            <view class="content  shadow-blur">
-              <text>22:22</text> 用户提交订单
-            </view>
-          </view>
-          <view class="cu-item cuIcon-infofill">
-            <view class="content shadow-blur">
-              <text>22:22</text> 用户付款成功
-            </view>
-          </view>
-
-          <view class="cu-item cuIcon-infofill">
-            <view class="content shadow-blur">
-              <text>22:22</text> 订单已被接单
-            </view>
-          </view>
-          <view class="cu-time">今天</view>
-          <view class="cu-item  text-grey cuIcon-infofill">
-            <view class="content bg-tnRed shadow-blur ">
-              <text>  <text>22:22</text> 完成配送</text>
-            </view>
+ <scroll-view scroll-y="true" style="height: 700rpx;">
+      <view class="cu-timeline">
+        <!-- <view class="cu-time">昨天</view> -->
+        <block wx:for="{{timeList}}" wx:key>
+        <view class="cu-item cur cuIcon-infofill">
+          <view class="content  shadow-blur">
+            <text class="orderStatusTime">{{tools.customFormatTime(item.value,'M.D h:m')}}</text>{{timeTextList[item.name]}}
           </view>
         </view>
-      </scroll-view>
+    
+</block>
+      </view>
+    </scroll-view>
     </view>
   </view>
   <!-- iconfont iconquotL -->
@@ -52,6 +39,16 @@
     <text class="margin-lr-sm text-lg" selectable>{{orderInfo.goodsInfo}}</text>
     <text class="iconfont iconquotR text-greys"></text>
   </view>
+</view>
+
+
+<view wx:if='{{orderInfo.status==1}}' class="takeCodeBar bg-white ">
+ <view class="takeCode">
+ <text class="text-black text-xxxl" style="letter-spacing:15rpx;">{{takeCode}}</text>
+ </view>
+ <view class="takeCodeText">
+  <text class="cuIcon-info text-grey" style="font-size:24rpx;">请不要在收货前告知任何人Take Code</text>
+ </view>
 </view>
 
 
@@ -73,7 +70,7 @@
         <text class=" margin-left text-black text-l" selectable>{{index==0?(orderInfo.type!=1?orderInfo.purchaseAddress:(orderInfo.purchaseAddress.nearCampus+orderInfo.purchaseAddress.exactAddress)):(orderInfo.deliverAddress.nearCampus+orderInfo.deliverAddress.exactAddress)}}</text>
         <view class="text-l">
           <text class=" margin-left text-grey" selectable>{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.name):orderInfo.deliverAddress.name}}</text>
-          <text selectable bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}">{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}</text>
+          <text selectable bindtap="callPhone" class=" margin-left-xs text-green" data-phoneNum="{{index==0?orderInfo.purchaseAddress.mobile:orderInfo.deliverAddress.mobile}}">{{index==0?(orderInfo.type!=1?'':orderInfo.purchaseAddress.mobile):orderInfo.deliverAddress.mobile}}</text>
         </view>
       </view>
     </view>
@@ -94,11 +91,12 @@
 </view>
 <!-- 底部栏 -->
 <view class="bottomBar bg-white  {{isIphoneX?'fix-iphonex-button':''}}">
-  <button wx:if="{{orderInfo.status==0}}" class="cu-btn round l margin-left" bindtap="onCancelOrder">取消订单</button>
+  <button wx:if="{{orderInfo.status==0||orderInfo.status==1}}" class="cu-btn round l margin-left" bindtap="onCancelOrder">取消订单</button>
     <button class="cu-btn round l margin-left"  open-type="contact">咨询客服</button>
         <button wx:if="{{canIcallTaker}}" class="cu-btn round l margin-left"  bindtap="callPhone" >联系Taker</button>
       <button wx:if="{{orderInfo.status==2}}" class="cu-btn round l bg-tnRed margin-left">确认收货</button>
          <button wx:if="{{orderInfo.status==8}}" class="cu-btn round l bg-tnRed margin-left">评价</button>
+            <button wx:if="{{orderInfo.status==4}}" class="cu-btn round l bg-tnRed margin-left">立即支付</button>
   <!-- <view class="bBtn flex justify-center align-center">
     取消订单
   </view>
@@ -109,23 +107,24 @@
     确认配送
   </view> -->
 </view>
-
+<!-- --------------------------------调用窗口 -->
 <!-- 取消订单-->
 <view class="weui-demo-dialog {{isCancel ? 'weui-demo-dialog_show' : ''}}">
   <view class="weui-mask" bindtap="hideCancelDialog"></view>
   <view class="weui-dialog__wrp" bindtap="hideCancelDialog">
     <view class="weui-dialog" catchtap="stopCancelEvent">
       <view class="weui-dialog__hd">
-        <view class="weui-dialog__title" bindtap="onCancelOrder">取消订单</view>
+        <view class="weui-dialog__title">取消订单</view>
       </view>
       <view class="weui-dialog__bd">
         <view>{{cancelOrderText}}</view>
         <!-- <image class="weui-article__img" src="../images/pic_article.png" mode="aspectFill" style="max-width:100%;"/>-->
       </view>
       <view class="weui-dialog__ft">
-        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="hideCancelDialog" >再等等吧</view>
-        <view class="weui-dialog__btn" bindtap="cancelOrder">残忍拒绝</view>
+        <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="hideCancelDialog" >点错了</view>
+        <view class="weui-dialog__btn" bindtap="{{cancelOrder}}">取消订单</view>
       </view>
     </view>
   </view>
 </view>
+

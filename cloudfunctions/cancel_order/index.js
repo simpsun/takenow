@@ -14,9 +14,14 @@ exports.main = async (event, context) => {
         // 变为未抢单状态。去除taker_id,grab_time
         status: 0,
         grab_time:null,
-        complete_time:null,
         taker_open_id:null,
-        taker_phone:null
+        taker_phone:null,
+        user_apply_cancel_time: null,
+        taker_confirm_cancel_time: null,
+        taker_reject_cancel_time: null,
+        user_cancel_time: null,
+        cancel_time: null,
+        user_apply_cancel_order: null
       }
     })
     return result
